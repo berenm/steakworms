@@ -1,6 +1,6 @@
 BINDIR ?= build
 TARGET ?= x86_64-linux-gnu
-DLLS    = steam_api.dll
+DLLS    = csteamworks.dll
 
 all: $(DLLS:%=$(BINDIR)/lib/$(TARGET)/%.so)
 
@@ -27,13 +27,13 @@ LDFLAGS  = $($(TARGET)_LDFLAGS)
 
 ### Generic targets
 
-steam_api_dll_MODULE   = steam_api.dll
-steam_api_dll_CXX_SRCS = steam_api.cpp ../src/steakworms.cpp
-steam_api_dll_LDFLAGS  = -shared $(steam_api_dll_MODULE:.dll=.spec) -L$(BINDIR)/lib/$(TARGET)
-steam_api_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid
+csteamworks_dll_MODULE   = csteamworks.dll
+csteamworks_dll_CXX_SRCS = csteamworks.cpp ../src/steakworms.cpp
+csteamworks_dll_LDFLAGS  = -shared $(csteamworks_dll_MODULE:.dll=.spec) -L$(BINDIR)/lib/$(TARGET)
+csteamworks_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid
 
 $(BINDIR)/lib/$(TARGET):
 	mkdir -p "$(BINDIR)/lib/$(TARGET)"
 
-$(BINDIR)/lib/$(TARGET)/$(steam_api_dll_MODULE).so: $(steam_api_dll_CXX_SRCS) $(steam_api_dll_MODULE:.dll=.spec) $(BINDIR)/lib/$(TARGET)
-	$(CXX) $(LDFLAGS) $(steam_api_dll_LDFLAGS) -o $@ $(steam_api_dll_CXX_SRCS) $(CPPFLAGS) $(CXXFLAGS) $(steam_api_dll_DLLS:%=-l%)
+$(BINDIR)/lib/$(TARGET)/$(csteamworks_dll_MODULE).so: $(csteamworks_dll_CXX_SRCS) $(csteamworks_dll_MODULE:.dll=.spec) $(BINDIR)/lib/$(TARGET)
+	$(CXX) $(LDFLAGS) $(csteamworks_dll_LDFLAGS) -o $@ $(csteamworks_dll_CXX_SRCS) $(CPPFLAGS) $(CXXFLAGS) $(csteamworks_dll_DLLS:%=-l%)

@@ -1,0 +1,6 @@
+firejail --noprofile "--private=$(pwd)" "--env=PATH=$HOME/.local/bin:$PATH" bash
+export LD_LIBRARY_PATH=$(pwd)/build/lib/x86_64-linux-gnu:$(pwd)/build/lib/i386-linux-gnu
+export LD_PRELOAD=libsteakworms.so
+export WINEDLLPATH=$(pwd)/build/lib/x86_64-linux-gnu:$(pwd)/build/lib/i386-linux-gnu
+export WINEPREFIX=$(pwd)/.wine64
+export WINEDLLOVERRIDES=steam_api.dll,csteamworks.dll=b

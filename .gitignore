@@ -1,0 +1,13 @@
+build/
+.steam
+.cache
+.nv
+.local
+.lesshst
+.bashrc
+.bash_history
+.Xauthority
+.wine
+.wine64
+*.o
+*.dll.so
