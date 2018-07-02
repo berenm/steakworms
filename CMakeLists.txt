@@ -37,7 +37,7 @@ else()
     target_include_directories(steakworms32 PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>")
     target_link_libraries(steakworms32 PRIVATE -m32 -fno-PIC -fno-PIE)
     set_target_properties(steakworms32 PROPERTIES
-      OUTPUT_NAME steakworms
+      OUTPUT_NAME steam_api
       LIBRARY_OUTPUT_DIRECTORY "lib/i386-linux-gnu"
     )
 
@@ -74,7 +74,7 @@ else()
     target_compile_options(steakworms64 PRIVATE ${warnings})
     target_include_directories(steakworms64 PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>")
     set_target_properties(steakworms64 PROPERTIES
-      OUTPUT_NAME steakworms
+      OUTPUT_NAME steam_api
       POSITION_INDEPENDENT_CODE TRUE
       LIBRARY_OUTPUT_DIRECTORY "lib/x86_64-linux-gnu"
     )
