@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function, unicode_literals, with_statement
-import json
 import re
-import sys
 import requests
 
-api = requests.get('https://raw.githubusercontent.com/Facepunch/Facepunch.Steamworks/master/Generator/steam_sdk/steam_api.json').json()
-api_ext = requests.get('https://raw.githubusercontent.com/Facepunch/Facepunch.Steamworks/master/Generator/steam_api_missing.json').json()
+api = requests.get('https://raw.githubusercontent.com/Facepunch/'
+                   'Facepunch.Steamworks/master/Generator/steam_sdk/'
+                   'steam_api.json').json()
+api_ext = requests.get('https://raw.githubusercontent.com/Facepunch/'
+                       'Facepunch.Steamworks/master/Generator/'
+                       'steam_api_missing.json').json()
+
 
 class Typedef(object):
     def __init__(self, **kwargs):
@@ -18,7 +21,10 @@ class Typedef(object):
 
         self.parent = Struct.get('::'.join(self.name.split('::')[:-1]))
         self.name = self.name.split('::')[-1]
-        self.parent.typedefs += [self]
+
+        if re.search('int(8|16|32|64|p)$', self.name) is None and \
+           str(self) not in [str(v) for v in self.parent.typedefs]:
+            self.parent.typedefs += [self]
 
     def __str__(self):
         return re.sub(r'^([^(]*)(\((?:T::)?\*)(\))(\(.*\))(.*);$',
@@ -26,6 +32,7 @@ class Typedef(object):
                       re.sub(r'^([^\[]*)(\[.*\])([^\[]*);$',
                              r'\1 \3 \2;',
                              'typedef {type} {name};'.format(**self.__dict__)))
+
 
 class EnumValue(object):
     def __init__(self, **kwargs):
@@ -57,8 +64,9 @@ class Const(object):
     def __init__(self, **kwargs):
         super(Const, self).__init__()
         self.name = kwargs['constname']
-        self.type = ('const ' + kwargs['consttype']).replace('const const', 'const')
-        self.value = kwargs['constval']
+        self.type = ('const ' + kwargs['consttype']).replace('const const',
+                                                             'const')
+        self.value = kwargs['constval'].replace('18446744073709551615', '-1')
 
         self.parent = Struct.get('::'.join(self.name.split('::')[:-1]))
         self.name = self.name.split('::')[-1]
@@ -72,7 +80,11 @@ class Field(object):
     def __init__(self, **kwargs):
         super(Field, self).__init__()
         self.name = kwargs['fieldname']
-        self.type = kwargs['fieldtype'].split('::')[-1]
+        self.type = (kwargs['fieldtype']
+                     .split('::')[-1]
+                     .replace('enum ', '')
+                     .replace('class ', '')
+                     .replace('struct ', ''))
 
     def __str__(self):
         return re.sub(r'^([^(]*)(\((?:T::)?\*)(\))(\(.*\))(.*);$',
@@ -118,6 +130,7 @@ class Struct(object):
 
     def __str__(self):
         children = \
+            ['struct {name};\n'.format(**v.__dict__) for v in self.structs] + \
             [l for v in self.typedefs for l in str(v).split('\n')] + \
             [l for v in self.consts for l in str(v).split('\n')] + \
             [l for v in self.enums for l in str(v).split('\n')] + \
@@ -134,7 +147,10 @@ class Param(object):
     def __init__(self, **kwargs):
         super(Param, self).__init__()
         self.name = kwargs['paramname']
-        self.type = kwargs['paramtype']
+        self.type = (kwargs['paramtype']
+                     .replace('enum ', '')
+                     .replace('class ', '')
+                     .replace('struct ', ''))
 
     def __str__(self):
         return '{type} {name}'.format(**self.__dict__)
@@ -145,7 +161,10 @@ class Method(object):
         super(Method, self).__init__()
         name = kwargs['classname']
         self.name = kwargs['methodname']
-        self.type = kwargs['returntype']
+        self.type = (kwargs['returntype']
+                     .replace('enum ', '')
+                     .replace('class ', '')
+                     .replace('struct ', ''))
         self.params = [Param(**v) for v in kwargs.get('params', [])]
         self.is_virtual = kwargs.get('NeedsSelfPointer', True)
 
@@ -169,14 +188,23 @@ class Method(object):
 Struct.set('', Struct(struct='', fields=[]))
 
 for v in api['structs'] + api_ext.get('structs', []):
-    if v['struct'] in ['CGameID::GameID_t', 'CSteamID::SteamID_t::SteamIDComponent_t']:
+    if v['struct'] in ['CGameID::GameID_t',
+                       'CGameID::(anonymous)',
+                       'CGameID',
+                       'CSteamID::SteamID_t::SteamIDComponent_t',
+                       'CSteamID::SteamID_t',
+                       'CSteamID']:
         continue
     Struct.set(v['struct'], Struct(**v))
 
 for v in api['typedefs'] + api_ext.get('typedefs', []):
+    if '(*)' in v['type']:
+        continue
     Typedef(**v)
 
 for v in api['enums'] + api_ext.get('enums', []):
+    if v['enumname'] in ['CGameID::EGameIDType']:
+        continue
     Enum(**v)
 
 for v in api['consts'] + api_ext.get('consts', []):
@@ -191,54 +219,58 @@ Struct.get('').structs = [s for s in Struct.get('').structs
 
 with open('include/steam_api.hpp', 'w') as out:
     print('#ifndef INCLUDED_STEAM_API_HPP', file=out)
-    print('#define INCLUDED_STEAM_API_HPP', file=out)
+    print('#define INCLUDED_STEAM_API_HPP\n', file=out)
+    print('#include "steam_types.hpp"', file=out)
     print('', file=out)
     print(str(Struct.get(''))
-            .replace('_Bool', 'bool')
-            .replace('(anonymous)', '')
-            .replace('__attribute__((cdecl))', '')
-            .replace('struct SteamID_t', 'union SteamID_t')
-            .replace('18446744073709551615', '18446744073709551615ull'),
+          .replace('_Bool', 'bool')
+          .replace('(anonymous)', '_')
+          .replace('__attribute__((cdecl))', '')
+          .replace('struct SteamID_t', 'union SteamID_t'),
           file=out)
     print('', file=out)
-    print('#endif // INCLUDED_STEAM_API_HPP', file=out)
+    print('\n#endif // INCLUDED_STEAM_API_HPP', file=out)
 
 with open('steam_api/steam_api.spec', 'w') as out:
     methods = Struct.get('SteamApi').methods
     for i, v in enumerate(methods):
         print('@ cdecl {name}() _{name}'.format(**v.__dict__), file=out)
 
-    for i, v in enumerate([v for v in Struct.get('').structs if v.name[0:6] == 'ISteam']):
+    for i, v in enumerate([v for v in Struct.get('').structs
+                           if v.name[0:6] == 'ISteam']):
         print('@ cdecl {name}() _{name}'.format(name=v.name[1:]), file=out)
 
-    print('@ cdecl SteamInternal_ContextInit() _SteamInternal_ContextInit', file=out)
-    print('@ cdecl SteamAPI_SetMiniDumpComment() _SteamAPI_SetMiniDumpComment', file=out)
+    print('@ cdecl SteamInternal_ContextInit() _SteamInternal_ContextInit',
+          file=out)
+    print('@ cdecl SteamAPI_SetMiniDumpComment() _SteamAPI_SetMiniDumpComment',
+          file=out)
     print('@ cdecl SteamAPI_WriteMiniDump() _SteamAPI_WriteMiniDump', file=out)
 
 with open('steam_api/steam_api.ipp', 'w') as out:
     methods = Struct.get('SteamApi').methods
     for v in methods:
-        callstr = '{{ return {name}({params}); }}'.format(name=v.name, params=', '.join(p.name for p in v.params))
-        print(str(v).replace(v.name, '_' + v.name).replace(';', callstr), file=out)
+        callstr = ('{{ return {name}({params}); }}'
+                   .format(name=v.name,
+                           params=', '.join(p.name for p in v.params)))
+        print(str(v).replace(v.name, '_' + v.name).replace(';', callstr),
+              file=out)
 
     for v in [v for v in Struct.get('').structs if v.name[0:6] == 'ISteam']:
-        print('extern "C" auto _{name}() {{ return SteamAPI_Context()->{name}(); }}'.format(name=v.name[1:]), file=out)
+        print('extern "C" auto _{name}() {{'
+              ' return SteamAPI_Context()->{name}();'
+              ' }}'.format(name=v.name[1:]), file=out)
 
-    print('extern "C" auto _SteamInternal_ContextInit() { return SteamInternal_ContextInit(); }', file=out)
+    print('extern "C" auto _SteamInternal_ContextInit() {'
+          ' return SteamInternal_ContextInit(); }', file=out)
 
 with open('csteamworks/csteamworks.ipp', 'w') as out:
-    # methods = Struct.get('SteamApi').methods
-    # for v in methods:
-    #     callstr = '{{ return {name}({params}); }}'.format(name=v.name, params=', '.join(p.name for p in v.params))
-    #     print(str(v).replace(v.name, '_' + v.name).replace(';', callstr), file=out)
-
     printed = {}
     for v in [v for v in Struct.get('').structs if v.name[0:6] == 'ISteam']:
         for m in v.methods:
             kwargs = {'params': ', '.join([str(p) for p in m.params]),
-                    'pnames': ', '.join([p.name for p in m.params]),
-                    'name': v.name[1:],
-                    'method': m.name}
+                      'pnames': ', '.join([p.name for p in m.params]),
+                      'name': v.name[1:],
+                      'method': m.name}
             kwargs['function'] = '_I{name}_{method}'.format(**kwargs)
             if kwargs['function'] in printed:
                 kwargs['function'] += '_'
@@ -247,4 +279,7 @@ with open('csteamworks/csteamworks.ipp', 'w') as out:
             if v.name == 'ISteamInventory' and m.name == 'SetProperty':
                 continue
 
-            print('extern "C" auto {function}({params}) {{ debug("{function}({params})"); return {name}()->{method}({pnames}); }}'.format(**kwargs), file=out)
+            print('extern "C" auto {function}({params}) {{'
+                  ' debug("{function}({params})");'
+                  ' return {name}()->{method}({pnames}); }}'
+                  .format(**kwargs), file=out)

@@ -1,19 +1,466 @@
 #ifndef INCLUDED_STEAM_API_HPP
 #define INCLUDED_STEAM_API_HPP
 
-typedef unsigned char uint8;
-typedef unsigned char uint8;
-typedef signed char int8;
-typedef short int16;
-typedef unsigned short uint16;
-typedef int int32;
-typedef unsigned int uint32;
-typedef long long int64;
-typedef unsigned long long uint64;
-typedef int64 lint64;
-typedef uint64 ulint64;
-typedef long long intp;
-typedef unsigned long long uintp;
+#include "steam_types.hpp"
+
+struct ValvePackingSentinel_t;
+
+struct CallbackMsg_t;
+
+struct SteamServerConnectFailure_t;
+
+struct SteamServersDisconnected_t;
+
+struct ClientGameServerDeny_t;
+
+struct ValidateAuthTicketResponse_t;
+
+struct MicroTxnAuthorizationResponse_t;
+
+struct EncryptedAppTicketResponse_t;
+
+struct GetAuthSessionTicketResponse_t;
+
+struct GameWebCallback_t;
+
+struct StoreAuthURLResponse_t;
+
+struct FriendGameInfo_t;
+
+struct FriendSessionStateInfo_t;
+
+struct PersonaStateChange_t;
+
+struct GameOverlayActivated_t;
+
+struct GameServerChangeRequested_t;
+
+struct GameLobbyJoinRequested_t;
+
+struct AvatarImageLoaded_t;
+
+struct ClanOfficerListResponse_t;
+
+struct FriendRichPresenceUpdate_t;
+
+struct GameRichPresenceJoinRequested_t;
+
+struct GameConnectedClanChatMsg_t;
+
+struct GameConnectedChatJoin_t;
+
+struct GameConnectedChatLeave_t;
+
+struct DownloadClanActivityCountsResult_t;
+
+struct JoinClanChatRoomCompletionResult_t;
+
+struct GameConnectedFriendChatMsg_t;
+
+struct FriendsGetFollowerCount_t;
+
+struct FriendsIsFollowing_t;
+
+struct FriendsEnumerateFollowingList_t;
+
+struct SetPersonaNameResponse_t;
+
+struct LowBatteryPower_t;
+
+struct SteamAPICallCompleted_t;
+
+struct CheckFileSignature_t;
+
+struct GamepadTextInputDismissed_t;
+
+struct MatchMakingKeyValuePair_t;
+
+struct servernetadr_t;
+
+struct gameserveritem_t;
+
+struct FavoritesListChanged_t;
+
+struct LobbyInvite_t;
+
+struct LobbyEnter_t;
+
+struct LobbyDataUpdate_t;
+
+struct LobbyChatUpdate_t;
+
+struct LobbyChatMsg_t;
+
+struct LobbyGameCreated_t;
+
+struct LobbyMatchList_t;
+
+struct LobbyKicked_t;
+
+struct LobbyCreated_t;
+
+struct PSNGameBootInviteResult_t;
+
+struct FavoritesListAccountsUpdated_t;
+
+struct SteamParamStringArray_t;
+
+struct RemoteStorageAppSyncedClient_t;
+
+struct RemoteStorageAppSyncedServer_t;
+
+struct RemoteStorageAppSyncProgress_t;
+
+struct RemoteStorageAppSyncStatusCheck_t;
+
+struct RemoteStorageFileShareResult_t;
+
+struct RemoteStoragePublishFileResult_t;
+
+struct RemoteStorageDeletePublishedFileResult_t;
+
+struct RemoteStorageEnumerateUserPublishedFilesResult_t;
+
+struct RemoteStorageSubscribePublishedFileResult_t;
+
+struct RemoteStorageEnumerateUserSubscribedFilesResult_t;
+
+struct RemoteStorageUnsubscribePublishedFileResult_t;
+
+struct RemoteStorageUpdatePublishedFileResult_t;
+
+struct RemoteStorageDownloadUGCResult_t;
+
+struct RemoteStorageGetPublishedFileDetailsResult_t;
+
+struct RemoteStorageEnumerateWorkshopFilesResult_t;
+
+struct RemoteStorageGetPublishedItemVoteDetailsResult_t;
+
+struct RemoteStoragePublishedFileSubscribed_t;
+
+struct RemoteStoragePublishedFileUnsubscribed_t;
+
+struct RemoteStoragePublishedFileDeleted_t;
+
+struct RemoteStorageUpdateUserPublishedItemVoteResult_t;
+
+struct RemoteStorageUserVoteDetails_t;
+
+struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t;
+
+struct RemoteStorageSetUserPublishedFileActionResult_t;
+
+struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t;
+
+struct RemoteStoragePublishFileProgress_t;
+
+struct RemoteStoragePublishedFileUpdated_t;
+
+struct RemoteStorageFileWriteAsyncComplete_t;
+
+struct RemoteStorageFileReadAsyncComplete_t;
+
+struct LeaderboardEntry_t;
+
+struct UserStatsReceived_t;
+
+struct UserStatsStored_t;
+
+struct UserAchievementStored_t;
+
+struct LeaderboardFindResult_t;
+
+struct LeaderboardScoresDownloaded_t;
+
+struct LeaderboardScoreUploaded_t;
+
+struct NumberOfCurrentPlayers_t;
+
+struct UserStatsUnloaded_t;
+
+struct UserAchievementIconFetched_t;
+
+struct GlobalAchievementPercentagesReady_t;
+
+struct LeaderboardUGCSet_t;
+
+struct PS3TrophiesInstalled_t;
+
+struct GlobalStatsReceived_t;
+
+struct DlcInstalled_t;
+
+struct RegisterActivationCodeResponse_t;
+
+struct AppProofOfPurchaseKeyResponse_t;
+
+struct FileDetailsResult_t;
+
+struct P2PSessionState_t;
+
+struct P2PSessionRequest_t;
+
+struct P2PSessionConnectFail_t;
+
+struct SocketStatusCallback_t;
+
+struct ScreenshotReady_t;
+
+struct VolumeHasChanged_t;
+
+struct MusicPlayerWantsShuffled_t;
+
+struct MusicPlayerWantsLooped_t;
+
+struct MusicPlayerWantsVolume_t;
+
+struct MusicPlayerSelectsQueueEntry_t;
+
+struct MusicPlayerSelectsPlaylistEntry_t;
+
+struct MusicPlayerWantsPlayingRepeatStatus_t;
+
+struct HTTPRequestCompleted_t;
+
+struct HTTPRequestHeadersReceived_t;
+
+struct HTTPRequestDataReceived_t;
+
+struct ControllerAnalogActionData_t;
+
+struct ControllerDigitalActionData_t;
+
+struct ControllerMotionData_t;
+
+struct SteamUGCDetails_t;
+
+struct SteamUGCQueryCompleted_t;
+
+struct SteamUGCRequestUGCDetailsResult_t;
+
+struct CreateItemResult_t;
+
+struct SubmitItemUpdateResult_t;
+
+struct DownloadItemResult_t;
+
+struct UserFavoriteItemsListChanged_t;
+
+struct SetUserItemVoteResult_t;
+
+struct GetUserItemVoteResult_t;
+
+struct StartPlaytimeTrackingResult_t;
+
+struct StopPlaytimeTrackingResult_t;
+
+struct AddUGCDependencyResult_t;
+
+struct RemoveUGCDependencyResult_t;
+
+struct AddAppDependencyResult_t;
+
+struct RemoveAppDependencyResult_t;
+
+struct GetAppDependenciesResult_t;
+
+struct DeleteItemResult_t;
+
+struct SteamAppInstalled_t;
+
+struct SteamAppUninstalled_t;
+
+struct HTML_BrowserReady_t;
+
+struct HTML_NeedsPaint_t;
+
+struct HTML_StartRequest_t;
+
+struct HTML_CloseBrowser_t;
+
+struct HTML_URLChanged_t;
+
+struct HTML_FinishedRequest_t;
+
+struct HTML_OpenLinkInNewTab_t;
+
+struct HTML_ChangedTitle_t;
+
+struct HTML_SearchResults_t;
+
+struct HTML_CanGoBackAndForward_t;
+
+struct HTML_HorizontalScroll_t;
+
+struct HTML_VerticalScroll_t;
+
+struct HTML_LinkAtPosition_t;
+
+struct HTML_JSAlert_t;
+
+struct HTML_JSConfirm_t;
+
+struct HTML_FileOpenDialog_t;
+
+struct HTML_NewWindow_t;
+
+struct HTML_SetCursor_t;
+
+struct HTML_StatusText_t;
+
+struct HTML_ShowToolTip_t;
+
+struct HTML_UpdateToolTip_t;
+
+struct HTML_HideToolTip_t;
+
+struct HTML_BrowserRestarted_t;
+
+struct SteamItemDetails_t;
+
+struct SteamInventoryResultReady_t;
+
+struct SteamInventoryFullUpdate_t;
+
+struct SteamInventoryEligiblePromoItemDefIDs_t;
+
+struct SteamInventoryStartPurchaseResult_t;
+
+struct SteamInventoryRequestPricesResult_t;
+
+struct BroadcastUploadStop_t;
+
+struct GetVideoURLResult_t;
+
+struct GetOPFSettingsResult_t;
+
+struct GSClientApprove_t;
+
+struct GSClientDeny_t;
+
+struct GSClientKick_t;
+
+struct GSClientAchievementStatus_t;
+
+struct GSPolicyResponse_t;
+
+struct GSGameplayStats_t;
+
+struct GSClientGroupStatus_t;
+
+struct GSReputation_t;
+
+struct AssociateWithClanResult_t;
+
+struct ComputeNewPlayerCompatibilityResult_t;
+
+struct GSStatsReceived_t;
+
+struct GSStatsStored_t;
+
+struct GSStatsUnloaded_t;
+
+struct ItemInstalled_t;
+
+struct SteamInventoryDefinitionUpdate_t;
+
+struct SteamParentalSettingsChanged_t;
+
+struct SteamServersConnected_t;
+
+struct NewLaunchQueryParameters_t;
+
+struct GCMessageAvailable_t;
+
+struct GCMessageFailed_t;
+
+struct ScreenshotRequested_t;
+
+struct LicensesUpdated_t;
+
+struct SteamShutdown_t;
+
+struct IPCountry_t;
+
+struct IPCFailure_t;
+
+struct PlaybackStatusHasChanged_t;
+
+struct MusicPlayerRemoteWillActivate_t;
+
+struct MusicPlayerRemoteWillDeactivate_t;
+
+struct MusicPlayerRemoteToFront_t;
+
+struct MusicPlayerWillQuit_t;
+
+struct MusicPlayerWantsPlay_t;
+
+struct MusicPlayerWantsPause_t;
+
+struct MusicPlayerWantsPlayPrevious_t;
+
+struct MusicPlayerWantsPlayNext_t;
+
+struct BroadcastUploadStart_t;
+
+struct ISteamHTMLSurface;
+
+struct ISteamClient;
+
+struct ISteamUser;
+
+struct ISteamFriends;
+
+struct ISteamUtils;
+
+struct ISteamMatchmaking;
+
+struct ISteamMatchmakingServerListResponse;
+
+struct ISteamMatchmakingPingResponse;
+
+struct ISteamMatchmakingPlayersResponse;
+
+struct ISteamMatchmakingRulesResponse;
+
+struct ISteamMatchmakingServers;
+
+struct ISteamRemoteStorage;
+
+struct ISteamUserStats;
+
+struct ISteamApps;
+
+struct ISteamNetworking;
+
+struct ISteamScreenshots;
+
+struct ISteamMusic;
+
+struct ISteamMusicRemote;
+
+struct ISteamHTTP;
+
+struct ISteamController;
+
+struct ISteamUGC;
+
+struct ISteamAppList;
+
+struct ISteamInventory;
+
+struct ISteamVideo;
+
+struct ISteamParentalSettings;
+
+struct ISteamGameServer;
+
+struct ISteamGameServerStats;
+
+struct SteamApi;
+
 typedef uint8   Salt_t [8];
 typedef uint64 GID_t;
 typedef uint64 JobID_t;
@@ -32,25 +479,18 @@ typedef uint32 PartnerId_t;
 typedef uint64 ManifestId_t;
 typedef uint64 SiteId_t;
 typedef uint32 HAuthTicket;
-typedef void  (* PFNLegacyKeyRegistration) (const char *, const char *);
-typedef bool  (* PFNLegacyKeyInstalled) (void);
-typedef void  (* PFNPreMinidumpCallback) (void *);
 typedef void * BREAKPAD_HANDLE;
 typedef struct ValvePackingSentinel_t ValvePackingSentinel_t;
 typedef char   compile_time_assert_type [1];
 typedef int32 HSteamPipe;
 typedef int32 HSteamUser;
-typedef void  (* SteamAPIWarningMessageHook_t) (int, const char *) ;
-typedef uint32  (* SteamAPI_CheckCallbackRegistered_t) (int);
 typedef int16 FriendsGroupID_t;
-typedef void  (* SteamAPIWarningMessageHook_t) (int, const char *) ;
 typedef void * HServerListRequest;
 typedef int HServerQuery;
 typedef uint64 UGCHandle_t;
 typedef uint64 PublishedFileUpdateHandle_t;
 typedef uint64 PublishedFileId_t;
 typedef uint64 UGCFileWriteStreamHandle_t;
-typedef char   compile_time_assert_type [1];
 typedef uint64 SteamLeaderboard_t;
 typedef uint64 SteamLeaderboardEntries_t;
 typedef uint32 SNetSocket_t;
@@ -128,7 +568,7 @@ const int k_cchMaxRichPresenceValueLength = 256;
 const int k_cchStatNameMax = 128;
 const int k_cchLeaderboardNameMax = 128;
 const int k_cLeaderboardDetailsMax = 64;
-const SteamItemInstanceID_t k_SteamItemInstanceIDInvalid = 18446744073709551615ull;
+const SteamItemInstanceID_t k_SteamItemInstanceIDInvalid = -1;
 const SteamInventoryResult_t k_SteamInventoryResultInvalid = -1;
 enum EUniverse {
   k_EUniverseInvalid = 0,
@@ -1168,25 +1608,6 @@ enum EParentalFeature {
   k_EFeatureTest = 12,
   k_EFeatureMax = 13,
 };
-struct CSteamID {
-  union SteamID_t {
-    struct SteamIDComponent_t m_comp;
-    uint64 m_unAll64Bits;
-  };
-  union SteamID_t m_steamid;
-};
-struct CGameID {
-  enum EGameIDType {
-    k_EGameIDTypeApp = 0,
-    k_EGameIDTypeGameMod = 1,
-    k_EGameIDTypeShortcut = 2,
-    k_EGameIDTypeP2P = 3,
-  };
-  struct  {
-    uint64 m_ulGameID;
-    GameID_t m_gameID;
-  };
-};
 struct ValvePackingSentinel_t {
   uint32 m_u32;
   uint64 m_u64;
@@ -1200,11 +1621,11 @@ struct CallbackMsg_t {
   int m_cubParam;
 };
 struct SteamServerConnectFailure_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   bool m_bStillRetrying;
 };
 struct SteamServersDisconnected_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct ClientGameServerDeny_t {
   uint32 m_uAppID;
@@ -1214,9 +1635,9 @@ struct ClientGameServerDeny_t {
   uint32 m_uReason;
 };
 struct ValidateAuthTicketResponse_t {
-  class CSteamID m_SteamID;
-  enum EAuthSessionResponse m_eAuthSessionResponse;
-  class CSteamID m_OwnerSteamID;
+  CSteamID m_SteamID;
+  EAuthSessionResponse m_eAuthSessionResponse;
+  CSteamID m_OwnerSteamID;
 };
 struct MicroTxnAuthorizationResponse_t {
   uint32 m_unAppID;
@@ -1224,11 +1645,11 @@ struct MicroTxnAuthorizationResponse_t {
   uint8 m_bAuthorized;
 };
 struct EncryptedAppTicketResponse_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct GetAuthSessionTicketResponse_t {
   HAuthTicket m_hAuthTicket;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct GameWebCallback_t {
   char   m_szURL [256];
@@ -1237,11 +1658,11 @@ struct StoreAuthURLResponse_t {
   char   m_szURL [512];
 };
 struct FriendGameInfo_t {
-  class CGameID m_gameID;
+  CGameID m_gameID;
   uint32 m_unGameIP;
   uint16 m_usGamePort;
   uint16 m_usQueryPort;
-  class CSteamID m_steamIDLobby;
+  CSteamID m_steamIDLobby;
 };
 struct FriendSessionStateInfo_t {
   uint32 m_uiOnlineSessionInstances;
@@ -1259,40 +1680,40 @@ struct GameServerChangeRequested_t {
   char   m_rgchPassword [64];
 };
 struct GameLobbyJoinRequested_t {
-  class CSteamID m_steamIDLobby;
-  class CSteamID m_steamIDFriend;
+  CSteamID m_steamIDLobby;
+  CSteamID m_steamIDFriend;
 };
 struct AvatarImageLoaded_t {
-  class CSteamID m_steamID;
+  CSteamID m_steamID;
   int m_iImage;
   int m_iWide;
   int m_iTall;
 };
 struct ClanOfficerListResponse_t {
-  class CSteamID m_steamIDClan;
+  CSteamID m_steamIDClan;
   int m_cOfficers;
   uint8 m_bSuccess;
 };
 struct FriendRichPresenceUpdate_t {
-  class CSteamID m_steamIDFriend;
+  CSteamID m_steamIDFriend;
   AppId_t m_nAppID;
 };
 struct GameRichPresenceJoinRequested_t {
-  class CSteamID m_steamIDFriend;
+  CSteamID m_steamIDFriend;
   char   m_rgchConnect [256];
 };
 struct GameConnectedClanChatMsg_t {
-  class CSteamID m_steamIDClanChat;
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDClanChat;
+  CSteamID m_steamIDUser;
   int m_iMessageID;
 };
 struct GameConnectedChatJoin_t {
-  class CSteamID m_steamIDClanChat;
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDClanChat;
+  CSteamID m_steamIDUser;
 };
 struct GameConnectedChatLeave_t {
-  class CSteamID m_steamIDClanChat;
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDClanChat;
+  CSteamID m_steamIDUser;
   bool m_bKicked;
   bool m_bDropped;
 };
@@ -1300,33 +1721,33 @@ struct DownloadClanActivityCountsResult_t {
   bool m_bSuccess;
 };
 struct JoinClanChatRoomCompletionResult_t {
-  class CSteamID m_steamIDClanChat;
-  enum EChatRoomEnterResponse m_eChatRoomEnterResponse;
+  CSteamID m_steamIDClanChat;
+  EChatRoomEnterResponse m_eChatRoomEnterResponse;
 };
 struct GameConnectedFriendChatMsg_t {
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDUser;
   int m_iMessageID;
 };
 struct FriendsGetFollowerCount_t {
-  enum EResult m_eResult;
-  class CSteamID m_steamID;
+  EResult m_eResult;
+  CSteamID m_steamID;
   int m_nCount;
 };
 struct FriendsIsFollowing_t {
-  enum EResult m_eResult;
-  class CSteamID m_steamID;
+  EResult m_eResult;
+  CSteamID m_steamID;
   bool m_bIsFollowing;
 };
 struct FriendsEnumerateFollowingList_t {
-  enum EResult m_eResult;
-  class CSteamID   m_rgSteamID [50];
+  EResult m_eResult;
+  CSteamID   m_rgSteamID [50];
   int32 m_nResultsReturned;
   int32 m_nTotalResultCount;
 };
 struct SetPersonaNameResponse_t {
   bool m_bSuccess;
   bool m_bLocalSuccess;
-  enum EResult m_result;
+  EResult m_result;
 };
 struct LowBatteryPower_t {
   uint8 m_nMinutesBatteryLeft;
@@ -1337,7 +1758,7 @@ struct SteamAPICallCompleted_t {
   uint32 m_cubParam;
 };
 struct CheckFileSignature_t {
-  enum ECheckFileSignature m_eCheckFileSignature;
+  ECheckFileSignature m_eCheckFileSignature;
 };
 struct GamepadTextInputDismissed_t {
   bool m_bSubmitted;
@@ -1353,7 +1774,7 @@ struct servernetadr_t {
   uint32 m_unIP;
 };
 struct gameserveritem_t {
-  class servernetadr_t m_NetAdr;
+  servernetadr_t m_NetAdr;
   int m_nPing;
   bool m_bHadSuccessfulResponse;
   bool m_bDoNotRefresh;
@@ -1370,7 +1791,7 @@ struct gameserveritem_t {
   int m_nServerVersion;
   char   m_szServerName [64];
   char   m_szGameTags [128];
-  class CSteamID m_steamID;
+  CSteamID m_steamID;
 };
 struct FavoritesListChanged_t {
   uint32 m_nIP;
@@ -1424,15 +1845,15 @@ struct LobbyKicked_t {
   uint8 m_bKickedDueToDisconnect;
 };
 struct LobbyCreated_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint64 m_ulSteamIDLobby;
 };
 struct PSNGameBootInviteResult_t {
   bool m_bGameBootInviteExists;
-  class CSteamID m_steamIDLobby;
+  CSteamID m_steamIDLobby;
 };
 struct FavoritesListAccountsUpdated_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct SteamParamStringArray_t {
   const char ** m_ppStrings;
@@ -1440,12 +1861,12 @@ struct SteamParamStringArray_t {
 };
 struct RemoteStorageAppSyncedClient_t {
   AppId_t m_nAppID;
-  enum EResult m_eResult;
+  EResult m_eResult;
   int m_unNumDownloads;
 };
 struct RemoteStorageAppSyncedServer_t {
   AppId_t m_nAppID;
-  enum EResult m_eResult;
+  EResult m_eResult;
   int m_unNumUploads;
 };
 struct RemoteStorageAppSyncProgress_t {
@@ -1457,50 +1878,50 @@ struct RemoteStorageAppSyncProgress_t {
 };
 struct RemoteStorageAppSyncStatusCheck_t {
   AppId_t m_nAppID;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct RemoteStorageFileShareResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   UGCHandle_t m_hFile;
   char   m_rgchFilename [260];
 };
 struct RemoteStoragePublishFileResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   bool m_bUserNeedsToAcceptWorkshopLegalAgreement;
 };
 struct RemoteStorageDeletePublishedFileResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
 };
 struct RemoteStorageEnumerateUserPublishedFilesResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   int32 m_nResultsReturned;
   int32 m_nTotalResultCount;
   PublishedFileId_t   m_rgPublishedFileId [50];
 };
 struct RemoteStorageSubscribePublishedFileResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
 };
 struct RemoteStorageEnumerateUserSubscribedFilesResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   int32 m_nResultsReturned;
   int32 m_nTotalResultCount;
   PublishedFileId_t   m_rgPublishedFileId [50];
   uint32   m_rgRTimeSubscribed [50];
 };
 struct RemoteStorageUnsubscribePublishedFileResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
 };
 struct RemoteStorageUpdatePublishedFileResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   bool m_bUserNeedsToAcceptWorkshopLegalAgreement;
 };
 struct RemoteStorageDownloadUGCResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   UGCHandle_t m_hFile;
   AppId_t m_nAppID;
   int32 m_nSizeInBytes;
@@ -1508,7 +1929,7 @@ struct RemoteStorageDownloadUGCResult_t {
   uint64 m_ulSteamIDOwner;
 };
 struct RemoteStorageGetPublishedFileDetailsResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   AppId_t m_nCreatorAppID;
   AppId_t m_nConsumerAppID;
@@ -1519,7 +1940,7 @@ struct RemoteStorageGetPublishedFileDetailsResult_t {
   uint64 m_ulSteamIDOwner;
   uint32 m_rtimeCreated;
   uint32 m_rtimeUpdated;
-  enum ERemoteStoragePublishedFileVisibility m_eVisibility;
+  ERemoteStoragePublishedFileVisibility m_eVisibility;
   bool m_bBanned;
   char   m_rgchTags [1025];
   bool m_bTagsTruncated;
@@ -1527,11 +1948,11 @@ struct RemoteStorageGetPublishedFileDetailsResult_t {
   int32 m_nFileSize;
   int32 m_nPreviewFileSize;
   char   m_rgchURL [256];
-  enum EWorkshopFileType m_eFileType;
+  EWorkshopFileType m_eFileType;
   bool m_bAcceptedForUse;
 };
 struct RemoteStorageEnumerateWorkshopFilesResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   int32 m_nResultsReturned;
   int32 m_nTotalResultCount;
   PublishedFileId_t   m_rgPublishedFileId [50];
@@ -1540,7 +1961,7 @@ struct RemoteStorageEnumerateWorkshopFilesResult_t {
   uint32 m_unStartIndex;
 };
 struct RemoteStorageGetPublishedItemVoteDetailsResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_unPublishedFileId;
   int32 m_nVotesFor;
   int32 m_nVotesAgainst;
@@ -1560,28 +1981,28 @@ struct RemoteStoragePublishedFileDeleted_t {
   AppId_t m_nAppID;
 };
 struct RemoteStorageUpdateUserPublishedItemVoteResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
 };
 struct RemoteStorageUserVoteDetails_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
-  enum EWorkshopVote m_eVote;
+  EWorkshopVote m_eVote;
 };
 struct RemoteStorageEnumerateUserSharedWorkshopFilesResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   int32 m_nResultsReturned;
   int32 m_nTotalResultCount;
   PublishedFileId_t   m_rgPublishedFileId [50];
 };
 struct RemoteStorageSetUserPublishedFileActionResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
-  enum EWorkshopFileAction m_eAction;
+  EWorkshopFileAction m_eAction;
 };
 struct RemoteStorageEnumeratePublishedFilesByUserActionResult_t {
-  enum EResult m_eResult;
-  enum EWorkshopFileAction m_eAction;
+  EResult m_eResult;
+  EWorkshopFileAction m_eAction;
   int32 m_nResultsReturned;
   int32 m_nTotalResultCount;
   PublishedFileId_t   m_rgPublishedFileId [50];
@@ -1597,16 +2018,16 @@ struct RemoteStoragePublishedFileUpdated_t {
   uint64 m_ulUnused;
 };
 struct RemoteStorageFileWriteAsyncComplete_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct RemoteStorageFileReadAsyncComplete_t {
   SteamAPICall_t m_hFileReadAsync;
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint32 m_nOffset;
   uint32 m_cubRead;
 };
 struct LeaderboardEntry_t {
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDUser;
   int32 m_nGlobalRank;
   int32 m_nScore;
   int32 m_cDetails;
@@ -1614,12 +2035,12 @@ struct LeaderboardEntry_t {
 };
 struct UserStatsReceived_t {
   uint64 m_nGameID;
-  enum EResult m_eResult;
-  class CSteamID m_steamIDUser;
+  EResult m_eResult;
+  CSteamID m_steamIDUser;
 };
 struct UserStatsStored_t {
   uint64 m_nGameID;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct UserAchievementStored_t {
   uint64 m_nGameID;
@@ -1650,46 +2071,46 @@ struct NumberOfCurrentPlayers_t {
   int32 m_cPlayers;
 };
 struct UserStatsUnloaded_t {
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDUser;
 };
 struct UserAchievementIconFetched_t {
-  class CGameID m_nGameID;
+  CGameID m_nGameID;
   char   m_rgchAchievementName [128];
   bool m_bAchieved;
   int m_nIconHandle;
 };
 struct GlobalAchievementPercentagesReady_t {
   uint64 m_nGameID;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct LeaderboardUGCSet_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   SteamLeaderboard_t m_hSteamLeaderboard;
 };
 struct PS3TrophiesInstalled_t {
   uint64 m_nGameID;
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint64 m_ulRequiredDiskSpace;
 };
 struct GlobalStatsReceived_t {
   uint64 m_nGameID;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct DlcInstalled_t {
   AppId_t m_nAppID;
 };
 struct RegisterActivationCodeResponse_t {
-  enum ERegisterActivationCodeResult m_eResult;
+  ERegisterActivationCodeResult m_eResult;
   uint32 m_unPackageRegistered;
 };
 struct AppProofOfPurchaseKeyResponse_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint32 m_nAppID;
   uint32 m_cchKeyLength;
   char   m_rgchKey [240];
 };
 struct FileDetailsResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint64 m_ulFileSize;
   uint8   m_FileSHA [20];
   uint32 m_unFlags;
@@ -1705,21 +2126,21 @@ struct P2PSessionState_t {
   uint16 m_nRemotePort;
 };
 struct P2PSessionRequest_t {
-  class CSteamID m_steamIDRemote;
+  CSteamID m_steamIDRemote;
 };
 struct P2PSessionConnectFail_t {
-  class CSteamID m_steamIDRemote;
+  CSteamID m_steamIDRemote;
   uint8 m_eP2PSessionError;
 };
 struct SocketStatusCallback_t {
   SNetSocket_t m_hSocket;
   SNetListenSocket_t m_hListenSocket;
-  class CSteamID m_steamIDRemote;
+  CSteamID m_steamIDRemote;
   int m_eSNetSocketState;
 };
 struct ScreenshotReady_t {
   ScreenshotHandle m_hLocal;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct VolumeHasChanged_t {
   typedef struct VolumeHasChanged_t SteamCallback_t;
@@ -1753,7 +2174,7 @@ struct HTTPRequestCompleted_t {
   HTTPRequestHandle m_hRequest;
   uint64 m_ulContextValue;
   bool m_bRequestSuccessful;
-  enum EHTTPStatusCode m_eStatusCode;
+  EHTTPStatusCode m_eStatusCode;
   uint32 m_unBodySize;
 };
 struct HTTPRequestHeadersReceived_t {
@@ -1767,7 +2188,7 @@ struct HTTPRequestDataReceived_t {
   uint32 m_cBytesReceived;
 };
 struct ControllerAnalogActionData_t {
-  enum EControllerSourceMode eMode;
+  EControllerSourceMode eMode;
   float x;
   float y;
   bool bActive;
@@ -1790,8 +2211,8 @@ struct ControllerMotionData_t {
 };
 struct SteamUGCDetails_t {
   PublishedFileId_t m_nPublishedFileId;
-  enum EResult m_eResult;
-  enum EWorkshopFileType m_eFileType;
+  EResult m_eResult;
+  EWorkshopFileType m_eFileType;
   AppId_t m_nCreatorAppID;
   AppId_t m_nConsumerAppID;
   char   m_rgchTitle [129];
@@ -1800,7 +2221,7 @@ struct SteamUGCDetails_t {
   uint32 m_rtimeCreated;
   uint32 m_rtimeUpdated;
   uint32 m_rtimeAddedToUserList;
-  enum ERemoteStoragePublishedFileVisibility m_eVisibility;
+  ERemoteStoragePublishedFileVisibility m_eVisibility;
   bool m_bBanned;
   bool m_bAcceptedForUse;
   bool m_bTagsTruncated;
@@ -1818,82 +2239,82 @@ struct SteamUGCDetails_t {
 };
 struct SteamUGCQueryCompleted_t {
   UGCQueryHandle_t m_handle;
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint32 m_unNumResultsReturned;
   uint32 m_unTotalMatchingResults;
   bool m_bCachedData;
 };
 struct SteamUGCRequestUGCDetailsResult_t {
-  struct SteamUGCDetails_t m_details;
+  SteamUGCDetails_t m_details;
   bool m_bCachedData;
 };
 struct CreateItemResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   bool m_bUserNeedsToAcceptWorkshopLegalAgreement;
 };
 struct SubmitItemUpdateResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   bool m_bUserNeedsToAcceptWorkshopLegalAgreement;
   PublishedFileId_t m_nPublishedFileId;
 };
 struct DownloadItemResult_t {
   AppId_t m_unAppID;
   PublishedFileId_t m_nPublishedFileId;
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct UserFavoriteItemsListChanged_t {
   PublishedFileId_t m_nPublishedFileId;
-  enum EResult m_eResult;
+  EResult m_eResult;
   bool m_bWasAddRequest;
 };
 struct SetUserItemVoteResult_t {
   PublishedFileId_t m_nPublishedFileId;
-  enum EResult m_eResult;
+  EResult m_eResult;
   bool m_bVoteUp;
 };
 struct GetUserItemVoteResult_t {
   PublishedFileId_t m_nPublishedFileId;
-  enum EResult m_eResult;
+  EResult m_eResult;
   bool m_bVotedUp;
   bool m_bVotedDown;
   bool m_bVoteSkipped;
 };
 struct StartPlaytimeTrackingResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct StopPlaytimeTrackingResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct AddUGCDependencyResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   PublishedFileId_t m_nChildPublishedFileId;
 };
 struct RemoveUGCDependencyResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   PublishedFileId_t m_nChildPublishedFileId;
 };
 struct AddAppDependencyResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   AppId_t m_nAppID;
 };
 struct RemoveAppDependencyResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   AppId_t m_nAppID;
 };
 struct GetAppDependenciesResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
   AppId_t   m_rgAppIDs [32];
   uint32 m_nNumAppDependencies;
   uint32 m_nTotalNumAppDependencies;
 };
 struct DeleteItemResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   PublishedFileId_t m_nPublishedFileId;
 };
 struct SteamAppInstalled_t {
@@ -2062,53 +2483,53 @@ struct SteamItemDetails_t {
 };
 struct SteamInventoryResultReady_t {
   SteamInventoryResult_t m_handle;
-  enum EResult m_result;
+  EResult m_result;
 };
 struct SteamInventoryFullUpdate_t {
   SteamInventoryResult_t m_handle;
 };
 struct SteamInventoryEligiblePromoItemDefIDs_t {
-  enum EResult m_result;
-  class CSteamID m_steamID;
+  EResult m_result;
+  CSteamID m_steamID;
   int m_numEligiblePromoItemDefs;
   bool m_bCachedData;
 };
 struct SteamInventoryStartPurchaseResult_t {
-  enum EResult m_result;
+  EResult m_result;
   uint64 m_ulOrderID;
   uint64 m_ulTransID;
 };
 struct SteamInventoryRequestPricesResult_t {
-  enum EResult m_result;
+  EResult m_result;
   char   m_rgchCurrency [4];
 };
 struct BroadcastUploadStop_t {
   typedef struct BroadcastUploadStop_t SteamCallback_t;
-  enum EBroadcastUploadResult m_eResult;
+  EBroadcastUploadResult m_eResult;
 };
 struct GetVideoURLResult_t {
   typedef struct GetVideoURLResult_t SteamCallback_t;
-  enum EResult m_eResult;
+  EResult m_eResult;
   AppId_t m_unVideoAppID;
   char   m_rgchURL [256];
 };
 struct GetOPFSettingsResult_t {
   typedef struct GetOPFSettingsResult_t SteamCallback_t;
-  enum EResult m_eResult;
+  EResult m_eResult;
   AppId_t m_unVideoAppID;
 };
 struct GSClientApprove_t {
-  class CSteamID m_SteamID;
-  class CSteamID m_OwnerSteamID;
+  CSteamID m_SteamID;
+  CSteamID m_OwnerSteamID;
 };
 struct GSClientDeny_t {
-  class CSteamID m_SteamID;
-  enum EDenyReason m_eDenyReason;
+  CSteamID m_SteamID;
+  EDenyReason m_eDenyReason;
   char   m_rgchOptionalText [128];
 };
 struct GSClientKick_t {
-  class CSteamID m_SteamID;
-  enum EDenyReason m_eDenyReason;
+  CSteamID m_SteamID;
+  EDenyReason m_eDenyReason;
 };
 struct GSClientAchievementStatus_t {
   uint64 m_SteamID;
@@ -2119,19 +2540,19 @@ struct GSPolicyResponse_t {
   uint8 m_bSecure;
 };
 struct GSGameplayStats_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   int32 m_nRank;
   uint32 m_unTotalConnects;
   uint32 m_unTotalMinutesPlayed;
 };
 struct GSClientGroupStatus_t {
-  class CSteamID m_SteamIDUser;
-  class CSteamID m_SteamIDGroup;
+  CSteamID m_SteamIDUser;
+  CSteamID m_SteamIDGroup;
   bool m_bMember;
   bool m_bOfficer;
 };
 struct GSReputation_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   uint32 m_unReputationScore;
   bool m_bBanned;
   uint32 m_unBannedIP;
@@ -2140,25 +2561,25 @@ struct GSReputation_t {
   uint32 m_unBanExpires;
 };
 struct AssociateWithClanResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
 };
 struct ComputeNewPlayerCompatibilityResult_t {
-  enum EResult m_eResult;
+  EResult m_eResult;
   int m_cPlayersThatDontLikeCandidate;
   int m_cPlayersThatCandidateDoesntLike;
   int m_cClanPlayersThatDontLikeCandidate;
-  class CSteamID m_SteamIDCandidate;
+  CSteamID m_SteamIDCandidate;
 };
 struct GSStatsReceived_t {
-  enum EResult m_eResult;
-  class CSteamID m_steamIDUser;
+  EResult m_eResult;
+  CSteamID m_steamIDUser;
 };
 struct GSStatsStored_t {
-  enum EResult m_eResult;
-  class CSteamID m_steamIDUser;
+  EResult m_eResult;
+  CSteamID m_steamIDUser;
 };
 struct GSStatsUnloaded_t {
-  class CSteamID m_steamIDUser;
+  CSteamID m_steamIDUser;
 };
 struct ItemInstalled_t {
   AppId_t m_unAppID;
@@ -2330,41 +2751,41 @@ struct ISteamClient {
   virtual HSteamUser ConnectToGlobalUser(HSteamPipe hSteamPipe);
   virtual HSteamUser CreateLocalUser(HSteamPipe * phSteamPipe, EAccountType eAccountType);
   virtual void ReleaseUser(HSteamPipe hSteamPipe, HSteamUser hUser);
-  virtual class ISteamUser * GetISteamUser(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamGameServer * GetISteamGameServer(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamUser * GetISteamUser(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamGameServer * GetISteamGameServer(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
   virtual void SetLocalIPBinding(uint32 unIP, uint16 usPort);
-  virtual class ISteamFriends * GetISteamFriends(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamUtils * GetISteamUtils(HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamMatchmaking * GetISteamMatchmaking(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamMatchmakingServers * GetISteamMatchmakingServers(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamFriends * GetISteamFriends(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamUtils * GetISteamUtils(HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamMatchmaking * GetISteamMatchmaking(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamMatchmakingServers * GetISteamMatchmakingServers(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
   virtual void * GetISteamGenericInterface(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamUserStats * GetISteamUserStats(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamGameServerStats * GetISteamGameServerStats(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamApps * GetISteamApps(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamNetworking * GetISteamNetworking(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamRemoteStorage * GetISteamRemoteStorage(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamScreenshots * GetISteamScreenshots(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamUserStats * GetISteamUserStats(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamGameServerStats * GetISteamGameServerStats(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamApps * GetISteamApps(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamNetworking * GetISteamNetworking(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamRemoteStorage * GetISteamRemoteStorage(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamScreenshots * GetISteamScreenshots(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
   virtual uint32 GetIPCCallCount();
   virtual void SetWarningMessageHook(SteamAPIWarningMessageHook_t pFunction);
   virtual bool BShutdownIfAllPipesClosed();
-  virtual class ISteamHTTP * GetISteamHTTP(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamController * GetISteamController(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamUGC * GetISteamUGC(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamAppList * GetISteamAppList(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamMusic * GetISteamMusic(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamMusicRemote * GetISteamMusicRemote(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamHTMLSurface * GetISteamHTMLSurface(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamInventory * GetISteamInventory(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamVideo * GetISteamVideo(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
-  virtual class ISteamParentalSettings * GetISteamParentalSettings(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamHTTP * GetISteamHTTP(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamController * GetISteamController(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamUGC * GetISteamUGC(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamAppList * GetISteamAppList(HSteamUser hSteamUser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamMusic * GetISteamMusic(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamMusicRemote * GetISteamMusicRemote(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamHTMLSurface * GetISteamHTMLSurface(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamInventory * GetISteamInventory(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamVideo * GetISteamVideo(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
+  virtual ISteamParentalSettings * GetISteamParentalSettings(HSteamUser hSteamuser, HSteamPipe hSteamPipe, const char * pchVersion);
 };
 struct ISteamUser {
   virtual HSteamUser GetHSteamUser();
   virtual bool BLoggedOn();
-  virtual uint64 GetSteamID();
-  virtual int InitiateGameConnection(void * pAuthBlob, int cbMaxAuthBlob, class CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer, bool bSecure);
+  virtual CSteamID GetSteamID();
+  virtual int InitiateGameConnection(void * pAuthBlob, int cbMaxAuthBlob, CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer, bool bSecure);
   virtual void TerminateGameConnection(uint32 unIPServer, uint16 usPortServer);
-  virtual void TrackAppUsageEvent(class CGameID gameID, int eAppUsageEvent, const char * pchExtraInfo);
+  virtual void TrackAppUsageEvent(CGameID gameID, int eAppUsageEvent, const char * pchExtraInfo);
   virtual bool GetUserDataFolder(char * pchBuffer, int cubBuffer);
   virtual void StartVoiceRecording();
   virtual void StopVoiceRecording();
@@ -2373,12 +2794,12 @@ struct ISteamUser {
   virtual EVoiceResult DecompressVoice(const void * pCompressed, uint32 cbCompressed, void * pDestBuffer, uint32 cbDestBufferSize, uint32 * nBytesWritten, uint32 nDesiredSampleRate);
   virtual uint32 GetVoiceOptimalSampleRate();
   virtual HAuthTicket GetAuthSessionTicket(void * pTicket, int cbMaxTicket, uint32 * pcbTicket);
-  virtual EBeginAuthSessionResult BeginAuthSession(const void * pAuthTicket, int cbAuthTicket, class CSteamID steamID);
-  virtual void EndAuthSession(class CSteamID steamID);
+  virtual EBeginAuthSessionResult BeginAuthSession(const void * pAuthTicket, int cbAuthTicket, CSteamID steamID);
+  virtual void EndAuthSession(CSteamID steamID);
   virtual void CancelAuthTicket(HAuthTicket hAuthTicket);
-  virtual EUserHasLicenseForAppResult UserHasLicenseForApp(class CSteamID steamID, AppId_t appID);
+  virtual EUserHasLicenseForAppResult UserHasLicenseForApp(CSteamID steamID, AppId_t appID);
   virtual bool BIsBehindNAT();
-  virtual void AdvertiseGame(class CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer);
+  virtual void AdvertiseGame(CSteamID steamIDGameServer, uint32 unIPServer, uint16 usPortServer);
   virtual SteamAPICall_t RequestEncryptedAppTicket(void * pDataToInclude, int cbDataToInclude);
   virtual bool GetEncryptedAppTicket(void * pTicket, int cbMaxTicket, uint32 * pcbTicket);
   virtual int GetGameBadgeLevel(int nSeries, bool bFoil);
@@ -2394,74 +2815,74 @@ struct ISteamFriends {
   virtual SteamAPICall_t SetPersonaName(const char * pchPersonaName);
   virtual EPersonaState GetPersonaState();
   virtual int GetFriendCount(int iFriendFlags);
-  virtual uint64 GetFriendByIndex(int iFriend, int iFriendFlags);
-  virtual EFriendRelationship GetFriendRelationship(class CSteamID steamIDFriend);
-  virtual EPersonaState GetFriendPersonaState(class CSteamID steamIDFriend);
-  virtual const char * GetFriendPersonaName(class CSteamID steamIDFriend);
-  virtual bool GetFriendGamePlayed(class CSteamID steamIDFriend, struct FriendGameInfo_t * pFriendGameInfo);
-  virtual const char * GetFriendPersonaNameHistory(class CSteamID steamIDFriend, int iPersonaName);
-  virtual int GetFriendSteamLevel(class CSteamID steamIDFriend);
-  virtual const char * GetPlayerNickname(class CSteamID steamIDPlayer);
+  virtual CSteamID GetFriendByIndex(int iFriend, int iFriendFlags);
+  virtual EFriendRelationship GetFriendRelationship(CSteamID steamIDFriend);
+  virtual EPersonaState GetFriendPersonaState(CSteamID steamIDFriend);
+  virtual const char * GetFriendPersonaName(CSteamID steamIDFriend);
+  virtual bool GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t * pFriendGameInfo);
+  virtual const char * GetFriendPersonaNameHistory(CSteamID steamIDFriend, int iPersonaName);
+  virtual int GetFriendSteamLevel(CSteamID steamIDFriend);
+  virtual const char * GetPlayerNickname(CSteamID steamIDPlayer);
   virtual int GetFriendsGroupCount();
   virtual FriendsGroupID_t GetFriendsGroupIDByIndex(int iFG);
   virtual const char * GetFriendsGroupName(FriendsGroupID_t friendsGroupID);
   virtual int GetFriendsGroupMembersCount(FriendsGroupID_t friendsGroupID);
-  virtual void GetFriendsGroupMembersList(FriendsGroupID_t friendsGroupID, class CSteamID * pOutSteamIDMembers, int nMembersCount);
-  virtual bool HasFriend(class CSteamID steamIDFriend, int iFriendFlags);
+  virtual void GetFriendsGroupMembersList(FriendsGroupID_t friendsGroupID, CSteamID * pOutSteamIDMembers, int nMembersCount);
+  virtual bool HasFriend(CSteamID steamIDFriend, int iFriendFlags);
   virtual int GetClanCount();
-  virtual uint64 GetClanByIndex(int iClan);
-  virtual const char * GetClanName(class CSteamID steamIDClan);
-  virtual const char * GetClanTag(class CSteamID steamIDClan);
-  virtual bool GetClanActivityCounts(class CSteamID steamIDClan, int * pnOnline, int * pnInGame, int * pnChatting);
-  virtual SteamAPICall_t DownloadClanActivityCounts(class CSteamID * psteamIDClans, int cClansToRequest);
-  virtual int GetFriendCountFromSource(class CSteamID steamIDSource);
-  virtual uint64 GetFriendFromSourceByIndex(class CSteamID steamIDSource, int iFriend);
-  virtual bool IsUserInSource(class CSteamID steamIDUser, class CSteamID steamIDSource);
-  virtual void SetInGameVoiceSpeaking(class CSteamID steamIDUser, bool bSpeaking);
+  virtual CSteamID GetClanByIndex(int iClan);
+  virtual const char * GetClanName(CSteamID steamIDClan);
+  virtual const char * GetClanTag(CSteamID steamIDClan);
+  virtual bool GetClanActivityCounts(CSteamID steamIDClan, int * pnOnline, int * pnInGame, int * pnChatting);
+  virtual SteamAPICall_t DownloadClanActivityCounts(CSteamID * psteamIDClans, int cClansToRequest);
+  virtual int GetFriendCountFromSource(CSteamID steamIDSource);
+  virtual CSteamID GetFriendFromSourceByIndex(CSteamID steamIDSource, int iFriend);
+  virtual bool IsUserInSource(CSteamID steamIDUser, CSteamID steamIDSource);
+  virtual void SetInGameVoiceSpeaking(CSteamID steamIDUser, bool bSpeaking);
   virtual void ActivateGameOverlay(const char * pchDialog);
-  virtual void ActivateGameOverlayToUser(const char * pchDialog, class CSteamID steamID);
+  virtual void ActivateGameOverlayToUser(const char * pchDialog, CSteamID steamID);
   virtual void ActivateGameOverlayToWebPage(const char * pchURL);
   virtual void ActivateGameOverlayToStore(AppId_t nAppID, EOverlayToStoreFlag eFlag);
-  virtual void SetPlayedWith(class CSteamID steamIDUserPlayedWith);
-  virtual void ActivateGameOverlayInviteDialog(class CSteamID steamIDLobby);
-  virtual int GetSmallFriendAvatar(class CSteamID steamIDFriend);
-  virtual int GetMediumFriendAvatar(class CSteamID steamIDFriend);
-  virtual int GetLargeFriendAvatar(class CSteamID steamIDFriend);
-  virtual bool RequestUserInformation(class CSteamID steamIDUser, bool bRequireNameOnly);
-  virtual SteamAPICall_t RequestClanOfficerList(class CSteamID steamIDClan);
-  virtual uint64 GetClanOwner(class CSteamID steamIDClan);
-  virtual int GetClanOfficerCount(class CSteamID steamIDClan);
-  virtual uint64 GetClanOfficerByIndex(class CSteamID steamIDClan, int iOfficer);
+  virtual void SetPlayedWith(CSteamID steamIDUserPlayedWith);
+  virtual void ActivateGameOverlayInviteDialog(CSteamID steamIDLobby);
+  virtual int GetSmallFriendAvatar(CSteamID steamIDFriend);
+  virtual int GetMediumFriendAvatar(CSteamID steamIDFriend);
+  virtual int GetLargeFriendAvatar(CSteamID steamIDFriend);
+  virtual bool RequestUserInformation(CSteamID steamIDUser, bool bRequireNameOnly);
+  virtual SteamAPICall_t RequestClanOfficerList(CSteamID steamIDClan);
+  virtual CSteamID GetClanOwner(CSteamID steamIDClan);
+  virtual int GetClanOfficerCount(CSteamID steamIDClan);
+  virtual CSteamID GetClanOfficerByIndex(CSteamID steamIDClan, int iOfficer);
   virtual uint32 GetUserRestrictions();
   virtual bool SetRichPresence(const char * pchKey, const char * pchValue);
   virtual void ClearRichPresence();
-  virtual const char * GetFriendRichPresence(class CSteamID steamIDFriend, const char * pchKey);
-  virtual int GetFriendRichPresenceKeyCount(class CSteamID steamIDFriend);
-  virtual const char * GetFriendRichPresenceKeyByIndex(class CSteamID steamIDFriend, int iKey);
-  virtual void RequestFriendRichPresence(class CSteamID steamIDFriend);
-  virtual bool InviteUserToGame(class CSteamID steamIDFriend, const char * pchConnectString);
+  virtual const char * GetFriendRichPresence(CSteamID steamIDFriend, const char * pchKey);
+  virtual int GetFriendRichPresenceKeyCount(CSteamID steamIDFriend);
+  virtual const char * GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend, int iKey);
+  virtual void RequestFriendRichPresence(CSteamID steamIDFriend);
+  virtual bool InviteUserToGame(CSteamID steamIDFriend, const char * pchConnectString);
   virtual int GetCoplayFriendCount();
-  virtual uint64 GetCoplayFriend(int iCoplayFriend);
-  virtual int GetFriendCoplayTime(class CSteamID steamIDFriend);
-  virtual AppId_t GetFriendCoplayGame(class CSteamID steamIDFriend);
-  virtual SteamAPICall_t JoinClanChatRoom(class CSteamID steamIDClan);
-  virtual bool LeaveClanChatRoom(class CSteamID steamIDClan);
-  virtual int GetClanChatMemberCount(class CSteamID steamIDClan);
-  virtual uint64 GetChatMemberByIndex(class CSteamID steamIDClan, int iUser);
-  virtual bool SendClanChatMessage(class CSteamID steamIDClanChat, const char * pchText);
-  virtual int GetClanChatMessage(class CSteamID steamIDClanChat, int iMessage, void * prgchText, int cchTextMax, EChatEntryType * peChatEntryType, class CSteamID * psteamidChatter);
-  virtual bool IsClanChatAdmin(class CSteamID steamIDClanChat, class CSteamID steamIDUser);
-  virtual bool IsClanChatWindowOpenInSteam(class CSteamID steamIDClanChat);
-  virtual bool OpenClanChatWindowInSteam(class CSteamID steamIDClanChat);
-  virtual bool CloseClanChatWindowInSteam(class CSteamID steamIDClanChat);
+  virtual CSteamID GetCoplayFriend(int iCoplayFriend);
+  virtual int GetFriendCoplayTime(CSteamID steamIDFriend);
+  virtual AppId_t GetFriendCoplayGame(CSteamID steamIDFriend);
+  virtual SteamAPICall_t JoinClanChatRoom(CSteamID steamIDClan);
+  virtual bool LeaveClanChatRoom(CSteamID steamIDClan);
+  virtual int GetClanChatMemberCount(CSteamID steamIDClan);
+  virtual CSteamID GetChatMemberByIndex(CSteamID steamIDClan, int iUser);
+  virtual bool SendClanChatMessage(CSteamID steamIDClanChat, const char * pchText);
+  virtual int GetClanChatMessage(CSteamID steamIDClanChat, int iMessage, void * prgchText, int cchTextMax, EChatEntryType * peChatEntryType, CSteamID * psteamidChatter);
+  virtual bool IsClanChatAdmin(CSteamID steamIDClanChat, CSteamID steamIDUser);
+  virtual bool IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat);
+  virtual bool OpenClanChatWindowInSteam(CSteamID steamIDClanChat);
+  virtual bool CloseClanChatWindowInSteam(CSteamID steamIDClanChat);
   virtual bool SetListenForFriendsMessages(bool bInterceptEnabled);
-  virtual bool ReplyToFriendMessage(class CSteamID steamIDFriend, const char * pchMsgToSend);
-  virtual int GetFriendMessage(class CSteamID steamIDFriend, int iMessageID, void * pvData, int cubData, EChatEntryType * peChatEntryType);
-  virtual SteamAPICall_t GetFollowerCount(class CSteamID steamID);
-  virtual SteamAPICall_t IsFollowing(class CSteamID steamID);
+  virtual bool ReplyToFriendMessage(CSteamID steamIDFriend, const char * pchMsgToSend);
+  virtual int GetFriendMessage(CSteamID steamIDFriend, int iMessageID, void * pvData, int cubData, EChatEntryType * peChatEntryType);
+  virtual SteamAPICall_t GetFollowerCount(CSteamID steamID);
+  virtual SteamAPICall_t IsFollowing(CSteamID steamID);
   virtual SteamAPICall_t EnumerateFollowingList(uint32 unStartIndex);
-  virtual bool IsClanPublic(class CSteamID steamIDClan);
-  virtual bool IsClanOfficialGameGroup(class CSteamID steamIDClan);
+  virtual bool IsClanPublic(CSteamID steamIDClan);
+  virtual bool IsClanOfficialGameGroup(CSteamID steamIDClan);
 };
 struct ISteamUtils {
   virtual uint32 GetSecondsSinceAppActive();
@@ -2506,33 +2927,33 @@ struct ISteamMatchmaking {
   virtual void AddRequestLobbyListFilterSlotsAvailable(int nSlotsAvailable);
   virtual void AddRequestLobbyListDistanceFilter(ELobbyDistanceFilter eLobbyDistanceFilter);
   virtual void AddRequestLobbyListResultCountFilter(int cMaxResults);
-  virtual void AddRequestLobbyListCompatibleMembersFilter(class CSteamID steamIDLobby);
-  virtual uint64 GetLobbyByIndex(int iLobby);
+  virtual void AddRequestLobbyListCompatibleMembersFilter(CSteamID steamIDLobby);
+  virtual CSteamID GetLobbyByIndex(int iLobby);
   virtual SteamAPICall_t CreateLobby(ELobbyType eLobbyType, int cMaxMembers);
-  virtual SteamAPICall_t JoinLobby(class CSteamID steamIDLobby);
-  virtual void LeaveLobby(class CSteamID steamIDLobby);
-  virtual bool InviteUserToLobby(class CSteamID steamIDLobby, class CSteamID steamIDInvitee);
-  virtual int GetNumLobbyMembers(class CSteamID steamIDLobby);
-  virtual uint64 GetLobbyMemberByIndex(class CSteamID steamIDLobby, int iMember);
-  virtual const char * GetLobbyData(class CSteamID steamIDLobby, const char * pchKey);
-  virtual bool SetLobbyData(class CSteamID steamIDLobby, const char * pchKey, const char * pchValue);
-  virtual int GetLobbyDataCount(class CSteamID steamIDLobby);
-  virtual bool GetLobbyDataByIndex(class CSteamID steamIDLobby, int iLobbyData, char * pchKey, int cchKeyBufferSize, char * pchValue, int cchValueBufferSize);
-  virtual bool DeleteLobbyData(class CSteamID steamIDLobby, const char * pchKey);
-  virtual const char * GetLobbyMemberData(class CSteamID steamIDLobby, class CSteamID steamIDUser, const char * pchKey);
-  virtual void SetLobbyMemberData(class CSteamID steamIDLobby, const char * pchKey, const char * pchValue);
-  virtual bool SendLobbyChatMsg(class CSteamID steamIDLobby, const void * pvMsgBody, int cubMsgBody);
-  virtual int GetLobbyChatEntry(class CSteamID steamIDLobby, int iChatID, class CSteamID * pSteamIDUser, void * pvData, int cubData, EChatEntryType * peChatEntryType);
-  virtual bool RequestLobbyData(class CSteamID steamIDLobby);
-  virtual void SetLobbyGameServer(class CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, class CSteamID steamIDGameServer);
-  virtual bool GetLobbyGameServer(class CSteamID steamIDLobby, uint32 * punGameServerIP, uint16 * punGameServerPort, class CSteamID * psteamIDGameServer);
-  virtual bool SetLobbyMemberLimit(class CSteamID steamIDLobby, int cMaxMembers);
-  virtual int GetLobbyMemberLimit(class CSteamID steamIDLobby);
-  virtual bool SetLobbyType(class CSteamID steamIDLobby, ELobbyType eLobbyType);
-  virtual bool SetLobbyJoinable(class CSteamID steamIDLobby, bool bLobbyJoinable);
-  virtual uint64 GetLobbyOwner(class CSteamID steamIDLobby);
-  virtual bool SetLobbyOwner(class CSteamID steamIDLobby, class CSteamID steamIDNewOwner);
-  virtual bool SetLinkedLobby(class CSteamID steamIDLobby, class CSteamID steamIDLobbyDependent);
+  virtual SteamAPICall_t JoinLobby(CSteamID steamIDLobby);
+  virtual void LeaveLobby(CSteamID steamIDLobby);
+  virtual bool InviteUserToLobby(CSteamID steamIDLobby, CSteamID steamIDInvitee);
+  virtual int GetNumLobbyMembers(CSteamID steamIDLobby);
+  virtual CSteamID GetLobbyMemberByIndex(CSteamID steamIDLobby, int iMember);
+  virtual const char * GetLobbyData(CSteamID steamIDLobby, const char * pchKey);
+  virtual bool SetLobbyData(CSteamID steamIDLobby, const char * pchKey, const char * pchValue);
+  virtual int GetLobbyDataCount(CSteamID steamIDLobby);
+  virtual bool GetLobbyDataByIndex(CSteamID steamIDLobby, int iLobbyData, char * pchKey, int cchKeyBufferSize, char * pchValue, int cchValueBufferSize);
+  virtual bool DeleteLobbyData(CSteamID steamIDLobby, const char * pchKey);
+  virtual const char * GetLobbyMemberData(CSteamID steamIDLobby, CSteamID steamIDUser, const char * pchKey);
+  virtual void SetLobbyMemberData(CSteamID steamIDLobby, const char * pchKey, const char * pchValue);
+  virtual bool SendLobbyChatMsg(CSteamID steamIDLobby, const void * pvMsgBody, int cubMsgBody);
+  virtual int GetLobbyChatEntry(CSteamID steamIDLobby, int iChatID, CSteamID * pSteamIDUser, void * pvData, int cubData, EChatEntryType * peChatEntryType);
+  virtual bool RequestLobbyData(CSteamID steamIDLobby);
+  virtual void SetLobbyGameServer(CSteamID steamIDLobby, uint32 unGameServerIP, uint16 unGameServerPort, CSteamID steamIDGameServer);
+  virtual bool GetLobbyGameServer(CSteamID steamIDLobby, uint32 * punGameServerIP, uint16 * punGameServerPort, CSteamID * psteamIDGameServer);
+  virtual bool SetLobbyMemberLimit(CSteamID steamIDLobby, int cMaxMembers);
+  virtual int GetLobbyMemberLimit(CSteamID steamIDLobby);
+  virtual bool SetLobbyType(CSteamID steamIDLobby, ELobbyType eLobbyType);
+  virtual bool SetLobbyJoinable(CSteamID steamIDLobby, bool bLobbyJoinable);
+  virtual CSteamID GetLobbyOwner(CSteamID steamIDLobby);
+  virtual bool SetLobbyOwner(CSteamID steamIDLobby, CSteamID steamIDNewOwner);
+  virtual bool SetLinkedLobby(CSteamID steamIDLobby, CSteamID steamIDLobbyDependent);
 };
 struct ISteamMatchmakingServerListResponse {
   virtual void ServerResponded(HServerListRequest hRequest, int iServer);
@@ -2540,7 +2961,7 @@ struct ISteamMatchmakingServerListResponse {
   virtual void RefreshComplete(HServerListRequest hRequest, EMatchMakingServerResponse response);
 };
 struct ISteamMatchmakingPingResponse {
-  virtual void ServerResponded(class gameserveritem_t & server);
+  virtual void ServerResponded(gameserveritem_t & server);
   virtual void ServerFailedToRespond();
 };
 struct ISteamMatchmakingPlayersResponse {
@@ -2554,22 +2975,22 @@ struct ISteamMatchmakingRulesResponse {
   virtual void RulesRefreshComplete();
 };
 struct ISteamMatchmakingServers {
-  virtual HServerListRequest RequestInternetServerList(AppId_t iApp, struct MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, class ISteamMatchmakingServerListResponse * pRequestServersResponse);
-  virtual HServerListRequest RequestLANServerList(AppId_t iApp, class ISteamMatchmakingServerListResponse * pRequestServersResponse);
-  virtual HServerListRequest RequestFriendsServerList(AppId_t iApp, struct MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, class ISteamMatchmakingServerListResponse * pRequestServersResponse);
-  virtual HServerListRequest RequestFavoritesServerList(AppId_t iApp, struct MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, class ISteamMatchmakingServerListResponse * pRequestServersResponse);
-  virtual HServerListRequest RequestHistoryServerList(AppId_t iApp, struct MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, class ISteamMatchmakingServerListResponse * pRequestServersResponse);
-  virtual HServerListRequest RequestSpectatorServerList(AppId_t iApp, struct MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, class ISteamMatchmakingServerListResponse * pRequestServersResponse);
+  virtual HServerListRequest RequestInternetServerList(AppId_t iApp, MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse * pRequestServersResponse);
+  virtual HServerListRequest RequestLANServerList(AppId_t iApp, ISteamMatchmakingServerListResponse * pRequestServersResponse);
+  virtual HServerListRequest RequestFriendsServerList(AppId_t iApp, MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse * pRequestServersResponse);
+  virtual HServerListRequest RequestFavoritesServerList(AppId_t iApp, MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse * pRequestServersResponse);
+  virtual HServerListRequest RequestHistoryServerList(AppId_t iApp, MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse * pRequestServersResponse);
+  virtual HServerListRequest RequestSpectatorServerList(AppId_t iApp, MatchMakingKeyValuePair_t ** ppchFilters, uint32 nFilters, ISteamMatchmakingServerListResponse * pRequestServersResponse);
   virtual void ReleaseRequest(HServerListRequest hServerListRequest);
-  virtual class gameserveritem_t * GetServerDetails(HServerListRequest hRequest, int iServer);
+  virtual gameserveritem_t * GetServerDetails(HServerListRequest hRequest, int iServer);
   virtual void CancelQuery(HServerListRequest hRequest);
   virtual void RefreshQuery(HServerListRequest hRequest);
   virtual bool IsRefreshing(HServerListRequest hRequest);
   virtual int GetServerCount(HServerListRequest hRequest);
   virtual void RefreshServer(HServerListRequest hRequest, int iServer);
-  virtual HServerQuery PingServer(uint32 unIP, uint16 usPort, class ISteamMatchmakingPingResponse * pRequestServersResponse);
-  virtual HServerQuery PlayerDetails(uint32 unIP, uint16 usPort, class ISteamMatchmakingPlayersResponse * pRequestServersResponse);
-  virtual HServerQuery ServerRules(uint32 unIP, uint16 usPort, class ISteamMatchmakingRulesResponse * pRequestServersResponse);
+  virtual HServerQuery PingServer(uint32 unIP, uint16 usPort, ISteamMatchmakingPingResponse * pRequestServersResponse);
+  virtual HServerQuery PlayerDetails(uint32 unIP, uint16 usPort, ISteamMatchmakingPlayersResponse * pRequestServersResponse);
+  virtual HServerQuery ServerRules(uint32 unIP, uint16 usPort, ISteamMatchmakingRulesResponse * pRequestServersResponse);
   virtual void CancelServerQuery(HServerQuery hServerQuery);
 };
 struct ISteamRemoteStorage {
@@ -2599,18 +3020,18 @@ struct ISteamRemoteStorage {
   virtual void SetCloudEnabledForApp(bool bEnabled);
   virtual SteamAPICall_t UGCDownload(UGCHandle_t hContent, uint32 unPriority);
   virtual bool GetUGCDownloadProgress(UGCHandle_t hContent, int32 * pnBytesDownloaded, int32 * pnBytesExpected);
-  virtual bool GetUGCDetails(UGCHandle_t hContent, AppId_t * pnAppID, char ** ppchName, int32 * pnFileSizeInBytes, class CSteamID * pSteamIDOwner);
+  virtual bool GetUGCDetails(UGCHandle_t hContent, AppId_t * pnAppID, char ** ppchName, int32 * pnFileSizeInBytes, CSteamID * pSteamIDOwner);
   virtual int32 UGCRead(UGCHandle_t hContent, void * pvData, int32 cubDataToRead, uint32 cOffset, EUGCReadAction eAction);
   virtual int32 GetCachedUGCCount();
   virtual UGCHandle_t GetCachedUGCHandle(int32 iCachedContent);
-  virtual SteamAPICall_t PublishWorkshopFile(const char * pchFile, const char * pchPreviewFile, AppId_t nConsumerAppId, const char * pchTitle, const char * pchDescription, ERemoteStoragePublishedFileVisibility eVisibility, struct SteamParamStringArray_t * pTags, EWorkshopFileType eWorkshopFileType);
+  virtual SteamAPICall_t PublishWorkshopFile(const char * pchFile, const char * pchPreviewFile, AppId_t nConsumerAppId, const char * pchTitle, const char * pchDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t * pTags, EWorkshopFileType eWorkshopFileType);
   virtual PublishedFileUpdateHandle_t CreatePublishedFileUpdateRequest(PublishedFileId_t unPublishedFileId);
   virtual bool UpdatePublishedFileFile(PublishedFileUpdateHandle_t updateHandle, const char * pchFile);
   virtual bool UpdatePublishedFilePreviewFile(PublishedFileUpdateHandle_t updateHandle, const char * pchPreviewFile);
   virtual bool UpdatePublishedFileTitle(PublishedFileUpdateHandle_t updateHandle, const char * pchTitle);
   virtual bool UpdatePublishedFileDescription(PublishedFileUpdateHandle_t updateHandle, const char * pchDescription);
   virtual bool UpdatePublishedFileVisibility(PublishedFileUpdateHandle_t updateHandle, ERemoteStoragePublishedFileVisibility eVisibility);
-  virtual bool UpdatePublishedFileTags(PublishedFileUpdateHandle_t updateHandle, struct SteamParamStringArray_t * pTags);
+  virtual bool UpdatePublishedFileTags(PublishedFileUpdateHandle_t updateHandle, SteamParamStringArray_t * pTags);
   virtual SteamAPICall_t CommitPublishedFileUpdate(PublishedFileUpdateHandle_t updateHandle);
   virtual SteamAPICall_t GetPublishedFileDetails(PublishedFileId_t unPublishedFileId, uint32 unMaxSecondsOld);
   virtual SteamAPICall_t DeletePublishedFile(PublishedFileId_t unPublishedFileId);
@@ -2622,11 +3043,11 @@ struct ISteamRemoteStorage {
   virtual SteamAPICall_t GetPublishedItemVoteDetails(PublishedFileId_t unPublishedFileId);
   virtual SteamAPICall_t UpdateUserPublishedItemVote(PublishedFileId_t unPublishedFileId, bool bVoteUp);
   virtual SteamAPICall_t GetUserPublishedItemVoteDetails(PublishedFileId_t unPublishedFileId);
-  virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles(class CSteamID steamId, uint32 unStartIndex, struct SteamParamStringArray_t * pRequiredTags, struct SteamParamStringArray_t * pExcludedTags);
-  virtual SteamAPICall_t PublishVideo(EWorkshopVideoProvider eVideoProvider, const char * pchVideoAccount, const char * pchVideoIdentifier, const char * pchPreviewFile, AppId_t nConsumerAppId, const char * pchTitle, const char * pchDescription, ERemoteStoragePublishedFileVisibility eVisibility, struct SteamParamStringArray_t * pTags);
+  virtual SteamAPICall_t EnumerateUserSharedWorkshopFiles(CSteamID steamId, uint32 unStartIndex, SteamParamStringArray_t * pRequiredTags, SteamParamStringArray_t * pExcludedTags);
+  virtual SteamAPICall_t PublishVideo(EWorkshopVideoProvider eVideoProvider, const char * pchVideoAccount, const char * pchVideoIdentifier, const char * pchPreviewFile, AppId_t nConsumerAppId, const char * pchTitle, const char * pchDescription, ERemoteStoragePublishedFileVisibility eVisibility, SteamParamStringArray_t * pTags);
   virtual SteamAPICall_t SetUserPublishedFileAction(PublishedFileId_t unPublishedFileId, EWorkshopFileAction eAction);
   virtual SteamAPICall_t EnumeratePublishedFilesByUserAction(EWorkshopFileAction eAction, uint32 unStartIndex);
-  virtual SteamAPICall_t EnumeratePublishedWorkshopFiles(EWorkshopEnumerationType eEnumerationType, uint32 unStartIndex, uint32 unCount, uint32 unDays, struct SteamParamStringArray_t * pTags, struct SteamParamStringArray_t * pUserTags);
+  virtual SteamAPICall_t EnumeratePublishedWorkshopFiles(EWorkshopEnumerationType eEnumerationType, uint32 unStartIndex, uint32 unCount, uint32 unDays, SteamParamStringArray_t * pTags, SteamParamStringArray_t * pUserTags);
   virtual SteamAPICall_t UGCDownloadToLocation(UGCHandle_t hContent, const char * pchLocation, uint32 unPriority);
 };
 struct ISteamUserStats {
@@ -2646,11 +3067,11 @@ struct ISteamUserStats {
   virtual bool IndicateAchievementProgress(const char * pchName, uint32 nCurProgress, uint32 nMaxProgress);
   virtual uint32 GetNumAchievements();
   virtual const char * GetAchievementName(uint32 iAchievement);
-  virtual SteamAPICall_t RequestUserStats(class CSteamID steamIDUser);
-  virtual bool GetUserStat(class CSteamID steamIDUser, const char * pchName, int32 * pData);
-  virtual bool GetUserStat(class CSteamID steamIDUser, const char * pchName, float * pData);
-  virtual bool GetUserAchievement(class CSteamID steamIDUser, const char * pchName, bool * pbAchieved);
-  virtual bool GetUserAchievementAndUnlockTime(class CSteamID steamIDUser, const char * pchName, bool * pbAchieved, uint32 * punUnlockTime);
+  virtual SteamAPICall_t RequestUserStats(CSteamID steamIDUser);
+  virtual bool GetUserStat(CSteamID steamIDUser, const char * pchName, int32 * pData);
+  virtual bool GetUserStat(CSteamID steamIDUser, const char * pchName, float * pData);
+  virtual bool GetUserAchievement(CSteamID steamIDUser, const char * pchName, bool * pbAchieved);
+  virtual bool GetUserAchievementAndUnlockTime(CSteamID steamIDUser, const char * pchName, bool * pbAchieved, uint32 * punUnlockTime);
   virtual bool ResetAllStats(bool bAchievementsToo);
   virtual SteamAPICall_t FindOrCreateLeaderboard(const char * pchLeaderboardName, ELeaderboardSortMethod eLeaderboardSortMethod, ELeaderboardDisplayType eLeaderboardDisplayType);
   virtual SteamAPICall_t FindLeaderboard(const char * pchLeaderboardName);
@@ -2659,8 +3080,8 @@ struct ISteamUserStats {
   virtual ELeaderboardSortMethod GetLeaderboardSortMethod(SteamLeaderboard_t hSteamLeaderboard);
   virtual ELeaderboardDisplayType GetLeaderboardDisplayType(SteamLeaderboard_t hSteamLeaderboard);
   virtual SteamAPICall_t DownloadLeaderboardEntries(SteamLeaderboard_t hSteamLeaderboard, ELeaderboardDataRequest eLeaderboardDataRequest, int nRangeStart, int nRangeEnd);
-  virtual SteamAPICall_t DownloadLeaderboardEntriesForUsers(SteamLeaderboard_t hSteamLeaderboard, class CSteamID * prgUsers, int cUsers);
-  virtual bool GetDownloadedLeaderboardEntry(SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, struct LeaderboardEntry_t * pLeaderboardEntry, int32 * pDetails, int cDetailsMax);
+  virtual SteamAPICall_t DownloadLeaderboardEntriesForUsers(SteamLeaderboard_t hSteamLeaderboard, CSteamID * prgUsers, int cUsers);
+  virtual bool GetDownloadedLeaderboardEntry(SteamLeaderboardEntries_t hSteamLeaderboardEntries, int index, LeaderboardEntry_t * pLeaderboardEntry, int32 * pDetails, int cDetailsMax);
   virtual SteamAPICall_t UploadLeaderboardScore(SteamLeaderboard_t hSteamLeaderboard, ELeaderboardUploadScoreMethod eLeaderboardUploadScoreMethod, int32 nScore, const int32 * pScoreDetails, int cScoreDetailsCount);
   virtual SteamAPICall_t AttachLeaderboardUGC(SteamLeaderboard_t hSteamLeaderboard, UGCHandle_t hUGC);
   virtual SteamAPICall_t GetNumberOfCurrentPlayers();
@@ -2695,7 +3116,7 @@ struct ISteamApps {
   virtual uint32 GetInstalledDepots(AppId_t appID, DepotId_t * pvecDepots, uint32 cMaxDepots);
   virtual uint32 GetAppInstallDir(AppId_t appID, char * pchFolder, uint32 cchFolderBufferSize);
   virtual bool BIsAppInstalled(AppId_t appID);
-  virtual uint64 GetAppOwner();
+  virtual CSteamID GetAppOwner();
   virtual const char * GetLaunchQueryParam(const char * pchKey);
   virtual bool GetDlcDownloadProgress(AppId_t nAppID, uint64 * punBytesDownloaded, uint64 * punBytesTotal);
   virtual int GetAppBuildId();
@@ -2703,16 +3124,16 @@ struct ISteamApps {
   virtual SteamAPICall_t GetFileDetails(const char * pszFileName);
 };
 struct ISteamNetworking {
-  virtual bool SendP2PPacket(class CSteamID steamIDRemote, const void * pubData, uint32 cubData, EP2PSend eP2PSendType, int nChannel);
+  virtual bool SendP2PPacket(CSteamID steamIDRemote, const void * pubData, uint32 cubData, EP2PSend eP2PSendType, int nChannel);
   virtual bool IsP2PPacketAvailable(uint32 * pcubMsgSize, int nChannel);
-  virtual bool ReadP2PPacket(void * pubDest, uint32 cubDest, uint32 * pcubMsgSize, class CSteamID * psteamIDRemote, int nChannel);
-  virtual bool AcceptP2PSessionWithUser(class CSteamID steamIDRemote);
-  virtual bool CloseP2PSessionWithUser(class CSteamID steamIDRemote);
-  virtual bool CloseP2PChannelWithUser(class CSteamID steamIDRemote, int nChannel);
-  virtual bool GetP2PSessionState(class CSteamID steamIDRemote, struct P2PSessionState_t * pConnectionState);
+  virtual bool ReadP2PPacket(void * pubDest, uint32 cubDest, uint32 * pcubMsgSize, CSteamID * psteamIDRemote, int nChannel);
+  virtual bool AcceptP2PSessionWithUser(CSteamID steamIDRemote);
+  virtual bool CloseP2PSessionWithUser(CSteamID steamIDRemote);
+  virtual bool CloseP2PChannelWithUser(CSteamID steamIDRemote, int nChannel);
+  virtual bool GetP2PSessionState(CSteamID steamIDRemote, P2PSessionState_t * pConnectionState);
   virtual bool AllowP2PPacketRelay(bool bAllow);
   virtual SNetListenSocket_t CreateListenSocket(int nVirtualP2PPort, uint32 nIP, uint16 nPort, bool bAllowUseOfPacketRelay);
-  virtual SNetSocket_t CreateP2PConnectionSocket(class CSteamID steamIDTarget, int nVirtualPort, int nTimeoutSec, bool bAllowUseOfPacketRelay);
+  virtual SNetSocket_t CreateP2PConnectionSocket(CSteamID steamIDTarget, int nVirtualPort, int nTimeoutSec, bool bAllowUseOfPacketRelay);
   virtual SNetSocket_t CreateConnectionSocket(uint32 nIP, uint16 nPort, int nTimeoutSec);
   virtual bool DestroySocket(SNetSocket_t hSocket, bool bNotifyRemoteEnd);
   virtual bool DestroyListenSocket(SNetListenSocket_t hSocket, bool bNotifyRemoteEnd);
@@ -2721,7 +3142,7 @@ struct ISteamNetworking {
   virtual bool RetrieveDataFromSocket(SNetSocket_t hSocket, void * pubDest, uint32 cubDest, uint32 * pcubMsgSize);
   virtual bool IsDataAvailable(SNetListenSocket_t hListenSocket, uint32 * pcubMsgSize, SNetSocket_t * phSocket);
   virtual bool RetrieveData(SNetListenSocket_t hListenSocket, void * pubDest, uint32 cubDest, uint32 * pcubMsgSize, SNetSocket_t * phSocket);
-  virtual bool GetSocketInfo(SNetSocket_t hSocket, class CSteamID * pSteamIDRemote, int * peSocketStatus, uint32 * punIPRemote, uint16 * punPortRemote);
+  virtual bool GetSocketInfo(SNetSocket_t hSocket, CSteamID * pSteamIDRemote, int * peSocketStatus, uint32 * punIPRemote, uint16 * punPortRemote);
   virtual bool GetListenSocketInfo(SNetListenSocket_t hListenSocket, uint32 * pnIP, uint16 * pnPort);
   virtual ESNetSocketConnectionType GetSocketConnectionType(SNetSocket_t hSocket);
   virtual int GetMaxPacketSize(SNetSocket_t hSocket);
@@ -2732,7 +3153,7 @@ struct ISteamScreenshots {
   virtual void TriggerScreenshot();
   virtual void HookScreenshots(bool bHook);
   virtual bool SetLocation(ScreenshotHandle hScreenshot, const char * pchLocation);
-  virtual bool TagUser(ScreenshotHandle hScreenshot, class CSteamID steamID);
+  virtual bool TagUser(ScreenshotHandle hScreenshot, CSteamID steamID);
   virtual bool TagPublishedFile(ScreenshotHandle hScreenshot, PublishedFileId_t unPublishedFileID);
   virtual bool IsScreenshotsHooked();
   virtual ScreenshotHandle AddVRScreenshotToLibrary(EVRScreenshotType eType, const char * pchFilename, const char * pchVRFilename);
@@ -2823,10 +3244,10 @@ struct ISteamController {
   virtual void DeactivateAllActionSetLayers(ControllerHandle_t controllerHandle);
   virtual int GetActiveActionSetLayers(ControllerHandle_t controllerHandle, ControllerActionSetHandle_t * handlesOut);
   virtual ControllerDigitalActionHandle_t GetDigitalActionHandle(const char * pszActionName);
-  virtual struct ControllerDigitalActionData_t GetDigitalActionData(ControllerHandle_t controllerHandle, ControllerDigitalActionHandle_t digitalActionHandle);
+  virtual ControllerDigitalActionData_t GetDigitalActionData(ControllerHandle_t controllerHandle, ControllerDigitalActionHandle_t digitalActionHandle);
   virtual int GetDigitalActionOrigins(ControllerHandle_t controllerHandle, ControllerActionSetHandle_t actionSetHandle, ControllerDigitalActionHandle_t digitalActionHandle, EControllerActionOrigin * originsOut);
   virtual ControllerAnalogActionHandle_t GetAnalogActionHandle(const char * pszActionName);
-  virtual struct ControllerAnalogActionData_t GetAnalogActionData(ControllerHandle_t controllerHandle, ControllerAnalogActionHandle_t analogActionHandle);
+  virtual ControllerAnalogActionData_t GetAnalogActionData(ControllerHandle_t controllerHandle, ControllerAnalogActionHandle_t analogActionHandle);
   virtual int GetAnalogActionOrigins(ControllerHandle_t controllerHandle, ControllerActionSetHandle_t actionSetHandle, ControllerAnalogActionHandle_t analogActionHandle, EControllerActionOrigin * originsOut);
   virtual void StopAnalogActionMomentum(ControllerHandle_t controllerHandle, ControllerAnalogActionHandle_t eAction);
   virtual void TriggerHapticPulse(ControllerHandle_t controllerHandle, ESteamControllerPad eTargetPad, unsigned short usDurationMicroSec);
@@ -2835,7 +3256,7 @@ struct ISteamController {
   virtual void SetLEDColor(ControllerHandle_t controllerHandle, uint8 nColorR, uint8 nColorG, uint8 nColorB, unsigned int nFlags);
   virtual int GetGamepadIndexForController(ControllerHandle_t ulControllerHandle);
   virtual ControllerHandle_t GetControllerForGamepadIndex(int nIndex);
-  virtual struct ControllerMotionData_t GetMotionData(ControllerHandle_t controllerHandle);
+  virtual ControllerMotionData_t GetMotionData(ControllerHandle_t controllerHandle);
   virtual bool ShowDigitalActionOrigins(ControllerHandle_t controllerHandle, ControllerDigitalActionHandle_t digitalActionHandle, float flScale, float flXPosition, float flYPosition);
   virtual bool ShowAnalogActionOrigins(ControllerHandle_t controllerHandle, ControllerAnalogActionHandle_t analogActionHandle, float flScale, float flXPosition, float flYPosition);
   virtual const char * GetStringForActionOrigin(EControllerActionOrigin eOrigin);
@@ -2847,7 +3268,7 @@ struct ISteamUGC {
   virtual UGCQueryHandle_t CreateQueryAllUGCRequest(EUGCQuery eQueryType, EUGCMatchingUGCType eMatchingeMatchingUGCTypeFileType, AppId_t nCreatorAppID, AppId_t nConsumerAppID, uint32 unPage);
   virtual UGCQueryHandle_t CreateQueryUGCDetailsRequest(PublishedFileId_t * pvecPublishedFileID, uint32 unNumPublishedFileIDs);
   virtual SteamAPICall_t SendQueryUGCRequest(UGCQueryHandle_t handle);
-  virtual bool GetQueryUGCResult(UGCQueryHandle_t handle, uint32 index, struct SteamUGCDetails_t * pDetails);
+  virtual bool GetQueryUGCResult(UGCQueryHandle_t handle, uint32 index, SteamUGCDetails_t * pDetails);
   virtual bool GetQueryUGCPreviewURL(UGCQueryHandle_t handle, uint32 index, char * pchURL, uint32 cchURLSize);
   virtual bool GetQueryUGCMetadata(UGCQueryHandle_t handle, uint32 index, char * pchMetadata, uint32 cchMetadatasize);
   virtual bool GetQueryUGCChildren(UGCQueryHandle_t handle, uint32 index, PublishedFileId_t * pvecPublishedFileID, uint32 cMaxEntries);
@@ -2882,7 +3303,7 @@ struct ISteamUGC {
   virtual bool SetItemUpdateLanguage(UGCUpdateHandle_t handle, const char * pchLanguage);
   virtual bool SetItemMetadata(UGCUpdateHandle_t handle, const char * pchMetaData);
   virtual bool SetItemVisibility(UGCUpdateHandle_t handle, ERemoteStoragePublishedFileVisibility eVisibility);
-  virtual bool SetItemTags(UGCUpdateHandle_t updateHandle, const struct SteamParamStringArray_t * pTags);
+  virtual bool SetItemTags(UGCUpdateHandle_t updateHandle, const SteamParamStringArray_t * pTags);
   virtual bool SetItemContent(UGCUpdateHandle_t handle, const char * pszContentFolder);
   virtual bool SetItemPreview(UGCUpdateHandle_t handle, const char * pszPreviewFile);
   virtual bool RemoveItemKeyValueTags(UGCUpdateHandle_t handle, const char * pchKey);
@@ -2927,10 +3348,10 @@ struct ISteamAppList {
 };
 struct ISteamInventory {
   virtual EResult GetResultStatus(SteamInventoryResult_t resultHandle);
-  virtual bool GetResultItems(SteamInventoryResult_t resultHandle, struct SteamItemDetails_t * pOutItemsArray, uint32 * punOutItemsArraySize);
+  virtual bool GetResultItems(SteamInventoryResult_t resultHandle, SteamItemDetails_t * pOutItemsArray, uint32 * punOutItemsArraySize);
   virtual bool GetResultItemProperty(SteamInventoryResult_t resultHandle, uint32 unItemIndex, const char * pchPropertyName, char * pchValueBuffer, uint32 * punValueBufferSizeOut);
   virtual uint32 GetResultTimestamp(SteamInventoryResult_t resultHandle);
-  virtual bool CheckResultSteamID(SteamInventoryResult_t resultHandle, class CSteamID steamIDExpected);
+  virtual bool CheckResultSteamID(SteamInventoryResult_t resultHandle, CSteamID steamIDExpected);
   virtual void DestroyResult(SteamInventoryResult_t resultHandle);
   virtual bool GetAllItems(SteamInventoryResult_t * pResultHandle);
   virtual bool GetItemsByID(SteamInventoryResult_t * pResultHandle, const SteamItemInstanceID_t * pInstanceIDs, uint32 unCountInstanceIDs);
@@ -2945,12 +3366,12 @@ struct ISteamInventory {
   virtual bool TransferItemQuantity(SteamInventoryResult_t * pResultHandle, SteamItemInstanceID_t itemIdSource, uint32 unQuantity, SteamItemInstanceID_t itemIdDest);
   virtual void SendItemDropHeartbeat();
   virtual bool TriggerItemDrop(SteamInventoryResult_t * pResultHandle, SteamItemDef_t dropListDefinition);
-  virtual bool TradeItems(SteamInventoryResult_t * pResultHandle, class CSteamID steamIDTradePartner, const SteamItemInstanceID_t * pArrayGive, const uint32 * pArrayGiveQuantity, uint32 nArrayGiveLength, const SteamItemInstanceID_t * pArrayGet, const uint32 * pArrayGetQuantity, uint32 nArrayGetLength);
+  virtual bool TradeItems(SteamInventoryResult_t * pResultHandle, CSteamID steamIDTradePartner, const SteamItemInstanceID_t * pArrayGive, const uint32 * pArrayGiveQuantity, uint32 nArrayGiveLength, const SteamItemInstanceID_t * pArrayGet, const uint32 * pArrayGetQuantity, uint32 nArrayGetLength);
   virtual bool LoadItemDefinitions();
   virtual bool GetItemDefinitionIDs(SteamItemDef_t * pItemDefIDs, uint32 * punItemDefIDsArraySize);
   virtual bool GetItemDefinitionProperty(SteamItemDef_t iDefinition, const char * pchPropertyName, char * pchValueBuffer, uint32 * punValueBufferSizeOut);
-  virtual SteamAPICall_t RequestEligiblePromoItemDefinitionsIDs(class CSteamID steamID);
-  virtual bool GetEligiblePromoItemDefinitionIDs(class CSteamID steamID, SteamItemDef_t * pItemDefIDs, uint32 * punItemDefIDsArraySize);
+  virtual SteamAPICall_t RequestEligiblePromoItemDefinitionsIDs(CSteamID steamID);
+  virtual bool GetEligiblePromoItemDefinitionIDs(CSteamID steamID, SteamItemDef_t * pItemDefIDs, uint32 * punItemDefIDsArraySize);
   virtual SteamAPICall_t StartPurchase(const SteamItemDef_t * pArrayItemDefs, const uint32 * punArrayQuantity, uint32 unArrayLength);
   virtual SteamAPICall_t RequestPrices();
   virtual uint32 GetNumItemsWithPrices();
@@ -2989,7 +3410,7 @@ struct ISteamGameServer {
   virtual void LogOff();
   virtual bool BLoggedOn();
   virtual bool BSecure();
-  virtual uint64 GetSteamID();
+  virtual CSteamID GetSteamID();
   virtual bool WasRestartRequested();
   virtual void SetMaxPlayerCount(int cPlayersMax);
   virtual void SetBotPlayerCount(int cBotplayers);
@@ -3003,16 +3424,16 @@ struct ISteamGameServer {
   virtual void SetGameTags(const char * pchGameTags);
   virtual void SetGameData(const char * pchGameData);
   virtual void SetRegion(const char * pszRegion);
-  virtual bool SendUserConnectAndAuthenticate(uint32 unIPClient, const void * pvAuthBlob, uint32 cubAuthBlobSize, class CSteamID * pSteamIDUser);
-  virtual uint64 CreateUnauthenticatedUserConnection();
-  virtual void SendUserDisconnect(class CSteamID steamIDUser);
-  virtual bool BUpdateUserData(class CSteamID steamIDUser, const char * pchPlayerName, uint32 uScore);
+  virtual bool SendUserConnectAndAuthenticate(uint32 unIPClient, const void * pvAuthBlob, uint32 cubAuthBlobSize, CSteamID * pSteamIDUser);
+  virtual CSteamID CreateUnauthenticatedUserConnection();
+  virtual void SendUserDisconnect(CSteamID steamIDUser);
+  virtual bool BUpdateUserData(CSteamID steamIDUser, const char * pchPlayerName, uint32 uScore);
   virtual HAuthTicket GetAuthSessionTicket(void * pTicket, int cbMaxTicket, uint32 * pcbTicket);
-  virtual EBeginAuthSessionResult BeginAuthSession(const void * pAuthTicket, int cbAuthTicket, class CSteamID steamID);
-  virtual void EndAuthSession(class CSteamID steamID);
+  virtual EBeginAuthSessionResult BeginAuthSession(const void * pAuthTicket, int cbAuthTicket, CSteamID steamID);
+  virtual void EndAuthSession(CSteamID steamID);
   virtual void CancelAuthTicket(HAuthTicket hAuthTicket);
-  virtual EUserHasLicenseForAppResult UserHasLicenseForApp(class CSteamID steamID, AppId_t appID);
-  virtual bool RequestUserGroupStatus(class CSteamID steamIDUser, class CSteamID steamIDGroup);
+  virtual EUserHasLicenseForAppResult UserHasLicenseForApp(CSteamID steamID, AppId_t appID);
+  virtual bool RequestUserGroupStatus(CSteamID steamIDUser, CSteamID steamIDGroup);
   virtual void GetGameplayStats();
   virtual SteamAPICall_t GetServerReputation();
   virtual uint32 GetPublicIP();
@@ -3021,20 +3442,20 @@ struct ISteamGameServer {
   virtual void EnableHeartbeats(bool bActive);
   virtual void SetHeartbeatInterval(int iHeartbeatInterval);
   virtual void ForceHeartbeat();
-  virtual SteamAPICall_t AssociateWithClan(class CSteamID steamIDClan);
-  virtual SteamAPICall_t ComputeNewPlayerCompatibility(class CSteamID steamIDNewPlayer);
+  virtual SteamAPICall_t AssociateWithClan(CSteamID steamIDClan);
+  virtual SteamAPICall_t ComputeNewPlayerCompatibility(CSteamID steamIDNewPlayer);
 };
 struct ISteamGameServerStats {
-  virtual SteamAPICall_t RequestUserStats(class CSteamID steamIDUser);
-  virtual bool GetUserStat(class CSteamID steamIDUser, const char * pchName, int32 * pData);
-  virtual bool GetUserStat(class CSteamID steamIDUser, const char * pchName, float * pData);
-  virtual bool GetUserAchievement(class CSteamID steamIDUser, const char * pchName, bool * pbAchieved);
-  virtual bool SetUserStat(class CSteamID steamIDUser, const char * pchName, int32 nData);
-  virtual bool SetUserStat(class CSteamID steamIDUser, const char * pchName, float fData);
-  virtual bool UpdateUserAvgRateStat(class CSteamID steamIDUser, const char * pchName, float flCountThisSession, double dSessionLength);
-  virtual bool SetUserAchievement(class CSteamID steamIDUser, const char * pchName);
-  virtual bool ClearUserAchievement(class CSteamID steamIDUser, const char * pchName);
-  virtual SteamAPICall_t StoreUserStats(class CSteamID steamIDUser);
+  virtual SteamAPICall_t RequestUserStats(CSteamID steamIDUser);
+  virtual bool GetUserStat(CSteamID steamIDUser, const char * pchName, int32 * pData);
+  virtual bool GetUserStat(CSteamID steamIDUser, const char * pchName, float * pData);
+  virtual bool GetUserAchievement(CSteamID steamIDUser, const char * pchName, bool * pbAchieved);
+  virtual bool SetUserStat(CSteamID steamIDUser, const char * pchName, int32 nData);
+  virtual bool SetUserStat(CSteamID steamIDUser, const char * pchName, float fData);
+  virtual bool UpdateUserAvgRateStat(CSteamID steamIDUser, const char * pchName, float flCountThisSession, double dSessionLength);
+  virtual bool SetUserAchievement(CSteamID steamIDUser, const char * pchName);
+  virtual bool ClearUserAchievement(CSteamID steamIDUser, const char * pchName);
+  virtual SteamAPICall_t StoreUserStats(CSteamID steamIDUser);
 };
 extern "C" bool SteamAPI_Init();
 extern "C" void SteamAPI_RunCallbacks();
@@ -3052,5 +3473,6 @@ extern "C" HSteamUser SteamGameServer_GetHSteamUser();
 extern "C" HSteamPipe SteamGameServer_GetHSteamPipe();
 extern "C" void * SteamInternal_CreateInterface(const char * version);
 extern "C" bool SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID);
+
 
 #endif // INCLUDED_STEAM_API_HPP

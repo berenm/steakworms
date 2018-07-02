@@ -10,6 +10,8 @@
 #include <wine/debug.h>
 #endif
 
+#include "steam_types.hpp"
+
 struct SteamIDComponent_t {
   unsigned m_unAccountID : 32;
   unsigned m_unAccountInstance : 20;
@@ -21,6 +23,31 @@ struct GameID_t {
   unsigned m_nAppID : 24;
   unsigned m_nType : 8;
   unsigned m_nModID : 32;
+};
+
+union SteamID_t {
+  SteamIDComponent_t m_comp;
+  uint64             m_unAll64Bits;
+};
+
+#if 0
+struct CSteamID {
+  union SteamID_t m_steamid;
+};
+#endif
+
+typedef uint64 CSteamID;
+
+enum EGameIDType {
+  k_EGameIDTypeApp      = 0,
+  k_EGameIDTypeGameMod  = 1,
+  k_EGameIDTypeShortcut = 2,
+  k_EGameIDTypeP2P      = 3,
+};
+
+struct CGameID {
+  uint64   m_ulGameID;
+  GameID_t m_gameID;
 };
 
 #include "steam_api.hpp"
