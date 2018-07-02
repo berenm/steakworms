@@ -2,16 +2,19 @@
 
 #include <cstdint>
 #include <cstdio>
-#include <cstdlib>
 #include <ctime>
 
 #include <unistd.h>
 
 #include "steakworms.hpp"
 
-#ifndef _WIN32
-int __dbg = dup(2);
-#endif
+struct CCallbackBase {
+  EXTERN_ABI virtual void Run(void *pvParam)                = 0;
+  EXTERN_ABI virtual void Run(void *pvParam, bool bIOFailure,
+                              SteamAPICall_t hSteamAPICall) = 0;
+};
+
+void CCallbackBase::Run(void *pvParam) {}
 
 CCallbackBase *RequestCurrentStatsCallback = NULL;
 
@@ -308,9 +311,9 @@ bool ISteamUser::BLoggedOn() {
   return true;
 }
 
-uint64 ISteamUser::GetSteamID() {
+CSteamID ISteamUser::GetSteamID() {
   debug("ISteamUser::GetSteamID()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
 int ISteamUser::InitiateGameConnection(void *pAuthBlob, int cbMaxAuthBlob,
@@ -628,24 +631,24 @@ bool ISteamUserStats::RequestCurrentStats() {
 }
 
 bool ISteamUserStats::GetStat(const char *pchName, int32_t *pData) {
-  debug("ISteamUserStats::GetStat(%s)", pchName);
+  debug("ISteamUserStats::GetStat(%p, %s)", this, pchName);
   *pData = 0;
   return true;
 }
 
 bool ISteamUserStats::GetStat(const char *pchName, float *pData) {
-  debug("ISteamUserStats::GetStatf(%s)", pchName);
+  debug("ISteamUserStats::GetStatf(%p, %s)", this, pchName);
   *pData = 0;
   return true;
 }
 
 bool ISteamUserStats::SetStat(const char *pchName, int32_t nData) {
-  debug("ISteamUserStats::SetStat(%s, %d)", pchName, nData);
+  debug("ISteamUserStats::SetStat(%p, %s, %d)", this, pchName, nData);
   return true;
 }
 
 bool ISteamUserStats::SetStat(const char *pchName, float fData) {
-  debug("ISteamUserStats::SetStatf(%s, %f)", pchName, fData);
+  debug("ISteamUserStats::SetStatf(%p, %s, %f)", this, pchName, fData);
   return true;
 }
 
@@ -986,9 +989,9 @@ bool ISteamApps::BIsAppInstalled(AppId_t appID) {
   return true;
 }
 
-uint64 ISteamApps::GetAppOwner() {
+CSteamID ISteamApps::GetAppOwner() {
   debug("ISteamApps::GetAppOwner()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
 const char *ISteamApps::GetLaunchQueryParam(const char *pchKey) {
@@ -1037,47 +1040,45 @@ int ISteamFriends::GetFriendCount(int iFriendFlags) {
   return true;
 }
 
-uint64 ISteamFriends::GetFriendByIndex(int iFriend, int iFriendFlags) {
+CSteamID ISteamFriends::GetFriendByIndex(int iFriend, int iFriendFlags) {
   debug("ISteamFriends::GetFriendByIndex()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
 EFriendRelationship
-ISteamFriends::GetFriendRelationship(class CSteamID steamIDFriend) {
+ISteamFriends::GetFriendRelationship(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendRelationship()");
   return k_EFriendRelationshipNone;
 }
 
-EPersonaState
-ISteamFriends::GetFriendPersonaState(class CSteamID steamIDFriend) {
+EPersonaState ISteamFriends::GetFriendPersonaState(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendPersonaState()");
   return k_EPersonaStateOffline;
 }
 
-const char *ISteamFriends::GetFriendPersonaName(class CSteamID steamIDFriend) {
+const char *ISteamFriends::GetFriendPersonaName(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendPersonaName()");
   return "";
 }
 
 bool ISteamFriends::GetFriendGamePlayed(
-    class CSteamID steamIDFriend, struct FriendGameInfo_t *pFriendGameInfo) {
+    CSteamID steamIDFriend, struct FriendGameInfo_t *pFriendGameInfo) {
   debug("ISteamFriends::GetFriendGamePlayed()");
   return true;
 }
 
-const char *
-ISteamFriends::GetFriendPersonaNameHistory(class CSteamID steamIDFriend,
-                                           int            iPersonaName) {
+const char *ISteamFriends::GetFriendPersonaNameHistory(CSteamID steamIDFriend,
+                                                       int      iPersonaName) {
   debug("ISteamFriends::GetFriendPersonaNameHistory()");
   return "";
 }
 
-int ISteamFriends::GetFriendSteamLevel(class CSteamID steamIDFriend) {
+int ISteamFriends::GetFriendSteamLevel(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendSteamLevel()");
   return true;
 }
 
-const char *ISteamFriends::GetPlayerNickname(class CSteamID steamIDPlayer) {
+const char *ISteamFriends::GetPlayerNickname(CSteamID steamIDPlayer) {
   debug("ISteamFriends::GetPlayerNickname()");
   return "";
 }
@@ -1104,13 +1105,13 @@ int ISteamFriends::GetFriendsGroupMembersCount(
   return true;
 }
 
-void ISteamFriends::GetFriendsGroupMembersList(
-    FriendsGroupID_t friendsGroupID, class CSteamID *pOutSteamIDMembers,
-    int nMembersCount) {
+void ISteamFriends::GetFriendsGroupMembersList(FriendsGroupID_t friendsGroupID,
+                                               CSteamID *pOutSteamIDMembers,
+                                               int       nMembersCount) {
   debug("ISteamFriends::GetFriendsGroupMembersList()");
 }
 
-bool ISteamFriends::HasFriend(class CSteamID steamIDFriend, int iFriendFlags) {
+bool ISteamFriends::HasFriend(CSteamID steamIDFriend, int iFriendFlags) {
   debug("ISteamFriends::HasFriend()");
   return true;
 }
@@ -1120,54 +1121,53 @@ int ISteamFriends::GetClanCount() {
   return true;
 }
 
-uint64 ISteamFriends::GetClanByIndex(int iClan) {
+CSteamID ISteamFriends::GetClanByIndex(int iClan) {
   debug("ISteamFriends::GetClanByIndex()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-const char *ISteamFriends::GetClanName(class CSteamID steamIDClan) {
+const char *ISteamFriends::GetClanName(CSteamID steamIDClan) {
   debug("ISteamFriends::GetClanName()");
   return "";
 }
 
-const char *ISteamFriends::GetClanTag(class CSteamID steamIDClan) {
+const char *ISteamFriends::GetClanTag(CSteamID steamIDClan) {
   debug("ISteamFriends::GetClanTag()");
   return "";
 }
 
-bool ISteamFriends::GetClanActivityCounts(class CSteamID steamIDClan,
-                                          int *pnOnline, int *pnInGame,
-                                          int *pnChatting) {
+bool ISteamFriends::GetClanActivityCounts(CSteamID steamIDClan, int *pnOnline,
+                                          int *pnInGame, int *pnChatting) {
   debug("ISteamFriends::GetClanActivityCounts()");
   return true;
 }
 
 SteamAPICall_t
-ISteamFriends::DownloadClanActivityCounts(class CSteamID *psteamIDClans,
-                                          int             cClansToRequest) {
+ISteamFriends::DownloadClanActivityCounts(CSteamID *psteamIDClans,
+                                          int       cClansToRequest) {
   debug("ISteamFriends::DownloadClanActivityCounts()");
   return true;
 }
 
-int ISteamFriends::GetFriendCountFromSource(class CSteamID steamIDSource) {
+int ISteamFriends::GetFriendCountFromSource(CSteamID steamIDSource) {
   debug("ISteamFriends::GetFriendCountFromSource()");
   return true;
 }
 
-uint64 ISteamFriends::GetFriendFromSourceByIndex(class CSteamID steamIDSource,
-                                                 int            iFriend) {
+CSteamID ISteamFriends::GetFriendFromSourceByIndex(CSteamID steamIDSource,
+                                                   int      iFriend) {
   debug("ISteamFriends::GetFriendFromSourceByIndex()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-bool ISteamFriends::IsUserInSource(class CSteamID steamIDUser,
-                                   class CSteamID steamIDSource) {
+bool ISteamFriends::IsUserInSource(CSteamID steamIDUser,
+                                   CSteamID steamIDSource) {
   debug("ISteamFriends::IsUserInSource()");
   return true;
 }
 
-void ISteamFriends::SetInGameVoiceSpeaking(class CSteamID steamIDUser,
-                                           bool           bSpeaking) {
+void ISteamFriends::SetInGameVoiceSpeaking(CSteamID steamIDUser,
+                                           bool     bSpeaking) {
   debug("ISteamFriends::SetInGameVoiceSpeaking()");
 }
 
@@ -1175,8 +1175,8 @@ void ISteamFriends::ActivateGameOverlay(const char *pchDialog) {
   debug("ISteamFriends::ActivateGameOverlay()");
 }
 
-void ISteamFriends::ActivateGameOverlayToUser(const char *   pchDialog,
-                                              class CSteamID steamID) {
+void ISteamFriends::ActivateGameOverlayToUser(const char *pchDialog,
+                                              CSteamID    steamID) {
   debug("ISteamFriends::ActivateGameOverlayToUser()");
 }
 
@@ -1189,56 +1189,54 @@ void ISteamFriends::ActivateGameOverlayToStore(AppId_t             nAppID,
   debug("ISteamFriends::ActivateGameOverlayToStore()");
 }
 
-void ISteamFriends::SetPlayedWith(class CSteamID steamIDUserPlayedWith) {
+void ISteamFriends::SetPlayedWith(CSteamID steamIDUserPlayedWith) {
   debug("ISteamFriends::SetPlayedWith()");
 }
 
-void ISteamFriends::ActivateGameOverlayInviteDialog(
-    class CSteamID steamIDLobby) {
+void ISteamFriends::ActivateGameOverlayInviteDialog(CSteamID steamIDLobby) {
   debug("ISteamFriends::ActivateGameOverlayInviteDialog()");
 }
 
-int ISteamFriends::GetSmallFriendAvatar(class CSteamID steamIDFriend) {
+int ISteamFriends::GetSmallFriendAvatar(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetSmallFriendAvatar()");
   return true;
 }
 
-int ISteamFriends::GetMediumFriendAvatar(class CSteamID steamIDFriend) {
+int ISteamFriends::GetMediumFriendAvatar(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetMediumFriendAvatar()");
   return true;
 }
 
-int ISteamFriends::GetLargeFriendAvatar(class CSteamID steamIDFriend) {
+int ISteamFriends::GetLargeFriendAvatar(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetLargeFriendAvatar()");
   return true;
 }
 
-bool ISteamFriends::RequestUserInformation(class CSteamID steamIDUser,
-                                           bool           bRequireNameOnly) {
+bool ISteamFriends::RequestUserInformation(CSteamID steamIDUser,
+                                           bool     bRequireNameOnly) {
   debug("ISteamFriends::RequestUserInformation()");
   return true;
 }
 
-SteamAPICall_t
-ISteamFriends::RequestClanOfficerList(class CSteamID steamIDClan) {
+SteamAPICall_t ISteamFriends::RequestClanOfficerList(CSteamID steamIDClan) {
   debug("ISteamFriends::RequestClanOfficerList()");
   return true;
 }
 
-uint64 ISteamFriends::GetClanOwner(class CSteamID steamIDClan) {
+CSteamID ISteamFriends::GetClanOwner(CSteamID steamIDClan) {
   debug("ISteamFriends::GetClanOwner()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-int ISteamFriends::GetClanOfficerCount(class CSteamID steamIDClan) {
+int ISteamFriends::GetClanOfficerCount(CSteamID steamIDClan) {
   debug("ISteamFriends::GetClanOfficerCount()");
   return true;
 }
 
-uint64 ISteamFriends::GetClanOfficerByIndex(class CSteamID steamIDClan,
-                                            int            iOfficer) {
+CSteamID ISteamFriends::GetClanOfficerByIndex(CSteamID steamIDClan,
+                                              int      iOfficer) {
   debug("ISteamFriends::GetClanOfficerByIndex()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
 uint32_t ISteamFriends::GetUserRestrictions() {
@@ -1255,30 +1253,30 @@ void ISteamFriends::ClearRichPresence() {
   debug("ISteamFriends::ClearRichPresence()");
 }
 
-const char *ISteamFriends::GetFriendRichPresence(class CSteamID steamIDFriend,
-                                                 const char *   pchKey) {
+const char *ISteamFriends::GetFriendRichPresence(CSteamID    steamIDFriend,
+                                                 const char *pchKey) {
   debug("ISteamFriends::GetFriendRichPresence()");
   return "";
 }
 
-int ISteamFriends::GetFriendRichPresenceKeyCount(class CSteamID steamIDFriend) {
+int ISteamFriends::GetFriendRichPresenceKeyCount(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendRichPresenceKeyCount()");
   return true;
 }
 
 const char *
-ISteamFriends::GetFriendRichPresenceKeyByIndex(class CSteamID steamIDFriend,
-                                               int            iKey) {
+ISteamFriends::GetFriendRichPresenceKeyByIndex(CSteamID steamIDFriend,
+                                               int      iKey) {
   debug("ISteamFriends::GetFriendRichPresenceKeyByIndex()");
   return "";
 }
 
-void ISteamFriends::RequestFriendRichPresence(class CSteamID steamIDFriend) {
+void ISteamFriends::RequestFriendRichPresence(CSteamID steamIDFriend) {
   debug("ISteamFriends::RequestFriendRichPresence()");
 }
 
-bool ISteamFriends::InviteUserToGame(class CSteamID steamIDFriend,
-                                     const char *   pchConnectString) {
+bool ISteamFriends::InviteUserToGame(CSteamID    steamIDFriend,
+                                     const char *pchConnectString) {
   debug("ISteamFriends::InviteUserToGame()");
   return true;
 }
@@ -1288,75 +1286,72 @@ int ISteamFriends::GetCoplayFriendCount() {
   return true;
 }
 
-uint64 ISteamFriends::GetCoplayFriend(int iCoplayFriend) {
+CSteamID ISteamFriends::GetCoplayFriend(int iCoplayFriend) {
   debug("ISteamFriends::GetCoplayFriend()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-int ISteamFriends::GetFriendCoplayTime(class CSteamID steamIDFriend) {
+int ISteamFriends::GetFriendCoplayTime(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendCoplayTime()");
   return true;
 }
 
-AppId_t ISteamFriends::GetFriendCoplayGame(class CSteamID steamIDFriend) {
+AppId_t ISteamFriends::GetFriendCoplayGame(CSteamID steamIDFriend) {
   debug("ISteamFriends::GetFriendCoplayGame()");
   return true;
 }
 
-SteamAPICall_t ISteamFriends::JoinClanChatRoom(class CSteamID steamIDClan) {
+SteamAPICall_t ISteamFriends::JoinClanChatRoom(CSteamID steamIDClan) {
   debug("ISteamFriends::JoinClanChatRoom()");
   return true;
 }
 
-bool ISteamFriends::LeaveClanChatRoom(class CSteamID steamIDClan) {
+bool ISteamFriends::LeaveClanChatRoom(CSteamID steamIDClan) {
   debug("ISteamFriends::LeaveClanChatRoom()");
   return true;
 }
 
-int ISteamFriends::GetClanChatMemberCount(class CSteamID steamIDClan) {
+int ISteamFriends::GetClanChatMemberCount(CSteamID steamIDClan) {
   debug("ISteamFriends::GetClanChatMemberCount()");
   return true;
 }
 
-uint64 ISteamFriends::GetChatMemberByIndex(class CSteamID steamIDClan,
-                                           int            iUser) {
+CSteamID ISteamFriends::GetChatMemberByIndex(CSteamID steamIDClan, int iUser) {
   debug("ISteamFriends::GetChatMemberByIndex()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-bool ISteamFriends::SendClanChatMessage(class CSteamID steamIDClanChat,
-                                        const char *   pchText) {
+bool ISteamFriends::SendClanChatMessage(CSteamID    steamIDClanChat,
+                                        const char *pchText) {
   debug("ISteamFriends::SendClanChatMessage()");
   return true;
 }
 
-int ISteamFriends::GetClanChatMessage(class CSteamID steamIDClanChat,
-                                      int iMessage, void *prgchText,
-                                      int             cchTextMax,
+int ISteamFriends::GetClanChatMessage(CSteamID steamIDClanChat, int iMessage,
+                                      void *prgchText, int cchTextMax,
                                       EChatEntryType *peChatEntryType,
-                                      class CSteamID *psteamidChatter) {
+                                      CSteamID *      psteamidChatter) {
   debug("ISteamFriends::GetClanChatMessage()");
   return true;
 }
 
-bool ISteamFriends::IsClanChatAdmin(class CSteamID steamIDClanChat,
-                                    class CSteamID steamIDUser) {
+bool ISteamFriends::IsClanChatAdmin(CSteamID steamIDClanChat,
+                                    CSteamID steamIDUser) {
   debug("ISteamFriends::IsClanChatAdmin()");
   return true;
 }
 
-bool ISteamFriends::IsClanChatWindowOpenInSteam(
-    class CSteamID steamIDClanChat) {
+bool ISteamFriends::IsClanChatWindowOpenInSteam(CSteamID steamIDClanChat) {
   debug("ISteamFriends::IsClanChatWindowOpenInSteam()");
   return true;
 }
 
-bool ISteamFriends::OpenClanChatWindowInSteam(class CSteamID steamIDClanChat) {
+bool ISteamFriends::OpenClanChatWindowInSteam(CSteamID steamIDClanChat) {
   debug("ISteamFriends::OpenClanChatWindowInSteam()");
   return true;
 }
 
-bool ISteamFriends::CloseClanChatWindowInSteam(class CSteamID steamIDClanChat) {
+bool ISteamFriends::CloseClanChatWindowInSteam(CSteamID steamIDClanChat) {
   debug("ISteamFriends::CloseClanChatWindowInSteam()");
   return true;
 }
@@ -1366,25 +1361,25 @@ bool ISteamFriends::SetListenForFriendsMessages(bool bInterceptEnabled) {
   return true;
 }
 
-bool ISteamFriends::ReplyToFriendMessage(class CSteamID steamIDFriend,
-                                         const char *   pchMsgToSend) {
+bool ISteamFriends::ReplyToFriendMessage(CSteamID    steamIDFriend,
+                                         const char *pchMsgToSend) {
   debug("ISteamFriends::ReplyToFriendMessage()");
   return true;
 }
 
-int ISteamFriends::GetFriendMessage(class CSteamID steamIDFriend,
-                                    int iMessageID, void *pvData, int cubData,
+int ISteamFriends::GetFriendMessage(CSteamID steamIDFriend, int iMessageID,
+                                    void *pvData, int cubData,
                                     EChatEntryType *peChatEntryType) {
   debug("ISteamFriends::GetFriendMessage()");
   return true;
 }
 
-SteamAPICall_t ISteamFriends::GetFollowerCount(class CSteamID steamID) {
+SteamAPICall_t ISteamFriends::GetFollowerCount(CSteamID steamID) {
   debug("ISteamFriends::GetFollowerCount()");
   return true;
 }
 
-SteamAPICall_t ISteamFriends::IsFollowing(class CSteamID steamID) {
+SteamAPICall_t ISteamFriends::IsFollowing(CSteamID steamID) {
   debug("ISteamFriends::IsFollowing()");
   return true;
 }
@@ -1394,12 +1389,12 @@ SteamAPICall_t ISteamFriends::EnumerateFollowingList(uint32_t unStartIndex) {
   return true;
 }
 
-bool ISteamFriends::IsClanPublic(class CSteamID steamIDClan) {
+bool ISteamFriends::IsClanPublic(CSteamID steamIDClan) {
   debug("ISteamFriends::IsClanPublic()");
   return true;
 }
 
-bool ISteamFriends::IsClanOfficialGameGroup(class CSteamID steamIDClan) {
+bool ISteamFriends::IsClanOfficialGameGroup(CSteamID steamIDClan) {
   debug("ISteamFriends::IsClanOfficialGameGroup()");
   return true;
 }
@@ -1554,9 +1549,9 @@ bool ISteamRemoteStorage::GetUGCDownloadProgress(UGCHandle_t hContent,
 }
 
 bool ISteamRemoteStorage::GetUGCDetails(UGCHandle_t hContent, AppId_t *pnAppID,
-                                        char **         ppchName,
-                                        int32_t *       pnFileSizeInBytes,
-                                        class CSteamID *pSteamIDOwner) {
+                                        char **   ppchName,
+                                        int32_t * pnFileSizeInBytes,
+                                        CSteamID *pSteamIDOwner) {
   debug("ISteamRemoteStorage::GetUGCDetails()");
   return true;
 }
@@ -1701,7 +1696,7 @@ SteamAPICall_t ISteamRemoteStorage::GetUserPublishedItemVoteDetails(
 }
 
 SteamAPICall_t ISteamRemoteStorage::EnumerateUserSharedWorkshopFiles(
-    class CSteamID steamId, uint32_t unStartIndex,
+    CSteamID steamId, uint32_t unStartIndex,
     struct SteamParamStringArray_t *pRequiredTags,
     struct SteamParamStringArray_t *pExcludedTags) {
   debug("ISteamRemoteStorage::EnumerateUserSharedWorkshopFiles()");
@@ -2238,13 +2233,13 @@ void ISteamMatchmaking::AddRequestLobbyListResultCountFilter(int cMaxResults) {
 }
 
 void ISteamMatchmaking::AddRequestLobbyListCompatibleMembersFilter(
-    class CSteamID steamIDLobby) {
+    CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::AddRequestLobbyListCompatibleMembersFilter");
 }
 
-uint64 ISteamMatchmaking::GetLobbyByIndex(int iLobby) {
+CSteamID ISteamMatchmaking::GetLobbyByIndex(int iLobby) {
   debug("ISteamMatchmaking::GetLobbyByIndex");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
 SteamAPICall_t ISteamMatchmaking::CreateLobby(ELobbyType eLobbyType,
@@ -2253,50 +2248,50 @@ SteamAPICall_t ISteamMatchmaking::CreateLobby(ELobbyType eLobbyType,
   return {};
 }
 
-SteamAPICall_t ISteamMatchmaking::JoinLobby(class CSteamID steamIDLobby) {
+SteamAPICall_t ISteamMatchmaking::JoinLobby(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::JoinLobby");
   return {};
 }
 
-void ISteamMatchmaking::LeaveLobby(class CSteamID steamIDLobby) {
+void ISteamMatchmaking::LeaveLobby(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::LeaveLobby");
 }
 
-bool ISteamMatchmaking::InviteUserToLobby(class CSteamID steamIDLobby,
-                                          class CSteamID steamIDInvitee) {
+bool ISteamMatchmaking::InviteUserToLobby(CSteamID steamIDLobby,
+                                          CSteamID steamIDInvitee) {
   debug("ISteamMatchmaking::InviteUserToLobby");
   return true;
 }
 
-int ISteamMatchmaking::GetNumLobbyMembers(class CSteamID steamIDLobby) {
+int ISteamMatchmaking::GetNumLobbyMembers(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::GetNumLobbyMembers");
   return 0;
 }
 
-uint64 ISteamMatchmaking::GetLobbyMemberByIndex(class CSteamID steamIDLobby,
-                                                int            iMember) {
+CSteamID ISteamMatchmaking::GetLobbyMemberByIndex(CSteamID steamIDLobby,
+                                                  int      iMember) {
   debug("ISteamMatchmaking::GetLobbyMemberByIndex");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-const char *ISteamMatchmaking::GetLobbyData(class CSteamID steamIDLobby,
-                                            const char *   pchKey) {
+const char *ISteamMatchmaking::GetLobbyData(CSteamID    steamIDLobby,
+                                            const char *pchKey) {
   debug("ISteamMatchmaking::GetLobbyData");
   return "";
 }
 
-bool ISteamMatchmaking::SetLobbyData(class CSteamID steamIDLobby,
-                                     const char *pchKey, const char *pchValue) {
+bool ISteamMatchmaking::SetLobbyData(CSteamID steamIDLobby, const char *pchKey,
+                                     const char *pchValue) {
   debug("ISteamMatchmaking::SetLobbyData");
   return true;
 }
 
-int ISteamMatchmaking::GetLobbyDataCount(class CSteamID steamIDLobby) {
+int ISteamMatchmaking::GetLobbyDataCount(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::GetLobbyDataCount");
   return 0;
 }
 
-bool ISteamMatchmaking::GetLobbyDataByIndex(class CSteamID steamIDLobby,
+bool ISteamMatchmaking::GetLobbyDataByIndex(CSteamID steamIDLobby,
                                             int iLobbyData, char *pchKey,
                                             int   cchKeyBufferSize,
                                             char *pchValue,
@@ -2305,97 +2300,96 @@ bool ISteamMatchmaking::GetLobbyDataByIndex(class CSteamID steamIDLobby,
   return true;
 }
 
-bool ISteamMatchmaking::DeleteLobbyData(class CSteamID steamIDLobby,
-                                        const char *   pchKey) {
+bool ISteamMatchmaking::DeleteLobbyData(CSteamID    steamIDLobby,
+                                        const char *pchKey) {
   debug("ISteamMatchmaking::DeleteLobbyData");
   return true;
 }
 
-const char *ISteamMatchmaking::GetLobbyMemberData(class CSteamID steamIDLobby,
-                                                  class CSteamID steamIDUser,
-                                                  const char *   pchKey) {
+const char *ISteamMatchmaking::GetLobbyMemberData(CSteamID    steamIDLobby,
+                                                  CSteamID    steamIDUser,
+                                                  const char *pchKey) {
   debug("ISteamMatchmaking::GetLobbyMemberData");
   return "";
 }
 
-void ISteamMatchmaking::SetLobbyMemberData(class CSteamID steamIDLobby,
-                                           const char *   pchKey,
-                                           const char *   pchValue) {
+void ISteamMatchmaking::SetLobbyMemberData(CSteamID    steamIDLobby,
+                                           const char *pchKey,
+                                           const char *pchValue) {
   debug("ISteamMatchmaking::SetLobbyMemberData");
 }
 
-bool ISteamMatchmaking::SendLobbyChatMsg(class CSteamID steamIDLobby,
-                                         const void *   pvMsgBody,
-                                         int            cubMsgBody) {
+bool ISteamMatchmaking::SendLobbyChatMsg(CSteamID    steamIDLobby,
+                                         const void *pvMsgBody,
+                                         int         cubMsgBody) {
   debug("ISteamMatchmaking::SendLobbyChatMsg");
   return true;
 }
 
-int ISteamMatchmaking::GetLobbyChatEntry(class CSteamID  steamIDLobby,
-                                         int             iChatID,
-                                         class CSteamID *pSteamIDUser,
-                                         void *pvData, int cubData,
+int ISteamMatchmaking::GetLobbyChatEntry(CSteamID steamIDLobby, int iChatID,
+                                         CSteamID *pSteamIDUser, void *pvData,
+                                         int             cubData,
                                          EChatEntryType *peChatEntryType) {
   debug("ISteamMatchmaking::GetLobbyChatEntry");
   return 0;
 }
 
-bool ISteamMatchmaking::RequestLobbyData(class CSteamID steamIDLobby) {
+bool ISteamMatchmaking::RequestLobbyData(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::RequestLobbyData");
   return true;
 }
 
-void ISteamMatchmaking::SetLobbyGameServer(class CSteamID steamIDLobby,
-                                           uint32         unGameServerIP,
-                                           uint16         unGameServerPort,
-                                           class CSteamID steamIDGameServer) {
+void ISteamMatchmaking::SetLobbyGameServer(CSteamID steamIDLobby,
+                                           uint32   unGameServerIP,
+                                           uint16   unGameServerPort,
+                                           CSteamID steamIDGameServer) {
   debug("ISteamMatchmaking::SetLobbyGameServer");
 }
 
-bool ISteamMatchmaking::GetLobbyGameServer(class CSteamID  steamIDLobby,
-                                           uint32 *        punGameServerIP,
-                                           uint16 *        punGameServerPort,
-                                           class CSteamID *psteamIDGameServer) {
+bool ISteamMatchmaking::GetLobbyGameServer(CSteamID  steamIDLobby,
+                                           uint32 *  punGameServerIP,
+                                           uint16 *  punGameServerPort,
+                                           CSteamID *psteamIDGameServer) {
   debug("ISteamMatchmaking::GetLobbyGameServer");
   return true;
 }
 
-bool ISteamMatchmaking::SetLobbyMemberLimit(class CSteamID steamIDLobby,
-                                            int            cMaxMembers) {
+bool ISteamMatchmaking::SetLobbyMemberLimit(CSteamID steamIDLobby,
+                                            int      cMaxMembers) {
   debug("ISteamMatchmaking::SetLobbyMemberLimit");
   return true;
 }
 
-int ISteamMatchmaking::GetLobbyMemberLimit(class CSteamID steamIDLobby) {
+int ISteamMatchmaking::GetLobbyMemberLimit(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::GetLobbyMemberLimit");
   return 0;
 }
 
-bool ISteamMatchmaking::SetLobbyType(class CSteamID steamIDLobby,
-                                     ELobbyType     eLobbyType) {
+bool ISteamMatchmaking::SetLobbyType(CSteamID   steamIDLobby,
+                                     ELobbyType eLobbyType) {
   debug("ISteamMatchmaking::SetLobbyType");
   return true;
 }
 
-bool ISteamMatchmaking::SetLobbyJoinable(class CSteamID steamIDLobby,
-                                         bool           bLobbyJoinable) {
+bool ISteamMatchmaking::SetLobbyJoinable(CSteamID steamIDLobby,
+                                         bool     bLobbyJoinable) {
   debug("ISteamMatchmaking::SetLobbyJoinable");
   return true;
 }
 
-uint64 ISteamMatchmaking::GetLobbyOwner(class CSteamID steamIDLobby) {
+CSteamID ISteamMatchmaking::GetLobbyOwner(CSteamID steamIDLobby) {
   debug("ISteamMatchmaking::GetLobbyOwner");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-bool ISteamMatchmaking::SetLobbyOwner(class CSteamID steamIDLobby,
-                                      class CSteamID steamIDNewOwner) {
+bool ISteamMatchmaking::SetLobbyOwner(CSteamID steamIDLobby,
+                                      CSteamID steamIDNewOwner) {
   debug("ISteamMatchmaking::SetLobbyOwner");
   return true;
 }
 
-bool ISteamMatchmaking::SetLinkedLobby(class CSteamID steamIDLobby,
-                                       class CSteamID steamIDLobbyDependent) {
+bool ISteamMatchmaking::SetLinkedLobby(CSteamID steamIDLobby,
+                                       CSteamID steamIDLobbyDependent) {
   debug("ISteamMatchmaking::SetLinkedLobby");
   return true;
 }
@@ -2558,7 +2552,7 @@ void ISteamMatchmakingServers::CancelServerQuery(HServerQuery hServerQuery) {
   debug("ISteamMatchmakingServers::CancelServerQuery()");
 }
 
-bool ISteamNetworking::SendP2PPacket(class CSteamID steamIDRemote,
+bool ISteamNetworking::SendP2PPacket(CSteamID    steamIDRemote,
                                      const void *pubData, uint32 cubData,
                                      EP2PSend eP2PSendType, int nChannel) {
   debug("ISteamNetworking::SendP2PPacket()");
@@ -2571,31 +2565,30 @@ bool ISteamNetworking::IsP2PPacketAvailable(uint32 *pcubMsgSize, int nChannel) {
 }
 
 bool ISteamNetworking::ReadP2PPacket(void *pubDest, uint32 cubDest,
-                                     uint32 *        pcubMsgSize,
-                                     class CSteamID *psteamIDRemote,
-                                     int             nChannel) {
+                                     uint32 *  pcubMsgSize,
+                                     CSteamID *psteamIDRemote, int nChannel) {
   debug("ISteamNetworking::ReadP2PPacket()");
   return true;
 }
 
-bool ISteamNetworking::AcceptP2PSessionWithUser(class CSteamID steamIDRemote) {
+bool ISteamNetworking::AcceptP2PSessionWithUser(CSteamID steamIDRemote) {
   debug("ISteamNetworking::AcceptP2PSessionWithUser()");
   return true;
 }
 
-bool ISteamNetworking::CloseP2PSessionWithUser(class CSteamID steamIDRemote) {
+bool ISteamNetworking::CloseP2PSessionWithUser(CSteamID steamIDRemote) {
   debug("ISteamNetworking::CloseP2PSessionWithUser()");
   return true;
 }
 
-bool ISteamNetworking::CloseP2PChannelWithUser(class CSteamID steamIDRemote,
-                                               int            nChannel) {
+bool ISteamNetworking::CloseP2PChannelWithUser(CSteamID steamIDRemote,
+                                               int      nChannel) {
   debug("ISteamNetworking::CloseP2PChannelWithUser()");
   return true;
 }
 
 bool ISteamNetworking::GetP2PSessionState(
-    class CSteamID steamIDRemote, struct P2PSessionState_t *pConnectionState) {
+    CSteamID steamIDRemote, struct P2PSessionState_t *pConnectionState) {
   debug("ISteamNetworking::GetP2PSessionState()");
   return true;
 }
@@ -2614,7 +2607,7 @@ ISteamNetworking::CreateListenSocket(int nVirtualP2PPort, uint32 nIP,
 }
 
 SNetSocket_t
-ISteamNetworking::CreateP2PConnectionSocket(class CSteamID steamIDTarget,
+ISteamNetworking::CreateP2PConnectionSocket(CSteamID steamIDTarget,
                                             int nVirtualPort, int nTimeoutSec,
                                             bool bAllowUseOfPacketRelay) {
   debug("ISteamNetworking::CreateP2PConnectionSocket()");
@@ -2673,8 +2666,8 @@ bool ISteamNetworking::RetrieveData(SNetListenSocket_t hListenSocket,
   return true;
 }
 
-bool ISteamNetworking::GetSocketInfo(SNetSocket_t    hSocket,
-                                     class CSteamID *pSteamIDRemote,
+bool ISteamNetworking::GetSocketInfo(SNetSocket_t hSocket,
+                                     CSteamID *   pSteamIDRemote,
                                      int *peSocketStatus, uint32 *punIPRemote,
                                      uint16 *punPortRemote) {
   debug("ISteamNetworking::GetSocketInfo()");
@@ -2727,7 +2720,7 @@ bool ISteamScreenshots::SetLocation(ScreenshotHandle hScreenshot,
 }
 
 bool ISteamScreenshots::TagUser(ScreenshotHandle hScreenshot,
-                                class CSteamID   steamID) {
+                                CSteamID         steamID) {
   debug("ISteamScreenshots::TagUser()");
   return true;
 }
@@ -3795,7 +3788,7 @@ ISteamInventory::GetResultTimestamp(SteamInventoryResult_t resultHandle) {
 }
 
 bool ISteamInventory::CheckResultSteamID(SteamInventoryResult_t resultHandle,
-                                         class CSteamID steamIDExpected) {
+                                         CSteamID steamIDExpected) {
   debug("ISteamInventory::CheckResultSteamID()");
   return true;
 }
@@ -3892,7 +3885,7 @@ bool ISteamInventory::TriggerItemDrop(SteamInventoryResult_t *pResultHandle,
 }
 
 bool ISteamInventory::TradeItems(
-    SteamInventoryResult_t *pResultHandle, class CSteamID steamIDTradePartner,
+    SteamInventoryResult_t *pResultHandle, CSteamID steamIDTradePartner,
     const SteamItemInstanceID_t *pArrayGive, const uint32 *pArrayGiveQuantity,
     uint32 nArrayGiveLength, const SteamItemInstanceID_t *pArrayGet,
     const uint32 *pArrayGetQuantity, uint32 nArrayGetLength) {
@@ -3919,14 +3912,14 @@ bool ISteamInventory::GetItemDefinitionProperty(SteamItemDef_t iDefinition,
   return true;
 }
 
-SteamAPICall_t ISteamInventory::RequestEligiblePromoItemDefinitionsIDs(
-    class CSteamID steamID) {
+SteamAPICall_t
+ISteamInventory::RequestEligiblePromoItemDefinitionsIDs(CSteamID steamID) {
   debug("ISteamInventory::RequestEligiblePromoItemDefinitionsIDs()");
   return {};
 }
 
 bool ISteamInventory::GetEligiblePromoItemDefinitionIDs(
-    class CSteamID steamID, SteamItemDef_t *pItemDefIDs,
+    CSteamID steamID, SteamItemDef_t *pItemDefIDs,
     uint32 *punItemDefIDsArraySize) {
   debug("ISteamInventory::GetEligiblePromoItemDefinitionIDs()");
   return true;
@@ -4103,9 +4096,9 @@ bool ISteamGameServer::BSecure() {
   return true;
 }
 
-uint64 ISteamGameServer::GetSteamID() {
+CSteamID ISteamGameServer::GetSteamID() {
   debug("ISteamGameServer::GetSteamID()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
 bool ISteamGameServer::WasRestartRequested() {
@@ -4162,25 +4155,26 @@ void ISteamGameServer::SetRegion(const char *pszRegion) {
   debug("ISteamGameServer::SetRegion()");
 }
 
-bool ISteamGameServer::SendUserConnectAndAuthenticate(
-    uint32 unIPClient, const void *pvAuthBlob, uint32 cubAuthBlobSize,
-    class CSteamID *pSteamIDUser) {
+bool ISteamGameServer::SendUserConnectAndAuthenticate(uint32      unIPClient,
+                                                      const void *pvAuthBlob,
+                                                      uint32    cubAuthBlobSize,
+                                                      CSteamID *pSteamIDUser) {
   debug("ISteamGameServer::SendUserConnectAndAuthenticate()");
   return true;
 }
 
-uint64 ISteamGameServer::CreateUnauthenticatedUserConnection() {
+CSteamID ISteamGameServer::CreateUnauthenticatedUserConnection() {
   debug("ISteamGameServer::CreateUnauthenticatedUserConnection()");
-  return steam_id.m_steamid.m_unAll64Bits;
+  return {};
 }
 
-void ISteamGameServer::SendUserDisconnect(class CSteamID steamIDUser) {
+void ISteamGameServer::SendUserDisconnect(CSteamID steamIDUser) {
   debug("ISteamGameServer::SendUserDisconnect()");
 }
 
-bool ISteamGameServer::BUpdateUserData(class CSteamID steamIDUser,
-                                       const char *   pchPlayerName,
-                                       uint32         uScore) {
+bool ISteamGameServer::BUpdateUserData(CSteamID    steamIDUser,
+                                       const char *pchPlayerName,
+                                       uint32      uScore) {
   debug("ISteamGameServer::BUpdateUserData()");
   return true;
 }
@@ -4194,12 +4188,12 @@ HAuthTicket ISteamGameServer::GetAuthSessionTicket(void *  pTicket,
 
 EBeginAuthSessionResult
 ISteamGameServer::BeginAuthSession(const void *pAuthTicket, int cbAuthTicket,
-                                   class CSteamID steamID) {
+                                   CSteamID steamID) {
   debug("ISteamGameServer::BeginAuthSession()");
   return {};
 }
 
-void ISteamGameServer::EndAuthSession(class CSteamID steamID) {
+void ISteamGameServer::EndAuthSession(CSteamID steamID) {
   debug("ISteamGameServer::EndAuthSession()");
 }
 
@@ -4208,13 +4202,13 @@ void ISteamGameServer::CancelAuthTicket(HAuthTicket hAuthTicket) {
 }
 
 EUserHasLicenseForAppResult
-ISteamGameServer::UserHasLicenseForApp(class CSteamID steamID, AppId_t appID) {
+ISteamGameServer::UserHasLicenseForApp(CSteamID steamID, AppId_t appID) {
   debug("ISteamGameServer::UserHasLicenseForApp()");
   return {};
 }
 
-bool ISteamGameServer::RequestUserGroupStatus(class CSteamID steamIDUser,
-                                              class CSteamID steamIDGroup) {
+bool ISteamGameServer::RequestUserGroupStatus(CSteamID steamIDUser,
+                                              CSteamID steamIDGroup) {
   debug("ISteamGameServer::RequestUserGroupStatus()");
   return true;
 }
@@ -4257,76 +4251,78 @@ void ISteamGameServer::ForceHeartbeat() {
   debug("ISteamGameServer::ForceHeartbeat()");
 }
 
-SteamAPICall_t ISteamGameServer::AssociateWithClan(class CSteamID steamIDClan) {
+SteamAPICall_t ISteamGameServer::AssociateWithClan(CSteamID steamIDClan) {
   debug("ISteamGameServer::AssociateWithClan()");
   return {};
 }
 
-SteamAPICall_t ISteamGameServer::ComputeNewPlayerCompatibility(
-    class CSteamID steamIDNewPlayer) {
+SteamAPICall_t
+ISteamGameServer::ComputeNewPlayerCompatibility(CSteamID steamIDNewPlayer) {
   debug("ISteamGameServer::ComputeNewPlayerCompatibility()");
   return {};
 }
 
-SteamAPICall_t
-ISteamGameServerStats::RequestUserStats(class CSteamID steamIDUser) {
+SteamAPICall_t ISteamGameServerStats::RequestUserStats(CSteamID steamIDUser) {
   debug("ISteamGameServerStats::RequestUserStats()");
   return {};
 }
 
-bool ISteamGameServerStats::GetUserStat(class CSteamID steamIDUser,
+bool ISteamGameServerStats::GetUserStat(CSteamID    steamIDUser,
                                         const char *pchName, int32 *pData) {
   debug("ISteamGameServerStats::GetUserStat()");
   return true;
 }
 
-bool ISteamGameServerStats::GetUserStat(class CSteamID steamIDUser,
+bool ISteamGameServerStats::GetUserStat(CSteamID    steamIDUser,
                                         const char *pchName, float *pData) {
   debug("ISteamGameServerStats::GetUserStat()");
   return true;
 }
 
-bool ISteamGameServerStats::GetUserAchievement(class CSteamID steamIDUser,
-                                               const char *   pchName,
-                                               bool *         pbAchieved) {
+bool ISteamGameServerStats::GetUserAchievement(CSteamID    steamIDUser,
+                                               const char *pchName,
+                                               bool *      pbAchieved) {
   debug("ISteamGameServerStats::GetUserAchievement()");
   return true;
 }
 
-bool ISteamGameServerStats::SetUserStat(class CSteamID steamIDUser,
+bool ISteamGameServerStats::SetUserStat(CSteamID    steamIDUser,
                                         const char *pchName, int32 nData) {
   debug("ISteamGameServerStats::SetUserStat()");
   return true;
 }
 
-bool ISteamGameServerStats::SetUserStat(class CSteamID steamIDUser,
+bool ISteamGameServerStats::SetUserStat(CSteamID    steamIDUser,
                                         const char *pchName, float fData) {
   debug("ISteamGameServerStats::SetUserStat()");
   return true;
 }
 
-bool ISteamGameServerStats::UpdateUserAvgRateStat(class CSteamID steamIDUser,
-                                                  const char *   pchName,
+bool ISteamGameServerStats::UpdateUserAvgRateStat(CSteamID    steamIDUser,
+                                                  const char *pchName,
                                                   float  flCountThisSession,
                                                   double dSessionLength) {
   debug("ISteamGameServerStats::UpdateUserAvgRateStat()");
   return true;
 }
 
-bool ISteamGameServerStats::SetUserAchievement(class CSteamID steamIDUser,
-                                               const char *   pchName) {
+bool ISteamGameServerStats::SetUserAchievement(CSteamID    steamIDUser,
+                                               const char *pchName) {
   debug("ISteamGameServerStats::SetUserAchievement()");
   return true;
 }
 
-bool ISteamGameServerStats::ClearUserAchievement(class CSteamID steamIDUser,
-                                                 const char *   pchName) {
+bool ISteamGameServerStats::ClearUserAchievement(CSteamID    steamIDUser,
+                                                 const char *pchName) {
   debug("ISteamGameServerStats::ClearUserAchievement()");
   return true;
 }
 
-SteamAPICall_t
-ISteamGameServerStats::StoreUserStats(class CSteamID steamIDUser) {
+SteamAPICall_t ISteamGameServerStats::StoreUserStats(CSteamID steamIDUser) {
   debug("ISteamGameServerStats::StoreUserStats()");
   return {};
 }
+
+#ifndef _WIN32
+int __dbg = dup(2);
+#endif

@@ -181,7 +181,7 @@ class Method(object):
             return 'virtual {type} {name}({params});' \
                    .format(type=self.type, name=self.name, params=params)
         else:
-            return 'extern "C" {type} {name}({params});' \
+            return '{type} {name}({params});' \
                    .format(type=self.type, name=self.name, params=params)
 
 
@@ -217,19 +217,8 @@ Struct.get('').structs = [s for s in Struct.get('').structs
                           if s.name not in ['CSteamAPIContext', 'CCallResult',
                                             'CCallbackBase', 'CCallback']]
 
-with open('include/steam_api.hpp', 'w') as out:
-    print('#ifndef INCLUDED_STEAM_API_HPP', file=out)
-    print('#define INCLUDED_STEAM_API_HPP\n', file=out)
-    print('#include "steam_types.hpp"', file=out)
-    print('', file=out)
-    print(str(Struct.get(''))
-          .replace('_Bool', 'bool')
-          .replace('(anonymous)', '_')
-          .replace('__attribute__((cdecl))', '')
-          .replace('struct SteamID_t', 'union SteamID_t'),
-          file=out)
-    print('', file=out)
-    print('\n#endif // INCLUDED_STEAM_API_HPP', file=out)
+with open('src/steam_api.ipp', 'w') as out:
+    print(str(Struct.get('')).replace('_Bool', 'bool'), file=out)
 
 with open('steam_api/steam_api.spec', 'w') as out:
     methods = Struct.get('SteamApi').methods
@@ -256,11 +245,11 @@ with open('steam_api/steam_api.ipp', 'w') as out:
               file=out)
 
     for v in [v for v in Struct.get('').structs if v.name[0:6] == 'ISteam']:
-        print('extern "C" auto _{name}() {{'
+        print('EXTERN_ABI auto _{name}() {{'
               ' return SteamAPI_Context()->{name}();'
               ' }}'.format(name=v.name[1:]), file=out)
 
-    print('extern "C" auto _SteamInternal_ContextInit() {'
+    print('EXTERN_ABI auto _SteamInternal_ContextInit() {'
           ' return SteamInternal_ContextInit(); }', file=out)
 
 with open('csteamworks/csteamworks.ipp', 'w') as out:
@@ -279,7 +268,7 @@ with open('csteamworks/csteamworks.ipp', 'w') as out:
             if v.name == 'ISteamInventory' and m.name == 'SetProperty':
                 continue
 
-            print('extern "C" auto {function}({params}) {{'
+            print('EXTERN_ABI auto {function}({params}) {{'
                   ' debug("{function}({params})");'
                   ' return {name}()->{method}({pnames}); }}'
                   .format(**kwargs), file=out)

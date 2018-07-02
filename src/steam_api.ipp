@@ -1,8 +1,3 @@
-#ifndef INCLUDED_STEAM_API_HPP
-#define INCLUDED_STEAM_API_HPP
-
-#include "steam_types.hpp"
-
 struct ValvePackingSentinel_t;
 
 struct CallbackMsg_t;
@@ -3457,22 +3452,19 @@ struct ISteamGameServerStats {
   virtual bool ClearUserAchievement(CSteamID steamIDUser, const char * pchName);
   virtual SteamAPICall_t StoreUserStats(CSteamID steamIDUser);
 };
-extern "C" bool SteamAPI_Init();
-extern "C" void SteamAPI_RunCallbacks();
-extern "C" void SteamGameServer_RunCallbacks();
-extern "C" void SteamAPI_RegisterCallback(void * pCallback, int callback);
-extern "C" void SteamAPI_UnregisterCallback(void * pCallback);
-extern "C" void SteamAPI_RegisterCallResult(void * pCallback, SteamAPICall_t callback);
-extern "C" void SteamAPI_UnregisterCallResult(void * pCallback, SteamAPICall_t callback);
-extern "C" bool SteamInternal_GameServer_Init(uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usQueryPort, int eServerMode, const char * pchVersionString);
-extern "C" void SteamAPI_Shutdown();
-extern "C" void SteamGameServer_Shutdown();
-extern "C" HSteamUser SteamAPI_GetHSteamUser();
-extern "C" HSteamPipe SteamAPI_GetHSteamPipe();
-extern "C" HSteamUser SteamGameServer_GetHSteamUser();
-extern "C" HSteamPipe SteamGameServer_GetHSteamPipe();
-extern "C" void * SteamInternal_CreateInterface(const char * version);
-extern "C" bool SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID);
-
-
-#endif // INCLUDED_STEAM_API_HPP
+bool SteamAPI_Init();
+void SteamAPI_RunCallbacks();
+void SteamGameServer_RunCallbacks();
+void SteamAPI_RegisterCallback(void * pCallback, int callback);
+void SteamAPI_UnregisterCallback(void * pCallback);
+void SteamAPI_RegisterCallResult(void * pCallback, SteamAPICall_t callback);
+void SteamAPI_UnregisterCallResult(void * pCallback, SteamAPICall_t callback);
+bool SteamInternal_GameServer_Init(uint32 unIP, uint16 usPort, uint16 usGamePort, uint16 usQueryPort, int eServerMode, const char * pchVersionString);
+void SteamAPI_Shutdown();
+void SteamGameServer_Shutdown();
+HSteamUser SteamAPI_GetHSteamUser();
+HSteamPipe SteamAPI_GetHSteamPipe();
+HSteamUser SteamGameServer_GetHSteamUser();
+HSteamPipe SteamGameServer_GetHSteamPipe();
+void * SteamInternal_CreateInterface(const char * version);
+bool SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID);

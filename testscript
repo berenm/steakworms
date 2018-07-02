@@ -6,5 +6,5 @@ firejail --noprofile "--private=$(dirname "$0")" \
          "--env=LD_PRELOAD=libsteam_api.so" \
          "--env=WINEDLLPATH=$HOME/build/lib/x86_64-linux-gnu:$HOME/build/lib/i386-linux-gnu" \
          "--env=WINEPREFIX=$HOME/.wine64" \
-         "--env=WINEDLLOVERRIDES=steam_api.dll,csteamworks.dll=b" \
+         "--env=WINEDLLOVERRIDES=steamclient.dll,steamclient64.dll,steam_api.dll,steam_api64.dll,csteamworks.dll=b" \
          bash
