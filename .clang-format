@@ -1,5 +1,6 @@
 ---
-ColumnLimit: 0
+ColumnLimit: 80
 AlignConsecutiveDeclarations: true
 AlignConsecutiveAssignments: true
+KeepEmptyLinesAtTheStartOfBlocks: false
 ...
