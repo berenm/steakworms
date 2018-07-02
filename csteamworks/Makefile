@@ -28,9 +28,9 @@ LDFLAGS  = $($(TARGET)_LDFLAGS)
 ### Generic targets
 
 csteamworks_dll_MODULE   = csteamworks.dll
-csteamworks_dll_CXX_SRCS = csteamworks.cpp ../src/steakworms.cpp
+csteamworks_dll_CXX_SRCS = csteamworks.cpp
 csteamworks_dll_LDFLAGS  = -shared $(csteamworks_dll_MODULE:.dll=.spec) -L$(BINDIR)/lib/$(TARGET)
-csteamworks_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid
+csteamworks_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid steam_api
 
 $(BINDIR)/lib/$(TARGET):
 	mkdir -p "$(BINDIR)/lib/$(TARGET)"

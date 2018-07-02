@@ -28,9 +28,9 @@ LDFLAGS  = $($(TARGET)_LDFLAGS)
 ### Generic targets
 
 steam_api_dll_MODULE   = steam_api.dll
-steam_api_dll_CXX_SRCS = steam_api.cpp ../src/steakworms.cpp
+steam_api_dll_CXX_SRCS = steam_api.cpp
 steam_api_dll_LDFLAGS  = -shared $(steam_api_dll_MODULE:.dll=.spec) -L$(BINDIR)/lib/$(TARGET)
-steam_api_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid
+steam_api_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid steam_api
 
 $(BINDIR)/lib/$(TARGET):
 	mkdir -p "$(BINDIR)/lib/$(TARGET)"

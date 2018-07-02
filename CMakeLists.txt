@@ -14,7 +14,41 @@ if (NOT BUILD_32BIT_LIBRARY AND NOT BUILD_64BIT_LIBRARY)
 else()
   set(CMAKE_CXX_STANDARD 11)
 
-  set(sources src/steakworms.cpp include/steam_api.hpp)
+  set(sources
+    include/steakworms.hpp
+    include/steam_api.hpp
+    include/steam_types.hpp
+    src/isteam_app_list.cpp
+    src/isteam_apps.cpp
+    src/isteam_client.cpp
+    src/isteam_controller.cpp
+    src/isteam_friends.cpp
+    src/isteam_game_server.cpp
+    src/isteam_game_server_stats.cpp
+    src/isteam_html_surface.cpp
+    src/isteam_http.cpp
+    src/isteam_inventory.cpp
+    src/isteam_matchmaking.cpp
+    src/isteam_matchmaking_ping_response.cpp
+    src/isteam_matchmaking_players_response.cpp
+    src/isteam_matchmaking_rules_response.cpp
+    src/isteam_matchmaking_server_list_response.cpp
+    src/isteam_matchmaking_servers.cpp
+    src/isteam_music.cpp
+    src/isteam_music_remote.cpp
+    src/isteam_networking.cpp
+    src/isteam_parental_settings.cpp
+    src/isteam_remote_storage.cpp
+    src/isteam_screenshots.cpp
+    src/isteam_ugc.cpp
+    src/isteam_user.cpp
+    src/isteam_user_stats.cpp
+    src/isteam_utils.cpp
+    src/isteam_video.cpp
+    src/steakworms.cpp
+    src/steam_api.cpp
+    src/steam_api_context.cpp
+  )
   set(warnings -Wall -Wextra
     -Wno-attributes -Wno-ignored-attributes -Wno-subobject-linkage
     -Wno-unused-parameter -Wno-unused-variable)
