@@ -1,9 +1,10 @@
 #ifndef INCLUDED_STEAKWORMS_HPP
 #define INCLUDED_STEAKWORMS_HPP
 
-#include <utility>
+#define _GLIBCXX_USE_C99_DYNAMIC 1
 
 #include <cstdio>
+#include <utility>
 
 #ifdef _WIN32
 #include <wine/debug.h>
