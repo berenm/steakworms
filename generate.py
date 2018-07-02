@@ -198,6 +198,8 @@ for v in api['structs'] + api_ext.get('structs', []):
     Struct.set(v['struct'], Struct(**v))
 
 for v in api['typedefs'] + api_ext.get('typedefs', []):
+    if '(*)' in v['type']:
+        continue
     Typedef(**v)
 
 for v in api['enums'] + api_ext.get('enums', []):
