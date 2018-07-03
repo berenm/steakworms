@@ -5,11 +5,11 @@ TARGET ?= x86_64-linux-gnu
 ### Common settings
 
 i386-linux-gnu_CXXFLAGS = -mno-cygwin -m32 -O3 -fno-omit-frame-pointer -fno-PIE -fno-PIC
-i386-linux-gnu_CPPFLAGS = -I/usr/include/wine-development/ -I/usr/include/wine-development/wine/windows/ -I../src
+i386-linux-gnu_CPPFLAGS = -I/opt/wine-staging/include/ -I/opt/wine-staging/include/wine/windows/ -I$(TOPDIR)/src -I$(TOPDIR)/include
 i386-linux-gnu_LDFLAGS  = -mno-cygwin -m32 -L/opt/wine-staging/lib/ -nodefaultlibs /opt/wine-staging/lib/wine/libwinecrt0.a -luser32 -lkernel32 -lgdi32 -Wl,-rpath=\$$ORIGIN
 
 x86_64-linux-gnu_CXXFLAGS = -mno-cygwin -O3 -fno-omit-frame-pointer
-x86_64-linux-gnu_CPPFLAGS = -I/usr/include/wine-development/ -I/usr/include/wine-development/wine/windows/ -I../src
+x86_64-linux-gnu_CPPFLAGS = -I/opt/wine-staging/include/ -I/opt/wine-staging/include/wine/windows/ -I$(TOPDIR)/src -I$(TOPDIR)/include
 x86_64-linux-gnu_LDFLAGS  = -mno-cygwin -Wl,-rpath=\$$ORIGIN
 
 ### Tools
@@ -29,7 +29,7 @@ i386-linux-gnu_MODULE   = steamclient.dll
 x86_64-linux-gnu_MODULE = steamclient64.dll
 
 steamclient_dll_MODULE   = $($(TARGET)_MODULE)
-steamclient_dll_CXX_SRCS = steamclient.cpp $(TOPDIR)/src/steakworms.cpp
+steamclient_dll_CXX_SRCS = $(TOPDIR)/steamclient/steamclient.cpp
 steamclient_dll_LDFLAGS  = -shared steamclient.spec -L$(BINDIR)/lib/$(TARGET)
 steamclient_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid steam_api
 

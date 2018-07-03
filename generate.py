@@ -178,7 +178,7 @@ class Method(object):
     def __str__(self):
         params = ', '.join([str(p) for p in self.params])
         if self.is_virtual:
-            return 'virtual {type} {name}({params});' \
+            return '[[gnu::ms_abi]] virtual {type} {name}({params});' \
                    .format(type=self.type, name=self.name, params=params)
         else:
             return '{type} {name}({params});' \
@@ -229,6 +229,8 @@ with open('steam_api/steam_api.spec', 'w') as out:
                            if v.name[0:6] == 'ISteam']):
         print('@ cdecl {name}() _{name}'.format(name=v.name[1:]), file=out)
 
+    print('@ cdecl SteamAPI_InitSafe() _SteamAPI_InitSafe',
+          file=out)
     print('@ cdecl SteamInternal_ContextInit() _SteamInternal_ContextInit',
           file=out)
     print('@ cdecl SteamAPI_SetMiniDumpComment() _SteamAPI_SetMiniDumpComment',
@@ -238,19 +240,16 @@ with open('steam_api/steam_api.spec', 'w') as out:
 with open('steam_api/steam_api.ipp', 'w') as out:
     methods = Struct.get('SteamApi').methods
     for v in methods:
-        callstr = ('{{ return {name}({params}); }}'
+        callstr = (' {{ debug("{name}"); return {name}({params}); }}'
                    .format(name=v.name,
                            params=', '.join(p.name for p in v.params)))
-        print(str(v).replace(v.name, '_' + v.name).replace(';', callstr),
+        print('EXTERN_ABI ' + (str(v).replace(v.name, '_' + v.name)
+                                     .replace(';', callstr)),
               file=out)
 
     for v in [v for v in Struct.get('').structs if v.name[0:6] == 'ISteam']:
-        print('EXTERN_ABI auto _{name}() {{'
-              ' return SteamAPI_Context()->{name}();'
-              ' }}'.format(name=v.name[1:]), file=out)
-
-    print('EXTERN_ABI auto _SteamInternal_ContextInit() {'
-          ' return SteamInternal_ContextInit(); }', file=out)
+        print('EXTERN_ABI auto _{name}() {{ debug("{name}"); return {name}(); }}'
+              .format(name=v.name[1:]), file=out)
 
 with open('csteamworks/csteamworks.ipp', 'w') as out:
     printed = {}
@@ -269,6 +268,5 @@ with open('csteamworks/csteamworks.ipp', 'w') as out:
                 continue
 
             print('EXTERN_ABI auto {function}({params}) {{'
-                  ' debug("{function}({params})");'
-                  ' return {name}()->{method}({pnames}); }}'
+                  ' debug("{function}({params})"); }}'
                   .format(**kwargs), file=out)

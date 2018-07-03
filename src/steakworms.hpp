@@ -4,10 +4,14 @@
 #include <utility>
 
 #ifdef _WIN32
+#define _GLIBCXX_USE_C99_DYNAMIC 1
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wattributes"
+#include <cstdio>
 #include <wine/debug.h>
 #pragma GCC diagnostic pop
+#else
+#include <stdio.h>
 #endif
 
 #ifdef _WIN32
@@ -16,8 +20,7 @@
 #define EXTERN_ABI
 #endif
 
-template <typename... Ts>
-static void __debug(char const *message, Ts &&... as) {
+template <typename... Ts> static void __debug(char const *message, Ts &&... as) {
 #ifndef _WIN32
   extern int __dbg;
   dprintf(__dbg, "linux: ");
@@ -75,6 +78,7 @@ struct CGameID {
 extern "C" {
 #include "steam_api.ipp"
 #include "steam_api_context.ipp"
+bool SteamAPI_InitSafe();
 bool SteamAPI_IsSteamRunning();
 }
 

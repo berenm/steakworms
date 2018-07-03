@@ -1,8 +1,13 @@
 #define _GLIBCXX_USE_C99_DYNAMIC 1
 
+#include <cassert>
 #include <cstdint>
 #include <cstdio>
 #include <ctime>
+
+#include <algorithm>
+#include <unordered_map>
+#include <vector>
 
 #include <unistd.h>
 
@@ -14,90 +19,151 @@ struct CCallbackBase {
                               SteamAPICall_t hSteamAPICall) = 0;
 };
 
-void CCallbackBase::Run(void *pvParam) {}
+void CCallbackBase::Run(void *pvParam) { debug("Run"); }
 
-CCallbackBase *RequestCurrentStatsCallback = NULL;
+auto callbacks      = std::unordered_map<int, std::vector<void *>>{};
+auto callback_types = std::unordered_map<void *, int>{};
 
 CSteamAPIContext SteamContext;
 CSteamID         steam_id;
 
-CSteamAPIContext *SteamAPI_Context() { return &SteamContext; }
+CSteamAPIContext *SteamAPI_Context() {
+  debug("SteamContext;");
+  return &SteamContext;
+}
 
-ISteamClient *SteamClient() { return SteamContext.SteamClient(); }
+ISteamClient *SteamClient() {
+  debug("SteamClient");
+  return SteamContext.SteamClient();
+}
 
-ISteamUser *SteamUser() { return SteamContext.SteamUser(); }
+ISteamUser *SteamUser() {
+  debug("SteamUser");
+  return SteamContext.SteamUser();
+}
 
-ISteamFriends *SteamFriends() { return SteamContext.SteamFriends(); }
+ISteamFriends *SteamFriends() {
+  debug("SteamFriends");
+  return SteamContext.SteamFriends();
+}
 
-ISteamUtils *SteamUtils() { return SteamContext.SteamUtils(); }
+ISteamUtils *SteamUtils() {
+  debug("SteamUtils");
+  return SteamContext.SteamUtils();
+}
 
 ISteamMatchmaking *SteamMatchmaking() {
+  debug("SteamMatchmaking");
   return SteamContext.SteamMatchmaking();
 }
 
-ISteamUserStats *SteamUserStats() { return SteamContext.SteamUserStats(); }
+ISteamUserStats *SteamUserStats() {
+  debug("SteamUserStats");
+  return SteamContext.SteamUserStats();
+}
 
-ISteamApps *SteamApps() { return SteamContext.SteamApps(); }
+ISteamApps *SteamApps() {
+  debug("SteamApps");
+  return SteamContext.SteamApps();
+}
 
 ISteamMatchmakingServers *SteamMatchmakingServers() {
+  debug("SteamMatchmakingServers");
   return SteamContext.SteamMatchmakingServers();
 }
 
-ISteamNetworking *SteamNetworking() { return SteamContext.SteamNetworking(); }
+ISteamNetworking *SteamNetworking() {
+  debug("SteamNetworking");
+  return SteamContext.SteamNetworking();
+}
 
 ISteamRemoteStorage *SteamRemoteStorage() {
+  debug("SteamRemoteStorage");
   return SteamContext.SteamRemoteStorage();
 }
 
 ISteamScreenshots *SteamScreenshots() {
+  debug("SteamScreenshots");
   return SteamContext.SteamScreenshots();
 }
 
-ISteamHTTP *SteamHTTP() { return SteamContext.SteamHTTP(); }
+ISteamHTTP *SteamHTTP() {
+  debug("SteamHTTP");
+  return SteamContext.SteamHTTP();
+}
 
-ISteamController *SteamController() { return SteamContext.SteamController(); }
+ISteamController *SteamController() {
+  debug("SteamController");
+  return SteamContext.SteamController();
+}
 
-ISteamUGC *SteamUGC() { return SteamContext.SteamUGC(); }
+ISteamUGC *SteamUGC() {
+  debug("SteamUGC");
+  return SteamContext.SteamUGC();
+}
 
-ISteamAppList *SteamAppList() { return SteamContext.SteamAppList(); }
+ISteamAppList *SteamAppList() {
+  debug("SteamAppList");
+  return SteamContext.SteamAppList();
+}
 
-ISteamMusic *SteamMusic() { return SteamContext.SteamMusic(); }
+ISteamMusic *SteamMusic() {
+  debug("SteamMusic");
+  return SteamContext.SteamMusic();
+}
 
 ISteamMusicRemote *SteamMusicRemote() {
+  debug("SteamMusicRemote");
   return SteamContext.SteamMusicRemote();
 }
 
 ISteamHTMLSurface *SteamHTMLSurface() {
+  debug("SteamHTMLSurface");
   return SteamContext.SteamHTMLSurface();
 }
 
-ISteamInventory *SteamInventory() { return SteamContext.SteamInventory(); }
+ISteamInventory *SteamInventory() {
+  debug("SteamInventory");
+  return SteamContext.SteamInventory();
+}
 
-ISteamVideo *SteamVideo() { return SteamContext.SteamVideo(); }
+ISteamVideo *SteamVideo() {
+  debug("SteamVideo");
+  return SteamContext.SteamVideo();
+}
 
 ISteamParentalSettings *SteamParentalSettings() {
+  debug("SteamParentalSettings");
   return SteamContext.SteamParentalSettings();
 }
 
-ISteamGameServer *SteamGameServer() { return SteamContext.SteamGameServer(); }
+ISteamGameServer *SteamGameServer() {
+  debug("SteamGameServer");
+  return SteamContext.SteamGameServer();
+}
 
 ISteamGameServerStats *SteamGameServerStats() {
+  debug("SteamGameServerStats");
   return SteamContext.SteamGameServerStats();
 }
 
 ISteamMatchmakingServerListResponse *SteamMatchmakingServerListResponse() {
+  debug("SteamMatchmakingServerListResponse");
   return SteamContext.SteamMatchmakingServerListResponse();
 }
 
 ISteamMatchmakingPingResponse *SteamMatchmakingPingResponse() {
+  debug("SteamMatchmakingPingResponse");
   return SteamContext.SteamMatchmakingPingResponse();
 }
 
 ISteamMatchmakingPlayersResponse *SteamMatchmakingPlayersResponse() {
+  debug("SteamMatchmakingPlayersResponse");
   return SteamContext.SteamMatchmakingPlayersResponse();
 }
 
 ISteamMatchmakingRulesResponse *SteamMatchmakingRulesResponse() {
+  debug("SteamMatchmakingRulesResponse");
   return SteamContext.SteamMatchmakingRulesResponse();
 }
 
@@ -625,8 +691,8 @@ bool ISteamUserStats::RequestCurrentStats() {
   stats.m_nGameID     = 1;
   stats.m_eResult     = k_EResultOK;
   stats.m_steamIDUser = steam_id;
-  if (RequestCurrentStatsCallback)
-    RequestCurrentStatsCallback->Run(&stats);
+  for (auto &c : callbacks[1101])
+    static_cast<CCallbackBase *>(c)->Run(&stats);
   return true;
 }
 
@@ -1905,88 +1971,89 @@ CSteamAPIContext::SteamMatchmakingRulesResponse() const {
   return &SteamMatchmakingRulesResponse;
 }
 
-extern "C" void SteamInternal_ContextInit() {
-  debug("SteamInternal_ContextInit()");
-}
+void SteamInternal_ContextInit() { debug("SteamInternal_ContextInit()"); }
 
-extern "C" bool SteamAPI_RestartAppIfNecessary(uint32_t unOwnAppID) {
+bool SteamAPI_RestartAppIfNecessary(uint32_t unOwnAppID) {
   debug("SteamAPI_RestartAppIfNecessary");
   return false;
 }
 
-extern "C" bool SteamAPI_Init() {
+bool SteamAPI_Init() {
   debug("SteamAPI_Init");
   return true;
 }
 
-extern "C" bool SteamAPI_IsSteamRunning() {
+bool SteamAPI_InitSafe() { return SteamAPI_Init(); }
+
+bool SteamAPI_IsSteamRunning() {
   debug("SteamAPI_IsSteamRunning");
   return false;
 }
 
-extern "C" void SteamAPI_Shutdown() { debug("SteamAPI_Shutdown"); }
+void SteamAPI_Shutdown() { debug("SteamAPI_Shutdown"); }
 
-extern "C" void SteamAPI_RegisterCallback(void *pCallback, int iCallback) {
+void SteamAPI_RegisterCallback(void *pCallback, int iCallback) {
   debug("SteamAPI_RegisterCallback(%p, %d)", pCallback, iCallback);
-  if (iCallback == 1101)
-    RequestCurrentStatsCallback = (CCallbackBase *)pCallback;
+  callbacks[iCallback].push_back(pCallback);
+  callback_types[pCallback] = iCallback;
 }
 
-extern "C" void SteamAPI_UnregisterCallback(void *pCallback) {
+void SteamAPI_UnregisterCallback(void *pCallback) {
   debug("SteamAPI_UnregisterCallback(%p)", pCallback);
-  if (RequestCurrentStatsCallback == pCallback)
-    RequestCurrentStatsCallback = NULL;
+
+  auto &cbs = callbacks[callback_types[pCallback]];
+  cbs.erase(std::remove(std::begin(cbs), std::end(cbs), pCallback),
+            std::end(cbs));
 }
 
-extern "C" void SteamAPI_RunCallbacks() {
-  // debug("SteamAPI_RunCallbacks()");
+void SteamAPI_RunCallbacks() { debug("SteamAPI_RunCallbacks()"); }
+
+HSteamPipe SteamAPI_GetHSteamPipe() {
+  debug("SteamAPI_GetHSteamPipe");
+  return 1;
 }
 
-extern "C" HSteamPipe SteamAPI_GetHSteamPipe() { return {}; }
-
-extern "C" HSteamUser SteamAPI_GetHSteamUser() { return {}; }
-
-extern "C" void SteamGameServer_RunCallbacks() {
-  debug("SteamGameServer_RunCallbacks");
+HSteamUser SteamAPI_GetHSteamUser() {
+  debug("SteamAPI_GetHSteamUser");
+  return 1;
 }
 
-extern "C" void SteamAPI_RegisterCallResult(void *         pCallback,
-                                            SteamAPICall_t callback) {
+void SteamGameServer_RunCallbacks() { debug("SteamGameServer_RunCallbacks"); }
+
+void SteamAPI_RegisterCallResult(void *pCallback, SteamAPICall_t callback) {
   debug("SteamAPI_RegisterCallResult");
 }
 
-extern "C" void SteamAPI_UnregisterCallResult(void *         pCallback,
-                                              SteamAPICall_t callback) {
+void SteamAPI_UnregisterCallResult(void *pCallback, SteamAPICall_t callback) {
   debug("SteamAPI_UnregisterCallResult");
 }
 
-extern "C" bool SteamInternal_GameServer_Init(uint32 unIP, uint16 usPort,
-                                              uint16      usGamePort,
-                                              uint16      usQueryPort,
-                                              int         eServerMode,
-                                              const char *pchVersionString) {
+bool SteamInternal_GameServer_Init(uint32 unIP, uint16 usPort,
+                                   uint16 usGamePort, uint16 usQueryPort,
+                                   int         eServerMode,
+                                   const char *pchVersionString) {
   debug("SteamInternal_GameServer_Init");
   return SteamAPI_Init();
 }
 
-extern "C" void SteamGameServer_Shutdown() {
+void SteamGameServer_Shutdown() {
   debug("SteamGameServer_Shutdown");
   SteamAPI_Shutdown();
 }
 
-extern "C" HSteamUser SteamGameServer_GetHSteamUser() {
+HSteamUser SteamGameServer_GetHSteamUser() {
   debug("SteamGameServer_GetHSteamUser");
   return SteamAPI_GetHSteamUser();
 }
 
-extern "C" HSteamPipe SteamGameServer_GetHSteamPipe() {
+HSteamPipe SteamGameServer_GetHSteamPipe() {
   debug("SteamGameServer_GetHSteamPipe");
   return SteamAPI_GetHSteamPipe();
 }
 
-extern "C" void *SteamInternal_CreateInterface(const char *version) {
-  debug("SteamInternal_CreateInterface");
-  return NULL;
+void *SteamInternal_CreateInterface(const char *version) {
+  debug("SteamInternal_CreateInterface(%s)", version);
+  return SteamClient();
 }
 
 void ISteamHTMLSurface::DestructISteamHTMLSurface() {

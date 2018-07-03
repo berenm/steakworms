@@ -41,6 +41,7 @@
 @ cdecl SteamParentalSettings() _SteamParentalSettings
 @ cdecl SteamGameServer() _SteamGameServer
 @ cdecl SteamGameServerStats() _SteamGameServerStats
+@ cdecl SteamAPI_InitSafe() _SteamAPI_InitSafe
 @ cdecl SteamInternal_ContextInit() _SteamInternal_ContextInit
 @ cdecl SteamAPI_SetMiniDumpComment() _SteamAPI_SetMiniDumpComment
 @ cdecl SteamAPI_WriteMiniDump() _SteamAPI_WriteMiniDump

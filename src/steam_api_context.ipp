@@ -1,68 +1,64 @@
 struct CSteamAPIContext {
-  EXTERN_ABI ISteamClient *SteamClient() const;
-  EXTERN_ABI ISteamUser *SteamUser() const;
-  EXTERN_ABI ISteamFriends *SteamFriends() const;
-  EXTERN_ABI ISteamUtils *SteamUtils() const;
-  EXTERN_ABI ISteamMatchmaking *SteamMatchmaking() const;
-  EXTERN_ABI ISteamUserStats *SteamUserStats() const;
-  EXTERN_ABI ISteamApps *SteamApps() const;
-  EXTERN_ABI ISteamMatchmakingServers *SteamMatchmakingServers() const;
-  EXTERN_ABI ISteamNetworking *SteamNetworking() const;
-  EXTERN_ABI ISteamRemoteStorage *SteamRemoteStorage() const;
-  EXTERN_ABI ISteamScreenshots *SteamScreenshots() const;
-  EXTERN_ABI ISteamHTTP *SteamHTTP() const;
-  EXTERN_ABI ISteamController *SteamController() const;
-  EXTERN_ABI ISteamUGC *SteamUGC() const;
-  EXTERN_ABI ISteamAppList *SteamAppList() const;
-  EXTERN_ABI ISteamMusic *SteamMusic() const;
-  EXTERN_ABI ISteamMusicRemote *SteamMusicRemote() const;
-  EXTERN_ABI ISteamHTMLSurface *SteamHTMLSurface() const;
-  EXTERN_ABI ISteamInventory *SteamInventory() const;
-  EXTERN_ABI ISteamVideo *SteamVideo() const;
-  EXTERN_ABI ISteamParentalSettings *SteamParentalSettings() const;
-  EXTERN_ABI ISteamGameServer *SteamGameServer() const;
-  EXTERN_ABI ISteamGameServerStats *SteamGameServerStats() const;
+  ISteamClient *            SteamClient() const;
+  ISteamUser *              SteamUser() const;
+  ISteamFriends *           SteamFriends() const;
+  ISteamUtils *             SteamUtils() const;
+  ISteamMatchmaking *       SteamMatchmaking() const;
+  ISteamUserStats *         SteamUserStats() const;
+  ISteamApps *              SteamApps() const;
+  ISteamMatchmakingServers *SteamMatchmakingServers() const;
+  ISteamNetworking *        SteamNetworking() const;
+  ISteamRemoteStorage *     SteamRemoteStorage() const;
+  ISteamScreenshots *       SteamScreenshots() const;
+  ISteamHTTP *              SteamHTTP() const;
+  ISteamController *        SteamController() const;
+  ISteamUGC *               SteamUGC() const;
+  ISteamAppList *           SteamAppList() const;
+  ISteamMusic *             SteamMusic() const;
+  ISteamMusicRemote *       SteamMusicRemote() const;
+  ISteamHTMLSurface *       SteamHTMLSurface() const;
+  ISteamInventory *         SteamInventory() const;
+  ISteamVideo *             SteamVideo() const;
+  ISteamParentalSettings *  SteamParentalSettings() const;
+  ISteamGameServer *        SteamGameServer() const;
+  ISteamGameServerStats *   SteamGameServerStats() const;
 
-  EXTERN_ABI ISteamMatchmakingServerListResponse *
-             SteamMatchmakingServerListResponse() const;
-  EXTERN_ABI ISteamMatchmakingPingResponse *
-             SteamMatchmakingPingResponse() const;
-  EXTERN_ABI ISteamMatchmakingPlayersResponse *
-             SteamMatchmakingPlayersResponse() const;
-  EXTERN_ABI ISteamMatchmakingRulesResponse *
-             SteamMatchmakingRulesResponse() const;
+  ISteamMatchmakingServerListResponse *
+                                    SteamMatchmakingServerListResponse() const;
+  ISteamMatchmakingPingResponse *   SteamMatchmakingPingResponse() const;
+  ISteamMatchmakingPlayersResponse *SteamMatchmakingPlayersResponse() const;
+  ISteamMatchmakingRulesResponse *  SteamMatchmakingRulesResponse() const;
 };
 
-EXTERN_ABI ISteamClient *SteamClient();
-EXTERN_ABI ISteamUser *SteamUser();
-EXTERN_ABI ISteamFriends *SteamFriends();
-EXTERN_ABI ISteamUtils *SteamUtils();
-EXTERN_ABI ISteamMatchmaking *SteamMatchmaking();
-EXTERN_ABI ISteamUserStats *SteamUserStats();
-EXTERN_ABI ISteamApps *SteamApps();
-EXTERN_ABI ISteamMatchmakingServers *SteamMatchmakingServers();
-EXTERN_ABI ISteamNetworking *SteamNetworking();
-EXTERN_ABI ISteamRemoteStorage *SteamRemoteStorage();
-EXTERN_ABI ISteamScreenshots *SteamScreenshots();
-EXTERN_ABI ISteamHTTP *SteamHTTP();
-EXTERN_ABI ISteamController *SteamController();
-EXTERN_ABI ISteamUGC *SteamUGC();
-EXTERN_ABI ISteamAppList *SteamAppList();
-EXTERN_ABI ISteamMusic *SteamMusic();
-EXTERN_ABI ISteamMusicRemote *SteamMusicRemote();
-EXTERN_ABI ISteamHTMLSurface *SteamHTMLSurface();
-EXTERN_ABI ISteamInventory *SteamInventory();
-EXTERN_ABI ISteamVideo *SteamVideo();
-EXTERN_ABI ISteamParentalSettings *SteamParentalSettings();
-EXTERN_ABI ISteamGameServer *SteamGameServer();
-EXTERN_ABI ISteamGameServerStats *SteamGameServerStats();
+ISteamClient *            SteamClient();
+ISteamUser *              SteamUser();
+ISteamFriends *           SteamFriends();
+ISteamUtils *             SteamUtils();
+ISteamMatchmaking *       SteamMatchmaking();
+ISteamUserStats *         SteamUserStats();
+ISteamApps *              SteamApps();
+ISteamMatchmakingServers *SteamMatchmakingServers();
+ISteamNetworking *        SteamNetworking();
+ISteamRemoteStorage *     SteamRemoteStorage();
+ISteamScreenshots *       SteamScreenshots();
+ISteamHTTP *              SteamHTTP();
+ISteamController *        SteamController();
+ISteamUGC *               SteamUGC();
+ISteamAppList *           SteamAppList();
+ISteamMusic *             SteamMusic();
+ISteamMusicRemote *       SteamMusicRemote();
+ISteamHTMLSurface *       SteamHTMLSurface();
+ISteamInventory *         SteamInventory();
+ISteamVideo *             SteamVideo();
+ISteamParentalSettings *  SteamParentalSettings();
+ISteamGameServer *        SteamGameServer();
+ISteamGameServerStats *   SteamGameServerStats();
 
-EXTERN_ABI ISteamMatchmakingServerListResponse *
-           SteamMatchmakingServerListResponse();
-EXTERN_ABI ISteamMatchmakingPingResponse *SteamMatchmakingPingResponse();
-EXTERN_ABI ISteamMatchmakingPlayersResponse *SteamMatchmakingPlayersResponse();
-EXTERN_ABI ISteamMatchmakingRulesResponse *SteamMatchmakingRulesResponse();
+ISteamMatchmakingServerListResponse *SteamMatchmakingServerListResponse();
+ISteamMatchmakingPingResponse *      SteamMatchmakingPingResponse();
+ISteamMatchmakingPlayersResponse *   SteamMatchmakingPlayersResponse();
+ISteamMatchmakingRulesResponse *     SteamMatchmakingRulesResponse();
 
-EXTERN_ABI CSteamAPIContext *SteamAPI_Context();
+CSteamAPIContext *SteamAPI_Context();
 
-EXTERN_ABI void SteamInternal_ContextInit();
+void SteamInternal_ContextInit();

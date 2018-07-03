@@ -817,37 +817,40 @@ EXTERN_ABI auto _SteamAPI_UseBreakpadCrashHandler() {
 
 EXTERN_ABI auto _SteamAPI_WriteMiniDump() { debug("SteamAPI_WriteMiniDump()"); }
 
-EXTERN_ABI auto _SteamAPI_Init() { return SteamAPI_Init(); }
+EXTERN_ABI auto _SteamAPI_Init() { debug("SteamAPI_Init"); }
 
-EXTERN_ABI auto _SteamAPI_IsSteamRunning() { return SteamAPI_IsSteamRunning(); }
+EXTERN_ABI auto _SteamAPI_IsSteamRunning() { debug("SteamAPI_IsSteamRunning"); }
 
 EXTERN_ABI auto _SteamAPI_RegisterCallResult(void *         pCallback,
                                              SteamAPICall_t callback) {
-  return SteamAPI_RegisterCallResult(pCallback, callback);
+  debug("SteamAPI_RegisterCallResult");
 }
 
 EXTERN_ABI auto _SteamAPI_RegisterCallback(void *pCallback, int iCallback) {
-  return SteamAPI_RegisterCallback(pCallback, iCallback);
+  debug("SteamAPI_RegisterCallback");
 }
 
 EXTERN_ABI auto _SteamAPI_RestartAppIfNecessary(uint32 unOwnAppID) {
-  return SteamAPI_RestartAppIfNecessary(unOwnAppID);
+  debug("SteamAPI_RestartAppIfNecessary");
 }
 
-EXTERN_ABI auto _SteamAPI_RunCallbacks() { return SteamAPI_RunCallbacks(); }
+EXTERN_ABI auto _SteamAPI_RunCallbacks() { debug("SteamAPI_RunCallbacks"); }
 
-EXTERN_ABI auto _SteamAPI_Shutdown() { return SteamAPI_Shutdown(); }
+EXTERN_ABI auto _SteamAPI_Shutdown() { debug("SteamAPI_Shutdown"); }
 
 EXTERN_ABI auto _SteamAPI_UnregisterCallResult(void *         pCallback,
                                                SteamAPICall_t callback) {
-  return SteamAPI_UnregisterCallResult(pCallback, callback);
+  debug("SteamAPI_UnregisterCallResult");
 }
 
 EXTERN_ABI auto _SteamAPI_UnregisterCallback(void *pCallback) {
-  return SteamAPI_UnregisterCallback(pCallback);
+  debug("SteamAPI_UnregisterCallback");
 }
 
-EXTERN_ABI auto _SteamAPI_GetHSteamPipe_() { return SteamAPI_GetHSteamPipe(); }
+EXTERN_ABI auto _SteamAPI_GetHSteamPipe_() { debug("SteamAPI_GetHSteamPipe"); }
 
-EXTERN_ABI auto _SteamAPI_GetHSteamUser_() { return SteamAPI_GetHSteamUser(); }
+EXTERN_ABI auto _SteamAPI_GetHSteamUser_() { debug("SteamAPI_GetHSteamUser"); }
 }
+
+[[gnu::constructor]] void __init() { debug("init csteamworks.dll"); }
+[[gnu::destructor]] void  __fini() { debug("fini csteamworks.dll"); }
