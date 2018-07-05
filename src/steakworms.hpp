@@ -11,7 +11,8 @@
 #include <wine/debug.h>
 #pragma GCC diagnostic pop
 #else
-#include <stdio.h>
+#include <cstdarg>
+#include <cstdio>
 #endif
 
 #ifdef _WIN32
@@ -20,19 +21,24 @@
 #define EXTERN_ABI
 #endif
 
-template <typename... Ts>
-static void __debug(char const *message, Ts &&... as) {
 #ifndef _WIN32
+[[gnu::format(printf, 1, 2)]] static void __debug(char const *message, ...) {
   extern int __dbg;
   dprintf(__dbg, "linux: ");
-  dprintf(__dbg, message, std::forward<decltype(as)>(as)...);
+  va_list ap;
+  va_start(ap, message);
+  vdprintf(__dbg, message, ap);
+  va_end(ap);
   dprintf(__dbg, "\n");
+}
 #else
+template <typename... Ts>
+static void __debug(char const *message, Ts &&... as) {
   WINE_DPRINTF("win32: ");
   WINE_DPRINTF(message, std::forward<decltype(as)>(as)...);
   WINE_DPRINTF("\n");
-#endif // _WIN32
 }
+#endif // _WIN32
 
 #define debug(msg, ...) __debug("%s:%d " msg, __FILE__, __LINE__, ##__VA_ARGS__)
 
@@ -83,8 +89,9 @@ bool SteamAPI_InitSafe();
 bool SteamAPI_IsSteamRunning();
 }
 
-struct ISteamObject {
+struct isteam_object {
   void const *vtbl;
+  char const *clazz;
 };
 
 enum EVACBan {};

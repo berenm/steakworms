@@ -4,17 +4,20 @@
 #include "steakworms.hpp"
 #undef EXTERN_ABI
 
-#define EXTERN_ABI [[gnu::sysv_abi]]
 namespace svabi {
+#define EXTERN_ABI [[gnu::sysv_abi]]
 #include "isteam_client.ipp"
+#undef EXTERN_ABI
 } // namespace svabi
 
-#undef EXTERN_ABI
-
-#define EXTERN_ABI [[gnu::ms_abi, gnu::thiscall]]
 namespace msabi {
+#define EXTERN_ABI [[gnu::ms_abi, gnu::thiscall]]
 #include "isteam_client.ipp"
 #include "isteam_user.ipp"
+#include "isteam_utils.ipp"
+#undef EXTERN_ABI
+
+extern void **unimplemented_vtbl;
 
 HSteamPipe ISteamClient_CreateSteamPipe(void *_this) {
   debug("ISteamClient_CreateSteamPipe(%p)", _this);
@@ -60,37 +63,124 @@ void *ISteamClient_GetIVAC(void *_this, HSteamUser user) {
 
 void *ISteamClient_GetInterface(void *_this, HSteamPipe pipe, const char *version) {
   debug("ISteamClient_GetInterface(%p, %d, %s)", _this, pipe, version);
-  void *interface = svabi::ISteamClient_GetInterface(_this, pipe, version);
 
-  if (std::strcmp(version, "SteamUtils006") == 0) {
+  auto interface = static_cast<isteam_object *>(svabi::ISteamClient_GetInterface(_this, pipe, version));
+  if (false) {
+  } else if (std::strcmp(version, "SteamUtils002") == 0) {
+    interface->vtbl = &isteam_utils_002_vtbl;
+  } else if (std::strcmp(version, "SteamUtils003") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamUtils004") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamUtils005") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamUtils006") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else {
     assert(false);
   }
 
+  debug("return %p", interface);
   return interface;
 }
 
 void *ISteamClient_GetUserInterface(void *_this, HSteamUser user, HSteamPipe pipe, const char *version) {
   debug("ISteamClient_GetUserInterface(%p, %d, %d, %s)", _this, pipe, user, version);
-  auto interface = static_cast<ISteamObject *>(svabi::ISteamClient_GetUserInterface(_this, user, pipe, version));
 
+  auto interface = static_cast<isteam_object *>(svabi::ISteamClient_GetUserInterface(_this, user, pipe, version));
   if (false) {
   } else if (std::strcmp(version, "SteamUser011") == 0) {
     interface->vtbl = &isteam_user_011_vtbl;
   } else if (std::strcmp(version, "SteamUser017") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "SteamFriends004") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends005") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends006") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends007") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends008") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends009") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends010") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends011") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends012") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamFriends013") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "SteamFriends014") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamMatchMaking004") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamMatchMaking005") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamMatchMaking006") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamMatchMaking007") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamMatchMaking008") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "SteamMatchMaking009") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamMatchMakingServers001") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "SteamMatchMakingServers002") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION003") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION004") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION005") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION006") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION007") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION008") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION009") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION010") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMUSERSTATS_INTERFACE_VERSION011") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMAPPS_INTERFACE_VERSION002") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMAPPS_INTERFACE_VERSION003") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMAPPS_INTERFACE_VERSION004") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "STEAMAPPS_INTERFACE_VERSION005") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMAPPS_INTERFACE_VERSION006") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamNetworking001") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamNetworking002") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamNetworking003") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
+  } else if (std::strcmp(version, "SteamNetworking004") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "SteamNetworking005") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMREMOTESTORAGE_INTERFACE_VERSION012") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMSCREENSHOTS_INTERFACE_VERSION002") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMHTTP_INTERFACE_VERSION002") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMUNIFIEDMESSAGES_INTERFACE_VERSION001") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMCONTROLLER_INTERFACE_VERSION") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else if (std::strcmp(version, "STEAMUGC_INTERFACE_VERSION001") == 0) {
+    interface->vtbl = &unimplemented_vtbl;
   } else {
     assert(false);
   }

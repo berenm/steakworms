@@ -18,6 +18,12 @@ EXTERN_ABI void   ISteamClient_Set_SteamAPI_CPostAPIResultInProcess(void *, void
 EXTERN_ABI void   ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess(void *, void (*)(SteamAPICall_t, void *, uint32, int));
 EXTERN_ABI void   ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess(void *, unsigned int (*)(int));
 
+template <size_t N, typename R, typename... As>
+EXTERN_ABI static R ISteamClient_Unimplemented(void *_this, As...) {
+  debug("ISteamClient_Unimplemented: %s->vtbl[%zu](%p, ...)", static_cast<isteam_object *>(_this)->clazz, N, _this);
+  return {};
+}
+
 struct ISteamClient006Vtbl {
   EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
   EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;

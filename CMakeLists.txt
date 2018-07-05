@@ -30,7 +30,12 @@ else()
   set(CMAKE_CXX_STANDARD 11)
   set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
-  set(sources src/steakworms.cpp src/steakworms.hpp src/steam_api.ipp src/steam_client.cpp)
+  set(sources src/steakworms.cpp src/steakworms.hpp src/steam_api.ipp
+    src/isteam_unimplemented.cpp
+    src/isteam_client.cpp
+    src/isteam_user.cpp
+    src/isteam_utils.cpp
+  )
   set(warnings -Wall -Wextra
     -Wno-attributes -Wno-ignored-attributes -Wno-subobject-linkage
     -Wno-unused-parameter -Wno-unused-variable)

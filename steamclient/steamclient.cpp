@@ -18,22 +18,6 @@ namespace svabi {
 namespace msabi {
 #include "isteam_client.ipp"
 #include "isteam_user.ipp"
-
-HSteamUser      ISteamUser_GetHSteamUser(void *) { return 1; }
-EXTERN_ABI bool ISteamUser_BLoggedOn(void *) { return true; }
-EXTERN_ABI CSteamID ISteamUser_GetSteamID(void *) { return {}; }
-EXTERN_ABI int      ISteamUser_InitiateGameConnection(void *, void *, int, CSteamID, CGameID, uint32, uint16, bool) {}
-EXTERN_ABI int      ISteamUser_InitiateGameConnection(void *, void *, int, CSteamID, CGameID, uint32, uint16, bool, void *, int) {}
-EXTERN_ABI int      ISteamUser_InitiateGameConnection(void *, void *, int, CSteamID, int, uint32, uint16, bool) {}
-EXTERN_ABI int      ISteamUser_InitiateGameConnection(void *, void *, int, CSteamID, uint32, uint16, bool) {}
-EXTERN_ABI void     ISteamUser_TerminateGameConnection(void *, uint32, uint16) {}
-EXTERN_ABI void     ISteamUser_TrackAppUsageEvent(void *, CGameID, EAppUsageEvent, const char *) {}
-EXTERN_ABI bool     ISteamUser_GetUserDataFolder(void *, char *, int) {}
-EXTERN_ABI void     ISteamUser_StartVoiceRecording(void *) {}
-EXTERN_ABI void     ISteamUser_StopVoiceRecording(void *) {}
-EXTERN_ABI EVoiceResult ISteamUser_GetCompressedVoice(void *, void *, uint32, uint32 *) {}
-EXTERN_ABI EVoiceResult ISteamUser_DecompressVoice0(void *, void *, uint32, void *, uint32, uint32 *) {}
-
 } // namespace msabi
 
 extern "C" {

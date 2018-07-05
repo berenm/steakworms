@@ -637,7 +637,7 @@ bool ISteamUtils::ShowGamepadTextInput(EGamepadTextInputMode     eInputMode,
                                        EGamepadTextInputLineMode eLineInputMode,
                                        const char *              pchDescription,
                                        uint32_t                  unCharMax,
-                                       const char *pchExistingText) {
+                                       const char *              pchExistingText) {
   debug("ISteamUtils::ShowGamepadTextInput()");
   return true;
 }
@@ -810,7 +810,7 @@ bool ISteamUserStats::GetUserAchievement(CSteamID    steamIDUser,
 bool ISteamUserStats::GetUserAchievementAndUnlockTime(CSteamID    steamIDUser,
                                                       const char *pchName,
                                                       bool *      pbAchieved,
-                                                      uint32_t *punUnlockTime) {
+                                                      uint32_t *  punUnlockTime) {
   debug("ISteamUserStats::GetUserAchievementAndUnlockTime(%s)", pchName);
   return true;
 }
@@ -912,8 +912,8 @@ int ISteamUserStats::GetMostAchievedAchievementInfo(char *   pchName,
   return true;
 }
 
-int ISteamUserStats::GetNextMostAchievedAchievementInfo(int   iIteratorPrevious,
-                                                        char *pchName,
+int ISteamUserStats::GetNextMostAchievedAchievementInfo(int      iIteratorPrevious,
+                                                        char *   pchName,
                                                         uint32_t unNameBufLen,
                                                         float *  pflPercent,
                                                         bool *   pbAchieved) {
@@ -1172,8 +1172,8 @@ int ISteamFriends::GetFriendsGroupMembersCount(
 }
 
 void ISteamFriends::GetFriendsGroupMembersList(FriendsGroupID_t friendsGroupID,
-                                               CSteamID *pOutSteamIDMembers,
-                                               int       nMembersCount) {
+                                               CSteamID *       pOutSteamIDMembers,
+                                               int              nMembersCount) {
   debug("ISteamFriends::GetFriendsGroupMembersList()");
 }
 
@@ -2487,7 +2487,7 @@ void ISteamMatchmakingPingResponse::ServerFailedToRespond() {
 
 void ISteamMatchmakingPlayersResponse::AddPlayerToList(const char *pchName,
                                                        int         nScore,
-                                                       float flTimePlayed) {
+                                                       float       flTimePlayed) {
   debug("ISteamMatchmakingPlayersResponse::AddPlayerToList()");
 }
 
@@ -2694,7 +2694,7 @@ bool ISteamNetworking::DestroySocket(SNetSocket_t hSocket,
 }
 
 bool ISteamNetworking::DestroyListenSocket(SNetListenSocket_t hSocket,
-                                           bool bNotifyRemoteEnd) {
+                                           bool               bNotifyRemoteEnd) {
   debug("ISteamNetworking::DestroyListenSocket()");
   return true;
 }
@@ -3033,8 +3033,8 @@ bool ISteamHTTP::SetHTTPRequestHeaderValue(HTTPRequestHandle hRequest,
 }
 
 bool ISteamHTTP::SetHTTPRequestGetOrPostParameter(HTTPRequestHandle hRequest,
-                                                  const char *pchParamName,
-                                                  const char *pchParamValue) {
+                                                  const char *      pchParamName,
+                                                  const char *      pchParamValue) {
   debug("ISteamHTTP::SetHTTPRequestGetOrPostParameter()");
   return true;
 }
@@ -3046,7 +3046,7 @@ bool ISteamHTTP::SendHTTPRequest(HTTPRequestHandle hRequest,
 }
 
 bool ISteamHTTP::SendHTTPRequestAndStreamResponse(HTTPRequestHandle hRequest,
-                                                  SteamAPICall_t *pCallHandle) {
+                                                  SteamAPICall_t *  pCallHandle) {
   debug("ISteamHTTP::SendHTTPRequestAndStreamResponse()");
   return true;
 }
@@ -3063,15 +3063,15 @@ bool ISteamHTTP::PrioritizeHTTPRequest(HTTPRequestHandle hRequest) {
 
 bool ISteamHTTP::GetHTTPResponseHeaderSize(HTTPRequestHandle hRequest,
                                            const char *      pchHeaderName,
-                                           uint32 *unResponseHeaderSize) {
+                                           uint32 *          unResponseHeaderSize) {
   debug("ISteamHTTP::GetHTTPResponseHeaderSize()");
   return true;
 }
 
 bool ISteamHTTP::GetHTTPResponseHeaderValue(HTTPRequestHandle hRequest,
                                             const char *      pchHeaderName,
-                                            uint8 *pHeaderValueBuffer,
-                                            uint32 unBufferSize) {
+                                            uint8 *           pHeaderValueBuffer,
+                                            uint32            unBufferSize) {
   debug("ISteamHTTP::GetHTTPResponseHeaderValue()");
   return true;
 }
@@ -3091,8 +3091,8 @@ bool ISteamHTTP::GetHTTPResponseBodyData(HTTPRequestHandle hRequest,
 
 bool ISteamHTTP::GetHTTPStreamingResponseBodyData(HTTPRequestHandle hRequest,
                                                   uint32            cOffset,
-                                                  uint8 *pBodyDataBuffer,
-                                                  uint32 unBufferSize) {
+                                                  uint8 *           pBodyDataBuffer,
+                                                  uint32            unBufferSize) {
   debug("ISteamHTTP::GetHTTPStreamingResponseBodyData()");
   return true;
 }
@@ -3141,7 +3141,7 @@ bool ISteamHTTP::SetHTTPRequestCookieContainer(
 }
 
 bool ISteamHTTP::SetHTTPRequestUserAgentInfo(HTTPRequestHandle hRequest,
-                                             const char *pchUserAgentInfo) {
+                                             const char *      pchUserAgentInfo) {
   debug("ISteamHTTP::SetHTTPRequestUserAgentInfo()");
   return true;
 }
@@ -3153,7 +3153,7 @@ bool ISteamHTTP::SetHTTPRequestRequiresVerifiedCertificate(
 }
 
 bool ISteamHTTP::SetHTTPRequestAbsoluteTimeoutMS(HTTPRequestHandle hRequest,
-                                                 uint32 unMilliseconds) {
+                                                 uint32            unMilliseconds) {
   debug("ISteamHTTP::SetHTTPRequestAbsoluteTimeoutMS()");
   return true;
 }
@@ -3280,7 +3280,7 @@ void ISteamController::StopAnalogActionMomentum(
 
 void ISteamController::TriggerHapticPulse(ControllerHandle_t  controllerHandle,
                                           ESteamControllerPad eTargetPad,
-                                          unsigned short usDurationMicroSec) {
+                                          unsigned short      usDurationMicroSec) {
   debug("ISteamController::TriggerHapticPulse()");
 }
 
@@ -3371,7 +3371,7 @@ UGCQueryHandle_t ISteamUGC::CreateQueryAllUGCRequest(
 
 UGCQueryHandle_t
 ISteamUGC::CreateQueryUGCDetailsRequest(PublishedFileId_t *pvecPublishedFileID,
-                                        uint32 unNumPublishedFileIDs) {
+                                        uint32             unNumPublishedFileIDs) {
   debug("ISteamUGC::CreateQueryUGCDetailsRequest()");
   return {};
 }
@@ -3468,7 +3468,7 @@ bool ISteamUGC::SetReturnKeyValueTags(UGCQueryHandle_t handle,
 }
 
 bool ISteamUGC::SetReturnLongDescription(UGCQueryHandle_t handle,
-                                         bool bReturnLongDescription) {
+                                         bool             bReturnLongDescription) {
   debug("ISteamUGC::SetReturnLongDescription()");
   return true;
 }
@@ -3486,7 +3486,7 @@ bool ISteamUGC::SetReturnChildren(UGCQueryHandle_t handle,
 }
 
 bool ISteamUGC::SetReturnAdditionalPreviews(UGCQueryHandle_t handle,
-                                            bool bReturnAdditionalPreviews) {
+                                            bool             bReturnAdditionalPreviews) {
   debug("ISteamUGC::SetReturnAdditionalPreviews()");
   return true;
 }
@@ -3657,8 +3657,8 @@ SteamAPICall_t ISteamUGC::SubmitItemUpdate(UGCUpdateHandle_t handle,
 }
 
 EItemUpdateStatus ISteamUGC::GetItemUpdateProgress(UGCUpdateHandle_t handle,
-                                                   uint64 *punBytesProcessed,
-                                                   uint64 *punBytesTotal) {
+                                                   uint64 *          punBytesProcessed,
+                                                   uint64 *          punBytesTotal) {
   debug("ISteamUGC::GetItemUpdateProgress()");
   return {};
 }
@@ -3834,16 +3834,16 @@ EResult ISteamInventory::GetResultStatus(SteamInventoryResult_t resultHandle) {
 
 bool ISteamInventory::GetResultItems(SteamInventoryResult_t     resultHandle,
                                      struct SteamItemDetails_t *pOutItemsArray,
-                                     uint32 *punOutItemsArraySize) {
+                                     uint32 *                   punOutItemsArraySize) {
   debug("ISteamInventory::GetResultItems()");
   return true;
 }
 
 bool ISteamInventory::GetResultItemProperty(SteamInventoryResult_t resultHandle,
                                             uint32                 unItemIndex,
-                                            const char *pchPropertyName,
-                                            char *      pchValueBuffer,
-                                            uint32 *    punValueBufferSizeOut) {
+                                            const char *           pchPropertyName,
+                                            char *                 pchValueBuffer,
+                                            uint32 *               punValueBufferSizeOut) {
   debug("ISteamInventory::GetResultItemProperty()");
   return true;
 }
@@ -3855,7 +3855,7 @@ ISteamInventory::GetResultTimestamp(SteamInventoryResult_t resultHandle) {
 }
 
 bool ISteamInventory::CheckResultSteamID(SteamInventoryResult_t resultHandle,
-                                         CSteamID steamIDExpected) {
+                                         CSteamID               steamIDExpected) {
   debug("ISteamInventory::CheckResultSteamID()");
   return true;
 }
@@ -3871,7 +3871,7 @@ bool ISteamInventory::GetAllItems(SteamInventoryResult_t *pResultHandle) {
 
 bool ISteamInventory::GetItemsByID(SteamInventoryResult_t *     pResultHandle,
                                    const SteamItemInstanceID_t *pInstanceIDs,
-                                   uint32 unCountInstanceIDs) {
+                                   uint32                       unCountInstanceIDs) {
   debug("ISteamInventory::GetItemsByID()");
   return true;
 }
@@ -3923,13 +3923,13 @@ bool ISteamInventory::ConsumeItem(SteamInventoryResult_t *pResultHandle,
   return true;
 }
 
-bool ISteamInventory::ExchangeItems(SteamInventoryResult_t *pResultHandle,
-                                    const SteamItemDef_t *  pArrayGenerate,
-                                    const uint32 *punArrayGenerateQuantity,
-                                    uint32        unArrayGenerateLength,
+bool ISteamInventory::ExchangeItems(SteamInventoryResult_t *     pResultHandle,
+                                    const SteamItemDef_t *       pArrayGenerate,
+                                    const uint32 *               punArrayGenerateQuantity,
+                                    uint32                       unArrayGenerateLength,
                                     const SteamItemInstanceID_t *pArrayDestroy,
-                                    const uint32 *punArrayDestroyQuantity,
-                                    uint32        unArrayDestroyLength) {
+                                    const uint32 *               punArrayDestroyQuantity,
+                                    uint32                       unArrayDestroyLength) {
   debug("ISteamInventory::ExchangeItems()");
   return true;
 }
@@ -3946,7 +3946,7 @@ void ISteamInventory::SendItemDropHeartbeat() {
 }
 
 bool ISteamInventory::TriggerItemDrop(SteamInventoryResult_t *pResultHandle,
-                                      SteamItemDef_t dropListDefinition) {
+                                      SteamItemDef_t          dropListDefinition) {
   debug("ISteamInventory::TriggerItemDrop()");
   return true;
 }
@@ -3966,7 +3966,7 @@ bool ISteamInventory::LoadItemDefinitions() {
 }
 
 bool ISteamInventory::GetItemDefinitionIDs(SteamItemDef_t *pItemDefIDs,
-                                           uint32 *punItemDefIDsArraySize) {
+                                           uint32 *        punItemDefIDsArraySize) {
   debug("ISteamInventory::GetItemDefinitionIDs()");
   return true;
 }
@@ -3974,7 +3974,7 @@ bool ISteamInventory::GetItemDefinitionIDs(SteamItemDef_t *pItemDefIDs,
 bool ISteamInventory::GetItemDefinitionProperty(SteamItemDef_t iDefinition,
                                                 const char *   pchPropertyName,
                                                 char *         pchValueBuffer,
-                                                uint32 *punValueBufferSizeOut) {
+                                                uint32 *       punValueBufferSizeOut) {
   debug("ISteamInventory::GetItemDefinitionProperty()");
   return true;
 }
@@ -4029,7 +4029,7 @@ SteamInventoryUpdateHandle_t ISteamInventory::StartUpdateProperties() {
 
 bool ISteamInventory::RemoveProperty(SteamInventoryUpdateHandle_t handle,
                                      SteamItemInstanceID_t        nItemID,
-                                     const char *pchPropertyName) {
+                                     const char *                 pchPropertyName) {
   debug("ISteamInventory::RemoveProperty()");
   return true;
 }
@@ -4037,7 +4037,7 @@ bool ISteamInventory::RemoveProperty(SteamInventoryUpdateHandle_t handle,
 bool ISteamInventory::SetProperty(SteamInventoryUpdateHandle_t handle,
                                   SteamItemInstanceID_t        nItemID,
                                   const char *                 pchPropertyName,
-                                  const char *pchPropertyValue) {
+                                  const char *                 pchPropertyValue) {
   debug("ISteamInventory::SetProperty()");
   return true;
 }
@@ -4224,8 +4224,8 @@ void ISteamGameServer::SetRegion(const char *pszRegion) {
 
 bool ISteamGameServer::SendUserConnectAndAuthenticate(uint32      unIPClient,
                                                       const void *pvAuthBlob,
-                                                      uint32    cubAuthBlobSize,
-                                                      CSteamID *pSteamIDUser) {
+                                                      uint32      cubAuthBlobSize,
+                                                      CSteamID *  pSteamIDUser) {
   debug("ISteamGameServer::SendUserConnectAndAuthenticate()");
   return true;
 }
@@ -4367,8 +4367,8 @@ bool ISteamGameServerStats::SetUserStat(CSteamID    steamIDUser,
 
 bool ISteamGameServerStats::UpdateUserAvgRateStat(CSteamID    steamIDUser,
                                                   const char *pchName,
-                                                  float  flCountThisSession,
-                                                  double dSessionLength) {
+                                                  float       flCountThisSession,
+                                                  double      dSessionLength) {
   debug("ISteamGameServerStats::UpdateUserAvgRateStat()");
   return true;
 }
