@@ -1,753 +1,381 @@
-struct ISteamClient006Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateGlobalUser)(void *, HSteamPipe *);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetIVAC)(void *, HSteamUser);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort);
-  EXTERN_ABI const char *(*GetUniverseName)(void *, EUniverse);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamBilling)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamContentServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-};
-
-struct ISteamClient007Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamContentServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t pFunction);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient008Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType eAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t pFunction);
-};
-
-struct ISteamClient009Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType eAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t pFunction);
-};
-
-struct ISteamClient010Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient011Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient012Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient013Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient014Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient015Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusicRemote)(void *, HSteamUser, HSteamPipe, const char *);
-};
-
-struct ISteamClient016Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusicRemote)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamHTMLSurface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*Set_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int));
-  EXTERN_ABI void (*Remove_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int));
-  EXTERN_ABI void (*Set_SteamAPI_CCheckCallbackRegisteredInProcess)(void *, unsigned int (*)(int));
-};
-
-struct ISteamClient017Vtbl {
-  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *);
-  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe);
-  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType);
-  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser);
-  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16);
-  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*RunFrame)(void *);
-  EXTERN_ABI uint32 (*GetIPCCallCount)(void *);
-  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t);
-  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *);
-  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamMusicRemote)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamHTMLSurface)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void (*Set_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int));
-  EXTERN_ABI void (*Remove_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int));
-  EXTERN_ABI void (*Set_SteamAPI_CCheckCallbackRegisteredInProcess)(void *, unsigned int (*)(int));
-  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *);
-  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *);
-  void *ptr[10];
-};
-
 EXTERN_ABI HSteamPipe ISteamClient_CreateSteamPipe(void *);
 EXTERN_ABI bool       ISteamClient_BReleaseSteamPipe(void *, HSteamPipe);
-
 EXTERN_ABI HSteamUser ISteamClient_CreateGlobalUser(void *, HSteamPipe *);
 EXTERN_ABI HSteamUser ISteamClient_ConnectToGlobalUser(void *, HSteamPipe);
 EXTERN_ABI HSteamUser ISteamClient_CreateLocalUser0(void *, HSteamPipe *);
-EXTERN_ABI HSteamUser ISteamClient_CreateLocalUser(void *, HSteamPipe *, EAccountType);
-EXTERN_ABI void       ISteamClient_ReleaseUser(void *, HSteamPipe, HSteamUser);
-
-EXTERN_ABI void *ISteamClient_GetIVAC(void *, HSteamUser);
-EXTERN_ABI void *ISteamClient_GetInterface(void *, HSteamPipe, const char *);
-EXTERN_ABI void *ISteamClient_GetUserInterface(void *, HSteamUser, HSteamPipe, const char *);
-
+EXTERN_ABI HSteamUser  ISteamClient_CreateLocalUser(void *, HSteamPipe *, EAccountType);
+EXTERN_ABI void        ISteamClient_ReleaseUser(void *, HSteamPipe, HSteamUser);
+EXTERN_ABI void *      ISteamClient_GetIVAC(void *, HSteamUser);
+EXTERN_ABI void *      ISteamClient_GetInterface(void *, HSteamPipe, const char *);
+EXTERN_ABI void *      ISteamClient_GetUserInterface(void *, HSteamUser, HSteamPipe, const char *);
 EXTERN_ABI const char *ISteamClient_GetUniverseName(void *, EUniverse);
-
-EXTERN_ABI void ISteamClient_SetLocalIPBinding(void *, uint32, uint16);
-EXTERN_ABI void ISteamClient_RunFrame(void *);
-
+EXTERN_ABI void        ISteamClient_SetLocalIPBinding(void *, uint32, uint16);
+EXTERN_ABI void        ISteamClient_RunFrame(void *);
 EXTERN_ABI uint32 ISteamClient_GetIPCCallCount(void *);
+EXTERN_ABI void   ISteamClient_SetWarningMessageHook(void *, SteamAPIWarningMessageHook_t);
+EXTERN_ABI bool   ISteamClient_BShutdownIfAllPipesClosed(void *);
+EXTERN_ABI void   ISteamClient_Set_SteamAPI_CPostAPIResultInProcess(void *, void (*)(SteamAPICall_t, void *, uint32, int));
+EXTERN_ABI void   ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess(void *, void (*)(SteamAPICall_t, void *, uint32, int));
+EXTERN_ABI void   ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess(void *, unsigned int (*)(int));
 
-EXTERN_ABI void ISteamClient_SetWarningMessageHook(void *, SteamAPIWarningMessageHook_t);
+struct ISteamClient006Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*CreateGlobalUser)(void *, HSteamPipe *)                                = ISteamClient_CreateGlobalUser;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                               = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *)                                 = ISteamClient_CreateLocalUser0;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                 = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetIVAC)(void *, HSteamUser)                                                = ISteamClient_GetIVAC;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort)                       = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI const char *(*GetUniverseName)(void *, EUniverse)                                   = ISteamClient_GetUniverseName;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                           = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamBilling)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamContentServer)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                            = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                   = ISteamClient_GetIPCCallCount;
+} const isteam_client_006_vtbl;
 
-EXTERN_ABI bool ISteamClient_BShutdownIfAllPipesClosed(void *);
+struct ISteamClient007Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                               = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *)                                 = ISteamClient_CreateLocalUser0;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                 = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort)                       = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                           = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamContentServer)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                            = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                   = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)           = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t pFunction)       = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+} const isteam_client_007_vtbl;
 
-EXTERN_ABI void ISteamClient_Set_SteamAPI_CPostAPIResultInProcess(void *, void (*)(SteamAPICall_t, void *, uint32, int));
-EXTERN_ABI void ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess(void *, void (*)(SteamAPICall_t, void *, uint32, int));
-EXTERN_ABI void ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess(void *, unsigned int (*)(int));
+struct ISteamClient008Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                               = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType eAccountType)      = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                 = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort)                       = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                           = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)           = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                            = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                   = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t pFunction)       = ISteamClient_SetWarningMessageHook;
+} const isteam_client_008_vtbl;
 
-const ISteamClient006Vtbl isteam_client_006_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_CreateGlobalUser,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser0,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetIVAC,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUniverseName,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-};
+struct ISteamClient009Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                               = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType eAccountType)      = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                 = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32 unIP, uint16 usPort)                       = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                           = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)           = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)     = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                            = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                   = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t pFunction)       = ISteamClient_SetWarningMessageHook;
+} const isteam_client_009_vtbl;
 
-const ISteamClient007Vtbl isteam_client_007_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser0,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_GetUserInterface,
-};
+struct ISteamClient010Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                               = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                   = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                 = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                   = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                           = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)           = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)     = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                            = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                   = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                 = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                           = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+} const isteam_client_010_vtbl;
 
-const ISteamClient008Vtbl isteam_client_008_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-};
+struct ISteamClient011Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                               = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                       = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                               = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                   = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                 = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                   = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                           = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMasterServerUpdater)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)           = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)     = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                            = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                   = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                 = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                           = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+} const isteam_client_011_vtbl;
 
-const ISteamClient009Vtbl isteam_client_009_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-};
+struct ISteamClient012Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                              = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                      = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                              = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                  = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                  = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                          = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)      = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                           = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                  = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                          = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+} const isteam_client_012_vtbl;
 
-const ISteamClient010Vtbl isteam_client_010_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-};
+struct ISteamClient013Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                              = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                      = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                              = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                  = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                  = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                          = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)      = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                           = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                  = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                          = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *)              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+} const isteam_client_013_vtbl;
 
-const ISteamClient011Vtbl isteam_client_011_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-};
+struct ISteamClient014Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                              = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                      = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                              = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                  = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                  = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                          = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)      = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                           = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                  = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                          = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *)              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *)              = ISteamClient_GetUserInterface;
+} const isteam_client_014_vtbl;
 
-const ISteamClient012Vtbl isteam_client_012_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-};
+struct ISteamClient015Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                              = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                      = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                              = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                  = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                  = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                          = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *) = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)      = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                           = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                  = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                          = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)               = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *)    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *)         = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *)                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *)          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *)              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *)            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *)              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusicRemote)(void *, HSteamUser, HSteamPipe, const char *)        = ISteamClient_GetUserInterface;
+} const isteam_client_015_vtbl;
 
-const ISteamClient013Vtbl isteam_client_013_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-};
+struct ISteamClient016Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                                                  = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                                          = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                                                  = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                                      = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                                    = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                                   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)                             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                                      = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)                                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                                              = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)                     = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)                       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)                              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)                        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                                   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)                             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)                          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                                               = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                                      = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                                    = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                                              = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)                                   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *)                        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *)                             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *)                                    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *)                              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *)                                  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *)                                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *)                                  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusicRemote)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamHTMLSurface)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*Set_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int))    = ISteamClient_Set_SteamAPI_CPostAPIResultInProcess;
+  EXTERN_ABI void (*Remove_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int)) = ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess;
+  EXTERN_ABI void (*Set_SteamAPI_CCheckCallbackRegisteredInProcess)(void *, unsigned int (*)(int))                  = ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess;
+} const isteam_client_016_vtbl;
 
-const ISteamClient014Vtbl isteam_client_014_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-};
-
-const ISteamClient015Vtbl isteam_client_015_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-};
-
-const ISteamClient016Vtbl isteam_client_016_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_Set_SteamAPI_CPostAPIResultInProcess,
-    ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess,
-    ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess,
-};
-
-const ISteamClient017Vtbl isteam_client_017_vtbl = {
-    ISteamClient_CreateSteamPipe,
-    ISteamClient_BReleaseSteamPipe,
-    ISteamClient_ConnectToGlobalUser,
-    ISteamClient_CreateLocalUser,
-    ISteamClient_ReleaseUser,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_SetLocalIPBinding,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_RunFrame,
-    ISteamClient_GetIPCCallCount,
-    ISteamClient_SetWarningMessageHook,
-    ISteamClient_BShutdownIfAllPipesClosed,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    ISteamClient_Set_SteamAPI_CPostAPIResultInProcess,
-    ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess,
-    ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess,
-    ISteamClient_GetUserInterface,
-    ISteamClient_GetUserInterface,
-    {},
-};
+struct ISteamClient017Vtbl {
+  EXTERN_ABI HSteamPipe (*CreateSteamPipe)(void *)                                                                  = ISteamClient_CreateSteamPipe;
+  EXTERN_ABI bool (*BReleaseSteamPipe)(void *, HSteamPipe)                                                          = ISteamClient_BReleaseSteamPipe;
+  EXTERN_ABI HSteamUser (*ConnectToGlobalUser)(void *, HSteamPipe)                                                  = ISteamClient_ConnectToGlobalUser;
+  EXTERN_ABI HSteamUser (*CreateLocalUser)(void *, HSteamPipe *, EAccountType)                                      = ISteamClient_CreateLocalUser;
+  EXTERN_ABI void (*ReleaseUser)(void *, HSteamPipe, HSteamUser)                                                    = ISteamClient_ReleaseUser;
+  EXTERN_ABI void *(*GetISteamUser)(void *, HSteamUser, HSteamPipe, const char *)                                   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServer)(void *, HSteamUser, HSteamPipe, const char *)                             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*SetLocalIPBinding)(void *, uint32, uint16)                                                      = ISteamClient_SetLocalIPBinding;
+  EXTERN_ABI void *(*GetISteamFriends)(void *, HSteamUser, HSteamPipe, const char *)                                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUtils)(void *, HSteamPipe, const char *)                                              = ISteamClient_GetInterface;
+  EXTERN_ABI void *(*GetISteamMatchmaking)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMatchmakingServers)(void *, HSteamUser, HSteamPipe, const char *)                     = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGenericInterface)(void *, HSteamUser, HSteamPipe, const char *)                       = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUserStats)(void *, HSteamUser, HSteamPipe, const char *)                              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamGameServerStats)(void *, HSteamUser, HSteamPipe, const char *)                        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamApps)(void *, HSteamUser, HSteamPipe, const char *)                                   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamNetworking)(void *, HSteamUser, HSteamPipe, const char *)                             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamRemoteStorage)(void *, HSteamUser, HSteamPipe, const char *)                          = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamScreenshots)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*RunFrame)(void *)                                                                               = ISteamClient_RunFrame;
+  EXTERN_ABI uint32 (*GetIPCCallCount)(void *)                                                                      = ISteamClient_GetIPCCallCount;
+  EXTERN_ABI void (*SetWarningMessageHook)(void *, SteamAPIWarningMessageHook_t)                                    = ISteamClient_SetWarningMessageHook;
+  EXTERN_ABI bool (*BShutdownIfAllPipesClosed)(void *)                                                              = ISteamClient_BShutdownIfAllPipesClosed;
+  EXTERN_ABI void *(*GetISteamHTTP)(void *, HSteamUser, HSteamPipe, const char *)                                   = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUnifiedMessages)(void *, HSteamUser, HSteamPipe, const char *)                        = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamController)(void *, HSteamUser, HSteamPipe, const char *)                             = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamUGC)(void *, HSteamUser, HSteamPipe, const char *)                                    = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamAppList)(void *, HSteamUser, HSteamPipe, const char *)                                = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusic)(void *, HSteamUser, HSteamPipe, const char *)                                  = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamMusicRemote)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamHTMLSurface)(void *, HSteamUser, HSteamPipe, const char *)                            = ISteamClient_GetUserInterface;
+  EXTERN_ABI void (*Set_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int))    = ISteamClient_Set_SteamAPI_CPostAPIResultInProcess;
+  EXTERN_ABI void (*Remove_SteamAPI_CPostAPIResultInProcess)(void *, void (*)(SteamAPICall_t, void *, uint32, int)) = ISteamClient_Remove_SteamAPI_CPostAPIResultInProcess;
+  EXTERN_ABI void (*Set_SteamAPI_CCheckCallbackRegisteredInProcess)(void *, unsigned int (*)(int))                  = ISteamClient_Set_SteamAPI_CCheckCallbackRegisteredInProcess;
+  EXTERN_ABI void *(*GetISteamInventory)(void *, HSteamUser, HSteamPipe, const char *)                              = ISteamClient_GetUserInterface;
+  EXTERN_ABI void *(*GetISteamVideo)(void *, HSteamUser, HSteamPipe, const char *)                                  = ISteamClient_GetUserInterface;
+} const isteam_client_017_vtbl;

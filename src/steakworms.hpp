@@ -20,7 +20,8 @@
 #define EXTERN_ABI
 #endif
 
-template <typename... Ts> static void __debug(char const *message, Ts &&... as) {
+template <typename... Ts>
+static void __debug(char const *message, Ts &&... as) {
 #ifndef _WIN32
   extern int __dbg;
   dprintf(__dbg, "linux: ");
@@ -81,5 +82,14 @@ extern "C" {
 bool SteamAPI_InitSafe();
 bool SteamAPI_IsSteamRunning();
 }
+
+struct ISteamObject {
+  void const *vtbl;
+};
+
+enum EVACBan {};
+enum ELogonState {};
+enum ERegistrySubTree {};
+enum EAppUsageEvent {};
 
 #endif // INCLUDED_STEAKWORMS_HPP

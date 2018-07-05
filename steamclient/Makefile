@@ -29,7 +29,7 @@ i386-linux-gnu_MODULE   = steamclient.dll
 x86_64-linux-gnu_MODULE = steamclient64.dll
 
 steamclient_dll_MODULE   = $($(TARGET)_MODULE)
-steamclient_dll_CXX_SRCS = $(TOPDIR)/steamclient/steamclient.cpp
+steamclient_dll_CXX_SRCS = $(TOPDIR)/steamclient/steamclient.cpp $(TOPDIR)/steamclient/isteam_client.cpp $(TOPDIR)/steamclient/isteam_user.cpp
 steamclient_dll_LDFLAGS  = -shared steamclient.spec -L$(BINDIR)/lib/$(TARGET)
 steamclient_dll_DLLS     = odbc32 ole32 oleaut32 winspool odbccp32 uuid steam_api
 
