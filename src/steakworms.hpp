@@ -62,13 +62,13 @@ union SteamID_t {
   uint64             m_unAll64Bits;
 };
 
-#if 0
+#if 1
 struct CSteamID {
   union SteamID_t m_steamid;
 };
-#endif
-
+#else
 typedef uint64 CSteamID;
+#endif
 
 enum EGameIDType {
   k_EGameIDTypeApp      = 0,
@@ -84,9 +84,6 @@ struct CGameID {
 
 extern "C" {
 #include "steam_api.ipp"
-#include "steam_api_context.ipp"
-bool SteamAPI_InitSafe();
-bool SteamAPI_IsSteamRunning();
 }
 
 struct isteam_object {

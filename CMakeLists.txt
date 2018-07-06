@@ -16,7 +16,6 @@ function(add_winelib LIB_NAME)
     COMMAND make -C "${LIB_NAME}" "BINDIR=${CMAKE_CURRENT_BINARY_DIR}" "TARGET=${LIB_TARGET}"
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     DEPENDS ${LIB_SOURCES}
-            "${LIB_NAME}/${LIB_NAME}.ipp"
             "${LIB_NAME}/${LIB_NAME}.cpp"
             "${LIB_NAME}/${LIB_NAME}.spec"
             "${LIB_NAME}/Makefile"
@@ -30,10 +29,16 @@ else()
   set(CMAKE_CXX_STANDARD 11)
   set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
-  set(sources src/steakworms.cpp src/steakworms.hpp src/steam_api.ipp
+  set(sources
+    src/steakworms.cpp
+    src/steakworms.hpp
+    src/steam_api.ipp
     src/isteam_unimplemented.cpp
+    include/isteam_client.ipp
     src/isteam_client.cpp
+    include/isteam_user.ipp
     src/isteam_user.cpp
+    include/isteam_utils.ipp
     src/isteam_utils.cpp
   )
   set(warnings -Wall -Wextra
@@ -43,9 +48,6 @@ else()
   find_package(PythonInterp REQUIRED)
   add_custom_command(
     OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/src/steam_api.ipp"
-           "${CMAKE_CURRENT_SOURCE_DIR}/steam_api/steam_api.spec"
-           "${CMAKE_CURRENT_SOURCE_DIR}/steam_api/steam_api.ipp"
-           "${CMAKE_CURRENT_SOURCE_DIR}/csteamworks/csteamworks.ipp"
     COMMAND "${PYTHON_EXECUTABLE}" generate.py
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     DEPENDS generate.py
@@ -54,7 +56,7 @@ else()
   if (BUILD_32BIT_LIBRARY)
     add_library(i386-linux-gnu-steakworms SHARED ${sources})
     # target_compile_definitions(i386-linux-gnu-steakworms PRIVATE -D_WIN32)
-    target_compile_options(i386-linux-gnu-steakworms PRIVATE -m32 ${warnings})
+    target_compile_options(i386-linux-gnu-steakworms PRIVATE -m32 -fno-omit-frame-pointer -fno-PIE -fno-PIC ${warnings})
     target_include_directories(i386-linux-gnu-steakworms
       PUBLIC  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
       PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
@@ -65,16 +67,6 @@ else()
       LIBRARY_OUTPUT_DIRECTORY "lib/i386-linux-gnu"
     )
 
-    add_winelib(steam_api TARGET "i386-linux-gnu"
-      OUTPUT_NAME "steam_api.dll.so"
-      SOURCES ${sources}
-    )
-    add_dependencies(i386-linux-gnu-steam_api.dll.so i386-linux-gnu-steakworms)
-    add_winelib(csteamworks TARGET "i386-linux-gnu"
-      OUTPUT_NAME "csteamworks.dll.so"
-      SOURCES ${sources}
-    )
-    add_dependencies(i386-linux-gnu-csteamworks.dll.so i386-linux-gnu-steakworms)
     add_winelib(steamclient TARGET "i386-linux-gnu"
       OUTPUT_NAME "steamclient.dll.so"
       SOURCES ${sources}
@@ -85,7 +77,7 @@ else()
   if (BUILD_64BIT_LIBRARY)
     add_library(x86_64-linux-gnu-steakworms SHARED ${sources})
     # target_compile_definitions(x86_64-linux-gnu-steakworms PRIVATE -D_WIN32)
-    target_compile_options(x86_64-linux-gnu-steakworms PRIVATE ${warnings})
+    target_compile_options(x86_64-linux-gnu-steakworms PRIVATE -fno-omit-frame-pointer ${warnings})
     target_include_directories(x86_64-linux-gnu-steakworms
       PUBLIC  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
       PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
@@ -96,16 +88,6 @@ else()
       LIBRARY_OUTPUT_DIRECTORY "lib/x86_64-linux-gnu"
     )
 
-    add_winelib(steam_api TARGET "x86_64-linux-gnu"
-      OUTPUT_NAME "steam_api64.dll.so"
-      SOURCES ${sources}
-    )
-    add_dependencies(x86_64-linux-gnu-steam_api64.dll.so x86_64-linux-gnu-steakworms)
-    add_winelib(csteamworks TARGET "x86_64-linux-gnu"
-      OUTPUT_NAME "csteamworks.dll.so"
-      SOURCES ${sources}
-    )
-    add_dependencies(x86_64-linux-gnu-csteamworks.dll.so x86_64-linux-gnu-steakworms)
     add_winelib(steamclient TARGET "x86_64-linux-gnu"
       OUTPUT_NAME "steamclient64.dll.so"
       SOURCES ${sources}

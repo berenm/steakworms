@@ -7,9 +7,9 @@
 namespace msabi {
 #define EXTERN_ABI [[gnu::ms_abi, gnu::thiscall]]
 template <size_t N>
-EXTERN_ABI void unimplemented(void *_this) {
+EXTERN_ABI int unimplemented(void *_this) {
   debug("unimplemented: %s->vtbl[%zu](%p, ...)", static_cast<isteam_object *>(_this)->clazz, N, _this);
-  assert(false);
+  return 0;
 }
 #undef EXTERN_ABI
 
